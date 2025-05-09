@@ -1,4 +1,4 @@
-package net.kritux.stalinium;
+package net.krituximon.stalinium;
 
 import java.util.List;
 import java.util.Set;
