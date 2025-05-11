@@ -1,5 +1,5 @@
 {
-  "itemGroup.stalinium": "Example Mod Tab",
-  "block.stalinium.example_block": "Example Block",
-  "item.stalinium.example_item": "Example Item"
+  "item.stalinium.uranium_ingot": "Stalinium Ingot",
+
+  "block.stalinium.uranium_block": "Block of Stalinium"
 }

@@ -1,5 +1,7 @@
 package net.krituximon.stalinium;
 
+import net.krituximon.stalinium.block.ModBlocks;
+import net.krituximon.stalinium.item.ModItems;
 import org.slf4j.Logger;
 
 import com.mojang.logging.LogUtils;
@@ -37,7 +39,8 @@ public class Stalinium
         // Register the commonSetup method for modloading
         modEventBus.addListener(this::commonSetup);
 
-        // Register the Deferred Register to the mod event bus so blocks get registere
+        ModItems.register(modEventBus);
+        ModBlocks.register(modEventBus);
 
         // Register ourselves for server and other game events we are interested in.
         // Note that this is necessary if and only if we want *this* class (Stalinium) to respond directly to events.
