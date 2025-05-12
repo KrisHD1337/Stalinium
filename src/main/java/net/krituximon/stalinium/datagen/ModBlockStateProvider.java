@@ -14,8 +14,14 @@ public class ModBlockStateProvider extends BlockStateProvider {
 
     @Override
     protected void registerStatesAndModels() {
-        blockWithItem(ModBlocks.STALINIUM_BLOCK);
+        simpleBlock(ModBlocks.COMPRESSED_BEDROCK.get(),
+                models().cubeAll("compressed_bedrock", modLoc("block/compressed_bedrock")));
+        simpleBlock(ModBlocks.STALINIUM_ORE.get(),
+                models().cubeAll("stalinium_ore",     modLoc("block/stalinium_ore")));
+        simpleBlock(ModBlocks.STALINIUM_BLOCK.get(),
+                models().cubeAll("stalinium_block",   modLoc("block/stalinium_block")));
     }
+
 
     private void blockWithItem(DeferredBlock<?> deferredBlock) {
         simpleBlockWithItem(deferredBlock.get(), cubeAll(deferredBlock.get()));

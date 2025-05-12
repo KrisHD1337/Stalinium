@@ -25,7 +25,9 @@ public class ModBlockLootTableProvider extends BlockLootSubProvider {
 
     @Override
     protected void generate() {
+        dropSelf(ModBlocks.STALINIUM_ORE.get());
         dropSelf(ModBlocks.STALINIUM_BLOCK.get());
+        dropSelf(ModBlocks.COMPRESSED_BEDROCK.get());
     }
 
     protected LootTable.Builder createMultipleOreDrops(Block pBlock, Item item, float minDrops, float maxDrops) {

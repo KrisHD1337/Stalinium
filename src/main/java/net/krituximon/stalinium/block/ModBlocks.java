@@ -17,10 +17,23 @@ public class ModBlocks {
     public static final DeferredRegister.Blocks BLOCKS =
             DeferredRegister.createBlocks(Stalinium.MODID);
 
+    public static final DeferredBlock<Block> COMPRESSED_BEDROCK = registerBlock("compressed_bedrock",
+            () -> new Block(BlockBehaviour.Properties.of()
+                    .strength(50f, 1200f)
+                    .requiresCorrectToolForDrops()
+                    .sound(SoundType.STONE)));
+
+    public static final DeferredBlock<Block> STALINIUM_ORE = registerBlock("stalinium_ore",
+            () -> new Block(BlockBehaviour.Properties.of()
+                    .strength(5f, 6f)
+                    .requiresCorrectToolForDrops()
+                    .sound(SoundType.NETHER_ORE)));
+
     public static final DeferredBlock<Block> STALINIUM_BLOCK = registerBlock("stalinium_block",
             () -> new Block(BlockBehaviour.Properties.of()
-                    .strength(5f).requiresCorrectToolForDrops().sound(SoundType.NETHERITE_BLOCK)));
-
+                    .strength(10f, 15f)
+                    .requiresCorrectToolForDrops()
+                    .sound(SoundType.NETHERITE_BLOCK)));
 
     private static <T extends Block> DeferredBlock<T> registerBlock(String name, Supplier<T> block) {
         DeferredBlock<T> toReturn = BLOCKS.register(name, block);
