@@ -22,9 +22,13 @@ public class ModBlockTagProvider extends BlockTagsProvider {
     protected void addTags(HolderLookup.Provider provider) {
         tag(Tags.Blocks.STORAGE_BLOCKS)
                 .add(ModBlocks.STALINIUM_BLOCK.get());
-
-        tag(BlockTags.MINEABLE_WITH_PICKAXE)
+        tag(BlockTags.NEEDS_DIAMOND_TOOL)
                 .add(ModBlocks.STALINIUM_BLOCK.get());
-
+        tag(BlockTags.MINEABLE_WITH_PICKAXE)
+                .add(
+                        ModBlocks.STALINIUM_BLOCK.get(),
+                        ModBlocks.STALINIUM_ORE.get(),
+                        ModBlocks.COMPRESSED_BEDROCK.get()
+                );
     }
 }
