@@ -19,19 +19,19 @@ public class ModBlocks {
 
     public static final DeferredBlock<Block> COMPRESSED_BEDROCK = registerBlock("compressed_bedrock",
             () -> new NetheriteOnlyBlock(BlockBehaviour.Properties.of()
-                    .strength(50f, 1200f)
+                    .strength(120f, 1200f)
                     .requiresCorrectToolForDrops()
                     .sound(SoundType.STONE)));
 
     public static final DeferredBlock<Block> STALINIUM_ORE = registerBlock("stalinium_ore",
             () -> new NetheriteOnlyBlock(BlockBehaviour.Properties.of()
-                    .strength(5f, 6f)
+                    .strength(50f, 1200f)
                     .requiresCorrectToolForDrops()
                     .sound(SoundType.NETHER_ORE)));
 
     public static final DeferredBlock<Block> STALINIUM_BLOCK = registerBlock("stalinium_block",
             () -> new Block(BlockBehaviour.Properties.of()
-                    .strength(10f, 15f)
+                    .strength(25f, 1200f)
                     .requiresCorrectToolForDrops()
                     .sound(SoundType.NETHERITE_BLOCK)));
 
