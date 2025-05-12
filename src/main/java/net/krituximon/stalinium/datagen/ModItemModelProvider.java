@@ -14,5 +14,6 @@ public class ModItemModelProvider extends ItemModelProvider {
     @Override
     protected void registerModels() {
         basicItem(ModItems.STALINIUM_INGOT.get());
+        basicItem(ModItems.SOVIET_ANTHEM_MUSIC_DISC.get());
     }
 }

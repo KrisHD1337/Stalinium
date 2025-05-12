@@ -1,0 +1,10 @@
+{
+  "soviet_anthem": {
+    "sounds": [
+      {
+        "name": "stalinium:soviet_anthem",
+        "stream": true
+      }
+    ]
+  }
+}

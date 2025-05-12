@@ -1,4 +1,4 @@
-﻿package net.krituximon.stalinium.worldgen;
+package net.krituximon.stalinium.worldgen;
 
 import net.krituximon.stalinium.Stalinium;
 import net.minecraft.core.registries.Registries;

@@ -1,4 +1,4 @@
-﻿package net.krituximon.stalinium.datagen;
+package net.krituximon.stalinium.datagen;
 
 import net.krituximon.stalinium.Stalinium;
 import net.krituximon.stalinium.worldgen.ModBiomeModifiers;

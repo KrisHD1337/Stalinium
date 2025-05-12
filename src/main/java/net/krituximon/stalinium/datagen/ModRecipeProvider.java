@@ -5,6 +5,7 @@ import net.krituximon.stalinium.item.ModItems;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.recipes.*;
+import net.minecraft.world.item.Items;
 import net.neoforged.neoforge.common.conditions.IConditionBuilder;
 
 import java.util.List;
@@ -22,6 +23,14 @@ public class ModRecipeProvider extends RecipeProvider implements IConditionBuild
                 .pattern("BBB")
                 .pattern("BBB")
                 .define('B', ModItems.STALINIUM_INGOT.get())
+                .unlockedBy("has_stalinium", has(ModItems.STALINIUM_INGOT)).save(recipeOutput);
+
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, ModItems.SOVIET_ANTHEM_MUSIC_DISC.get())
+                .pattern("BBB")
+                .pattern("BSB")
+                .pattern("BBB")
+                .define('B', ModItems.STALINIUM_INGOT.get())
+                .define('S', Items.GOLD_BLOCK)
                 .unlockedBy("has_stalinium", has(ModItems.STALINIUM_INGOT)).save(recipeOutput);
 
         ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, ModItems.STALINIUM_INGOT.get(), 9)
