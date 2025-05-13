@@ -3,6 +3,12 @@ package net.krituximon.stalinium;
 import net.krituximon.stalinium.block.ModBlocks;
 import net.krituximon.stalinium.item.ModItems;
 import net.krituximon.stalinium.sound.ModSounds;
+import net.krituximon.stalinium.worldgen.ModFeatures;
+import net.krituximon.stalinium.worldgen.StaliniumVeinFeature;
+import net.minecraft.core.Registry;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.level.levelgen.feature.Feature;
+import net.minecraft.world.level.levelgen.feature.configurations.NoneFeatureConfiguration;
 import org.slf4j.Logger;
 
 import com.mojang.logging.LogUtils;
@@ -22,6 +28,8 @@ import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.event.BuildCreativeModeTabContentsEvent;
 import net.neoforged.neoforge.event.server.ServerStartingEvent;
+
+import static net.krituximon.stalinium.worldgen.ModFeatures.FEATURES;
 
 // The value here should match an entry in the META-INF/neoforge.mods.toml file
 @Mod(Stalinium.MODID)
@@ -54,6 +62,7 @@ public class Stalinium
 
         // Register our mod's ModConfigSpec so that FML can create and load the config file for us
         modContainer.registerConfig(ModConfig.Type.COMMON, Config.SPEC);
+        ModFeatures.register(modEventBus);
     }
 
     private void commonSetup(final FMLCommonSetupEvent event)
