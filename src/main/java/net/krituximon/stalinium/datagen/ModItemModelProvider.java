@@ -20,5 +20,6 @@ public class ModItemModelProvider extends ItemModelProvider {
                 mcLoc("item/generated"),
                 "layer0",
                 modLoc("item/stalinium_ingot"));
+        singleTexture("stalinium_nugget", mcLoc("item/generated"), "layer0", modLoc("item/stalinium_nugget"));
     }
 }

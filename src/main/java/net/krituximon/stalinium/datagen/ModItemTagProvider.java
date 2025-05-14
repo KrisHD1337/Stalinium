@@ -23,5 +23,7 @@ public class ModItemTagProvider extends ItemTagsProvider {
     protected void addTags(HolderLookup.Provider lookupProvider) {
         this.tag(Tags.Items.INGOTS)
                 .add(ModItems.STALINIUM_INGOT.get());
+        this.tag(Tags.Items.NUGGETS)
+                .add(ModItems.STALINIUM_NUGGET.get());
     }
 }
