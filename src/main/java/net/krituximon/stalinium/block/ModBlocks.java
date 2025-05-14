@@ -3,9 +3,11 @@ package net.krituximon.stalinium.block;
 import net.krituximon.stalinium.Stalinium;
 import net.krituximon.stalinium.block.custom.CompressedBedrock;
 import net.krituximon.stalinium.item.ModItems;
+import net.minecraft.util.valueproviders.UniformInt;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.DropExperienceBlock;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.neoforged.bus.api.IEventBus;
@@ -20,15 +22,19 @@ public class ModBlocks {
 
     public static final DeferredBlock<Block> COMPRESSED_BEDROCK = registerBlock("compressed_bedrock",
             () -> new CompressedBedrock(BlockBehaviour.Properties.of()
-                    .strength(120f, 1200f)
+                    .strength(400f, 1200f)
                     .requiresCorrectToolForDrops()
                     .sound(SoundType.STONE)));
 
     public static final DeferredBlock<Block> STALINIUM_ORE = registerBlock("stalinium_ore",
-            () -> new NetheriteOnlyBlock(BlockBehaviour.Properties.of()
-                    .strength(50f, 1200f)
-                    .requiresCorrectToolForDrops()
-                    .sound(SoundType.NETHER_ORE)));
+            () -> new DropExperienceBlock(
+                    UniformInt.of(3, 7),
+                    BlockBehaviour.Properties.of()
+                            .strength(60f, 1200f)
+                            .requiresCorrectToolForDrops()
+                            .sound(SoundType.NETHER_ORE)
+            )
+    );
 
     public static final DeferredBlock<Block> STALINIUM_BLOCK = registerBlock("stalinium_block",
             () -> new Block(BlockBehaviour.Properties.of()
