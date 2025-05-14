@@ -20,11 +20,7 @@ public class StaliniumVeinFeature extends Feature<NoneFeatureConfiguration> {
         LevelAccessor world = ctx.level();
         BlockPos center = ctx.origin();
         RandomSource rand = ctx.random();
-
-        // only spawn below Y = -60
         if (center.getY() > -60) return false;
-
-        // place a 3x3x3 cube of compressed bedrock around center
         BlockState bedrock = ModBlocks.COMPRESSED_BEDROCK.get().defaultBlockState();
         for (int dx = -1; dx <= 1; dx++) {
             for (int dy = -1; dy <= 1; dy++) {

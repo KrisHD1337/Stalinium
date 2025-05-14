@@ -12,7 +12,6 @@ import net.minecraft.world.level.levelgen.placement.*;
 
 import java.util.List;
 
-// ModPlacedFeatures.java
 public class ModPlacedFeatures {
     public static final ResourceKey<PlacedFeature> STALINIUM_VEIN_PLACED_KEY =
             registerKey("stalinium_vein_placed");
@@ -30,7 +29,6 @@ public class ModPlacedFeatures {
                 ),
                 BiomeFilter.biome()
         );
-
         context.register(STALINIUM_VEIN_PLACED_KEY, new PlacedFeature(cfg, mods));
     }
 

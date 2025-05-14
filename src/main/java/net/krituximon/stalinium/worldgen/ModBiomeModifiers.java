@@ -18,8 +18,6 @@ import net.neoforged.neoforge.registries.NeoForgeRegistries;
 public class ModBiomeModifiers {
     public static final ResourceKey<BiomeModifier> ADD_STALINIUM_ORE = registerKey("add_stalinium_ore");
     public static final ResourceKey<BiomeModifier> ADD_COMPRESSED_BEDROCK = registerKey("add_compressed_bedrock");
-
-    // ModBiomeModifiers.java
     public static void bootstrap(BootstrapContext<BiomeModifier> ctx) {
         HolderGetter<Biome> biomes = ctx.lookup(Registries.BIOME);
         HolderGetter<PlacedFeature> placed = ctx.lookup(Registries.PLACED_FEATURE);

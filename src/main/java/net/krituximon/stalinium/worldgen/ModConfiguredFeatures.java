@@ -1,9 +1,6 @@
 package net.krituximon.stalinium.worldgen;
 
 import net.krituximon.stalinium.Stalinium;
-import net.krituximon.stalinium.block.ModBlocks;
-import net.minecraft.core.Registry;
-import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.resources.ResourceKey;
