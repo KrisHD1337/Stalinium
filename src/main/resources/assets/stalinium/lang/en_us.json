@@ -1,8 +1,11 @@
 {
   "item.stalinium.stalinium_ingot": "Stalinium Ingot",
+  "item.stalinium.stalinium_nugget": "Stalinium Nugget",
 
   "item.stalinium.soviet_anthem_music_disc": "Soviet Anthem Music Disc",
   "item.stalinium.soviet_anthem_music_disc.desc": "Orchestra of the Ministry of Defense of the USSR - Soviet Union national anthem",
 
-  "block.stalinium.stalinium_block": "Block of Stalinium"
+  "block.stalinium.stalinium_block": "Block of Stalinium",
+  "block.stalinium.stalinium_ore": "Stalinium Ore",
+  "block.stalinium.compressed_bedrock": "Compressed Bedrock"
 }
