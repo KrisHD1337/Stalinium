@@ -1,6 +1,7 @@
 package net.krituximon.stalinium.datagen;
 
 import net.krituximon.stalinium.block.ModBlocks;
+import net.krituximon.stalinium.item.ModItems;
 import net.minecraft.core.Holder;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.Registries;
@@ -25,10 +26,19 @@ public class ModBlockLootTableProvider extends BlockLootSubProvider {
 
     @Override
     protected void generate() {
-        dropSelf(ModBlocks.STALINIUM_ORE.get());
+        this.add(
+                ModBlocks.STALINIUM_ORE.get(),
+                createMultipleOreDrops(
+                        ModBlocks.STALINIUM_ORE.get(),
+                        ModItems.STALINIUM_NUGGET.get(),
+                        1.0f,
+                        2.0f
+                )
+        );
         dropSelf(ModBlocks.STALINIUM_BLOCK.get());
         dropSelf(ModBlocks.COMPRESSED_BEDROCK.get());
     }
+
 
     protected LootTable.Builder createMultipleOreDrops(Block pBlock, Item item, float minDrops, float maxDrops) {
         HolderLookup.RegistryLookup<Enchantment> registrylookup = this.registries.lookupOrThrow(Registries.ENCHANTMENT);
