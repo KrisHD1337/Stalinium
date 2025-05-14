@@ -1,6 +1,7 @@
 package net.krituximon.stalinium.block;
 
 import net.krituximon.stalinium.Stalinium;
+import net.krituximon.stalinium.block.custom.CompressedBedrock;
 import net.krituximon.stalinium.item.ModItems;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
@@ -18,7 +19,7 @@ public class ModBlocks {
             DeferredRegister.createBlocks(Stalinium.MODID);
 
     public static final DeferredBlock<Block> COMPRESSED_BEDROCK = registerBlock("compressed_bedrock",
-            () -> new NetheriteOnlyBlock(BlockBehaviour.Properties.of()
+            () -> new CompressedBedrock(BlockBehaviour.Properties.of()
                     .strength(120f, 1200f)
                     .requiresCorrectToolForDrops()
                     .sound(SoundType.STONE)));

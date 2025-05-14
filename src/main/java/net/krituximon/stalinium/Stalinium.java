@@ -2,6 +2,8 @@ package net.krituximon.stalinium;
 
 import net.krituximon.stalinium.block.ModBlocks;
 import net.krituximon.stalinium.item.ModItems;
+import net.krituximon.stalinium.particle.BloodParticle;
+import net.krituximon.stalinium.particle.ModParticles;
 import net.krituximon.stalinium.sound.ModSounds;
 import net.krituximon.stalinium.worldgen.ModFeatures;
 import net.krituximon.stalinium.worldgen.StaliniumVeinFeature;
@@ -9,6 +11,7 @@ import net.minecraft.core.Registry;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.feature.configurations.NoneFeatureConfiguration;
+import net.neoforged.neoforge.client.event.RegisterParticleProvidersEvent;
 import org.slf4j.Logger;
 
 import com.mojang.logging.LogUtils;
@@ -51,6 +54,7 @@ public class Stalinium
         ModItems.register(modEventBus);
         ModBlocks.register(modEventBus);
         ModSounds.register(modEventBus);
+        ModParticles.register(modEventBus);
 
         // Register ourselves for server and other game events we are interested in.
         // Note that this is necessary if and only if we want *this* class (Stalinium) to respond directly to events.
@@ -101,6 +105,11 @@ public class Stalinium
             // Some client setup code
             LOGGER.info("HELLO FROM CLIENT SETUP");
             LOGGER.info("MINECRAFT NAME >> {}", Minecraft.getInstance().getUser().getName());
+        }
+
+        @SubscribeEvent
+        public static void registerParticleFactories(RegisterParticleProvidersEvent event) {
+            event.registerSpriteSet(ModParticles.BLOOD_PARTICLE.get(), BloodParticle.Provider::new);
         }
     }
 }

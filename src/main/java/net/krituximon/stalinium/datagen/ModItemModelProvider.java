@@ -13,13 +13,8 @@ public class ModItemModelProvider extends ItemModelProvider {
 
     @Override
     protected void registerModels() {
-        withExistingParent("compressed_bedrock", modLoc("block/compressed_bedrock"));
-        withExistingParent("stalinium_ore", modLoc("block/stalinium_ore"));
-        withExistingParent("stalinium_block", modLoc("block/stalinium_block"));
-        singleTexture("stalinium_ingot",
-                mcLoc("item/generated"),
-                "layer0",
-                modLoc("item/stalinium_ingot"));
-        singleTexture("stalinium_nugget", mcLoc("item/generated"), "layer0", modLoc("item/stalinium_nugget"));
+        basicItem(ModItems.STALINIUM_INGOT.get());
+        basicItem(ModItems.SOVIET_ANTHEM_MUSIC_DISC.get());
+        basicItem(ModItems.STALINIUM_NUGGET.get());
     }
 }
