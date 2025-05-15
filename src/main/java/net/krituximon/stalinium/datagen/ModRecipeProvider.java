@@ -8,7 +8,6 @@ import net.minecraft.data.recipes.*;
 import net.minecraft.world.item.Items;
 import net.neoforged.neoforge.common.conditions.IConditionBuilder;
 
-import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
 public class ModRecipeProvider extends RecipeProvider implements IConditionBuilder {
@@ -37,5 +36,13 @@ public class ModRecipeProvider extends RecipeProvider implements IConditionBuild
                 .requires(ModBlocks.STALINIUM_BLOCK)
                 .unlockedBy("has_stalinium_block", has(ModBlocks.STALINIUM_BLOCK)).save(recipeOutput);
 
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, ModBlocks.STALINIUM_PRESS.get())
+                .pattern("INI")
+                .pattern("NSN")
+                .pattern("INI")
+                .define('I', Items.NETHERITE_INGOT)
+                .define('N', ModItems.STALINIUM_NUGGET.get())
+                .define('S', Items.NETHER_STAR)
+                .unlockedBy("has_nugget", has(ModItems.STALINIUM_NUGGET)).save(recipeOutput);
     }
 }
