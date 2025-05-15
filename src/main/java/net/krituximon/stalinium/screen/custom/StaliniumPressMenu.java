@@ -13,27 +13,34 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.neoforged.neoforge.items.SlotItemHandler;
 
+import static net.krituximon.stalinium.block.entity.StaliniumPressBlockEntity.*;
+
 public class StaliniumPressMenu extends AbstractContainerMenu {
     public final StaliniumPressBlockEntity blockEntity;
     private final Level level;
     private final ContainerData data;
 
     public StaliniumPressMenu(int pContainerId, Inventory inv, FriendlyByteBuf extraData) {
-        this(pContainerId, inv, inv.player.level().getBlockEntity(extraData.readBlockPos()), new SimpleContainerData(2));
+        this(pContainerId, inv, (StaliniumPressBlockEntity) inv.player.level().getBlockEntity(extraData.readBlockPos()), new SimpleContainerData(2));
     }
 
-    public StaliniumPressMenu(int pContainerId, Inventory inv, BlockEntity entity, ContainerData data) {
-        super(ModMenuTypes.STALINIUM_PRESS_MENU.get(), pContainerId);
-        this.blockEntity = ((StaliniumPressBlockEntity) entity);
-        this.level = inv.player.level();
-        this.data = data;
+    public StaliniumPressMenu(int id, Inventory inv, StaliniumPressBlockEntity be, ContainerData data) {
+        super(ModMenuTypes.STALINIUM_PRESS_MENU.get(), id);
+        this.blockEntity = be;
+        this.data        = data;
+        this.level       = inv.player.level();
+
+        // INPUT
+        this.addSlot(new SlotItemHandler(be.itemHandler, INPUT_SLOT,        54,  34));
+        // REDSTONE FUEL
+        this.addSlot(new SlotItemHandler(be.itemHandler, REDSTONE_FUEL_SLOT,54,  14));
+        // LAVA FUEL
+        this.addSlot(new SlotItemHandler(be.itemHandler, LAVA_FUEL_SLOT,    54,  54));
+        // OUTPUT
+        this.addSlot(new SlotItemHandler(be.itemHandler, OUTPUT_SLOT,      104,  34));
 
         addPlayerInventory(inv);
         addPlayerHotbar(inv);
-
-        this.addSlot(new SlotItemHandler(blockEntity.itemHandler, 0, 54, 34));
-        this.addSlot(new SlotItemHandler(blockEntity.itemHandler, 1, 104, 34));
-
         addDataSlots(data);
     }
 

@@ -17,6 +17,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.ContainerData;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
@@ -26,7 +27,7 @@ import org.jetbrains.annotations.Nullable;
 import javax.swing.plaf.basic.BasicComboBoxUI;
 
 public class StaliniumPressBlockEntity extends BlockEntity implements MenuProvider {
-    public final ItemStackHandler itemHandler = new ItemStackHandler(2) {
+    public final ItemStackHandler itemHandler = new ItemStackHandler(4) {
         @Override
         protected void onContentsChanged(int slot) {
             setChanged();
@@ -36,8 +37,10 @@ public class StaliniumPressBlockEntity extends BlockEntity implements MenuProvid
         }
     };
 
-    private static final int INPUT_SLOT = 0;
-    private static final int OUTPUT_SLOT = 1;
+    public static final int INPUT_SLOT          = 0;
+    public static final int REDSTONE_FUEL_SLOT  = 1;
+    public static final int LAVA_FUEL_SLOT      = 2;
+    public static final int OUTPUT_SLOT         = 3;
 
     protected final ContainerData data;
     private int progress = 0;
@@ -110,11 +113,10 @@ public class StaliniumPressBlockEntity extends BlockEntity implements MenuProvid
         maxProgress = pTag.getInt("growth_chamber.max_progress");
     }
 
-    public void tick(Level level, BlockPos blockPos, BlockState blockState) {
+    public void tick(Level level, BlockPos pos, BlockState state) {
         if (hasRecipe()) {
             increaseCraftingProgress();
-            setChanged(level, blockPos, blockState);
-
+            setChanged(level, pos, state);
             if (hasCraftingFinished()) {
                 craftItem();
                 resetProgress();
@@ -125,11 +127,18 @@ public class StaliniumPressBlockEntity extends BlockEntity implements MenuProvid
     }
 
     private void craftItem() {
-        if (itemHandler.getStackInSlot(INPUT_SLOT).getCount() < 9) return;
-        ItemStack output = new ItemStack(ModItems.STALINIUM_INGOT.get(), 1);
-        itemHandler.extractItem(INPUT_SLOT, 9, false);
-        itemHandler.setStackInSlot(OUTPUT_SLOT, new ItemStack(output.getItem(),
-                itemHandler.getStackInSlot(OUTPUT_SLOT).getCount() + output.getCount()));
+        itemHandler.extractItem(INPUT_SLOT,         9, false);
+        itemHandler.extractItem(REDSTONE_FUEL_SLOT, 1, false);
+        itemHandler.extractItem(LAVA_FUEL_SLOT,     1, false);
+        itemHandler.setStackInSlot(LAVA_FUEL_SLOT, new ItemStack(Items.BUCKET, 1));
+        ItemStack out = new ItemStack(ModItems.STALINIUM_INGOT.get(), 1);
+        itemHandler.setStackInSlot(
+                OUTPUT_SLOT,
+                new ItemStack(
+                        out.getItem(),
+                        itemHandler.getStackInSlot(OUTPUT_SLOT).getCount() + 1
+                )
+        );
     }
 
     private void resetProgress() {
@@ -146,15 +155,15 @@ public class StaliniumPressBlockEntity extends BlockEntity implements MenuProvid
     }
 
     private boolean hasRecipe() {
-        if (itemHandler.getStackInSlot(INPUT_SLOT).getCount() < 9) {
-            return false;
-        }
-        if (itemHandler.getStackInSlot(INPUT_SLOT).getItem() != ModItems.STALINIUM_NUGGET.get()) {
-            return false;
-        }
-        ItemStack result = new ItemStack(ModItems.STALINIUM_INGOT.get(), 1);
-        return canInsertItemIntoOutputSlot(result) &&
-                canInsertAmountIntoOutputSlot(result.getCount());
+        ItemStack in   = itemHandler.getStackInSlot(INPUT_SLOT);
+        ItemStack red  = itemHandler.getStackInSlot(REDSTONE_FUEL_SLOT);
+        ItemStack lava = itemHandler.getStackInSlot(LAVA_FUEL_SLOT);
+
+        if (in.getItem()  != ModItems.STALINIUM_NUGGET.get() || in.getCount()  < 9)   return false;
+        if (red.getItem() != Items.REDSTONE_BLOCK   || red.getCount() < 1)   return false;
+        if (lava.getItem()!= Items.LAVA_BUCKET      || lava.getCount()< 1)   return false;
+        ItemStack out  = new ItemStack(ModItems.STALINIUM_INGOT.get(), 1);
+        return canInsertItemIntoOutputSlot(out) && canInsertAmountIntoOutputSlot(out.getCount());
     }
 
     private boolean canInsertItemIntoOutputSlot(ItemStack output) {
