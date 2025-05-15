@@ -1,9 +1,13 @@
 package net.krituximon.stalinium;
 
 import net.krituximon.stalinium.block.ModBlocks;
+import net.krituximon.stalinium.block.entity.ModBlockEntities;
 import net.krituximon.stalinium.item.ModItems;
 import net.krituximon.stalinium.particle.BloodParticle;
 import net.krituximon.stalinium.particle.ModParticles;
+import net.krituximon.stalinium.screen.ModMenuTypes;
+import net.krituximon.stalinium.screen.custom.StaliniumPressMenu;
+import net.krituximon.stalinium.screen.custom.StaliniumPressScreen;
 import net.krituximon.stalinium.sound.ModSounds;
 import net.krituximon.stalinium.worldgen.ModFeatures;
 import net.krituximon.stalinium.worldgen.StaliniumVeinFeature;
@@ -11,6 +15,7 @@ import net.minecraft.core.Registry;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.feature.configurations.NoneFeatureConfiguration;
+import net.neoforged.neoforge.client.event.RegisterMenuScreensEvent;
 import net.neoforged.neoforge.client.event.RegisterParticleProvidersEvent;
 import org.slf4j.Logger;
 
@@ -67,6 +72,8 @@ public class Stalinium
         // Register our mod's ModConfigSpec so that FML can create and load the config file for us
         modContainer.registerConfig(ModConfig.Type.COMMON, Config.SPEC);
         ModFeatures.register(modEventBus);
+        ModBlockEntities.register(modEventBus);
+        ModMenuTypes.register(modEventBus);
     }
 
     private void commonSetup(final FMLCommonSetupEvent event)
@@ -110,6 +117,10 @@ public class Stalinium
         @SubscribeEvent
         public static void registerParticleFactories(RegisterParticleProvidersEvent event) {
             event.registerSpriteSet(ModParticles.BLOOD_PARTICLE.get(), BloodParticle.Provider::new);
+        }
+        @SubscribeEvent
+        public static void registerScreens(RegisterMenuScreensEvent event) {
+            event.register(ModMenuTypes.STALINIUM_PRESS_MENU.get(), StaliniumPressScreen::new);
         }
     }
 }

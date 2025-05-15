@@ -2,6 +2,7 @@ package net.krituximon.stalinium.block;
 
 import net.krituximon.stalinium.Stalinium;
 import net.krituximon.stalinium.block.custom.CompressedBedrock;
+import net.krituximon.stalinium.block.custom.StaliniumPressBlock;
 import net.krituximon.stalinium.item.ModItems;
 import net.minecraft.util.valueproviders.UniformInt;
 import net.minecraft.world.item.BlockItem;
@@ -42,7 +43,8 @@ public class ModBlocks {
                     .requiresCorrectToolForDrops()
                     .sound(SoundType.NETHERITE_BLOCK)));
 
-
+    public static final DeferredBlock<Block> STALINIUM_PRESS = registerBlock("stalinium_press",
+            () -> new StaliniumPressBlock(BlockBehaviour.Properties.of()));
 
     private static <T extends Block> DeferredBlock<T> registerBlock(String name, Supplier<T> block) {
         DeferredBlock<T> toReturn = BLOCKS.register(name, block);
