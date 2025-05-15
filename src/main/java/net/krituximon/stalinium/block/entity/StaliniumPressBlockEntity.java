@@ -146,9 +146,15 @@ public class StaliniumPressBlockEntity extends BlockEntity implements MenuProvid
     }
 
     private boolean hasRecipe() {
-        ItemStack output = new ItemStack(ModItems.STALINIUM_INGOT.get(), 1);
-        return itemHandler.getStackInSlot(INPUT_SLOT).is(ModItems.STALINIUM_NUGGET) &&
-                canInsertAmountIntoOutputSlot(output.getCount()) && canInsertItemIntoOutputSlot(output);
+        if (itemHandler.getStackInSlot(INPUT_SLOT).getCount() < 9) {
+            return false;
+        }
+        if (itemHandler.getStackInSlot(INPUT_SLOT).getItem() != ModItems.STALINIUM_NUGGET.get()) {
+            return false;
+        }
+        ItemStack result = new ItemStack(ModItems.STALINIUM_INGOT.get(), 1);
+        return canInsertItemIntoOutputSlot(result) &&
+                canInsertAmountIntoOutputSlot(result.getCount());
     }
 
     private boolean canInsertItemIntoOutputSlot(ItemStack output) {
