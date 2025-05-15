@@ -8,5 +8,7 @@
   "block.stalinium.stalinium_block": "Block of Stalinium",
   "block.stalinium.stalinium_ore": "Stalinium Ore",
   "block.stalinium.compressed_bedrock": "Compressed Bedrock",
-  "block.stalinium.stalinium_press": "Stalinium Press"
+  "block.stalinium.stalinium_press": "Stalinium Press",
+
+  "creativetab.stalinium.stalinium": "Stalinium"
 }

@@ -2,6 +2,7 @@ package net.krituximon.stalinium;
 
 import net.krituximon.stalinium.block.ModBlocks;
 import net.krituximon.stalinium.block.entity.ModBlockEntities;
+import net.krituximon.stalinium.item.ModCreativeModeTabs;
 import net.krituximon.stalinium.item.ModItems;
 import net.krituximon.stalinium.particle.BloodParticle;
 import net.krituximon.stalinium.particle.ModParticles;
@@ -60,6 +61,7 @@ public class Stalinium
         ModBlocks.register(modEventBus);
         ModSounds.register(modEventBus);
         ModParticles.register(modEventBus);
+        ModCreativeModeTabs.register(modEventBus);
 
         // Register ourselves for server and other game events we are interested in.
         // Note that this is necessary if and only if we want *this* class (Stalinium) to respond directly to events.
