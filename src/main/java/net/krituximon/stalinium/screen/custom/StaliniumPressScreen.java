@@ -11,7 +11,7 @@ import net.minecraft.world.entity.player.Inventory;
 
 public class StaliniumPressScreen extends AbstractContainerScreen<StaliniumPressMenu> {
     private static final ResourceLocation GUI_TEXTURE =
-            ResourceLocation.fromNamespaceAndPath(Stalinium.MODID,"textures/gui/growth_chamber/growth_chamber_gui.png");
+            ResourceLocation.fromNamespaceAndPath(Stalinium.MODID,"textures/gui/stalinium_press_gui.png");
     private static final ResourceLocation ARROW_TEXTURE =
             ResourceLocation.fromNamespaceAndPath(Stalinium.MODID, "textures/gui/arrow_progress.png");
 
