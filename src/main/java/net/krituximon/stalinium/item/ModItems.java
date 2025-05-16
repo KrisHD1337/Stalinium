@@ -1,10 +1,11 @@
 package net.krituximon.stalinium.item;
 
-import ca.weblite.objc.Proxy;
 import net.krituximon.stalinium.Stalinium;
 import net.krituximon.stalinium.sound.ModSounds;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.SwordItem;
 import net.neoforged.bus.api.IEventBus;
+import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredItem;
 import net.neoforged.neoforge.registries.DeferredRegister;
 
@@ -13,13 +14,16 @@ public class ModItems {
 
     public static final DeferredItem<Item> STALINIUM_INGOT = ITEMS.register("stalinium_ingot",
             () -> new Item(new Item.Properties()));
-    
+
     public static final DeferredItem<Item> STALINIUM_NUGGET = ITEMS.register("stalinium_nugget",
             () -> new Item(new Item.Properties()));
 
     public static final DeferredItem<Item> SOVIET_ANTHEM_MUSIC_DISC = ITEMS.register("soviet_anthem_music_disc",
             () -> new Item(new Item.Properties().jukeboxPlayable(ModSounds.SOVIET_ANTHEM_KEY).stacksTo(1)));
 
+    public static final DeferredItem<SwordItem> STALINIUM_SWORD = ITEMS.register("stalinium_sword",
+            () -> new SwordItem(ModTiers.STALINIUM, new Item.Properties()
+                    .attributes(SwordItem.createAttributes(ModTiers.STALINIUM, 8, -2.75f))));
 
     public static void register(IEventBus eventBus) {
         ITEMS.register(eventBus);

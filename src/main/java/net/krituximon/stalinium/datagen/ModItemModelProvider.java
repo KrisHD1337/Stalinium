@@ -16,5 +16,11 @@ public class ModItemModelProvider extends ItemModelProvider {
         basicItem(ModItems.STALINIUM_INGOT.get());
         basicItem(ModItems.SOVIET_ANTHEM_MUSIC_DISC.get());
         basicItem(ModItems.STALINIUM_NUGGET.get());
+        singleTexture(
+                "stalinium_sword",
+                mcLoc("item/handheld"),
+                "layer0",
+                modLoc("item/stalinium_sword")
+        );
     }
 }

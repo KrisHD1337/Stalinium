@@ -44,5 +44,13 @@ public class ModRecipeProvider extends RecipeProvider implements IConditionBuild
                 .define('N', ModItems.STALINIUM_NUGGET.get())
                 .define('S', Items.NETHER_STAR)
                 .unlockedBy("has_nugget", has(ModItems.STALINIUM_NUGGET)).save(recipeOutput);
+
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, ModItems.STALINIUM_SWORD.get())
+                .pattern("I")
+                .pattern("I")
+                .pattern("G")
+                .define('I', ModItems.STALINIUM_INGOT.get())
+                .define('G', Items.GOLD_BLOCK)
+                .unlockedBy("has_ingot", has(ModItems.STALINIUM_INGOT)).save(recipeOutput);
     }
 }
