@@ -16,7 +16,7 @@ public class StaliniumSwordItem extends SwordItem {
     public StaliniumSwordItem(Tier tier, Properties props) {
         super(tier, props);
     }
-
+    
     @Override
     public boolean hurtEnemy(ItemStack stack, LivingEntity target, LivingEntity attacker) {
         boolean result = super.hurtEnemy(stack, target, attacker);
