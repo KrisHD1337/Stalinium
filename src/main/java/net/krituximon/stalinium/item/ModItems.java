@@ -22,7 +22,7 @@ public class ModItems {
             () -> new Item(new Item.Properties().jukeboxPlayable(ModSounds.SOVIET_ANTHEM_KEY).stacksTo(1)));
 
     public static final DeferredItem<SwordItem> STALINIUM_SWORD = ITEMS.register("stalinium_sword",
-            () -> new SwordItem(ModTiers.STALINIUM, new Item.Properties()
+            () -> new StaliniumSwordItem(ModTiers.STALINIUM, new Item.Properties()
                     .attributes(SwordItem.createAttributes(ModTiers.STALINIUM, 8, -2.75f))));
 
     public static void register(IEventBus eventBus) {

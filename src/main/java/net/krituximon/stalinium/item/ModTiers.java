@@ -1,11 +1,8 @@
 package net.krituximon.stalinium.item;
 
 import net.minecraft.tags.BlockTags;
-import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Tier;
-import net.minecraft.world.item.component.Tool;
 import net.minecraft.world.item.crafting.Ingredient;
-import net.minecraft.world.level.block.Block;
 import net.neoforged.neoforge.common.SimpleTier;
 
 public class ModTiers {
