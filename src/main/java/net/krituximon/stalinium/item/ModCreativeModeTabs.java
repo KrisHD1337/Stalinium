@@ -27,6 +27,7 @@ public class ModCreativeModeTabs {
                         output.accept(ModBlocks.COMPRESSED_BEDROCK.get());
                         output.accept(ModBlocks.STALINIUM_PRESS.get());
                         output.accept(ModItems.STALINIUM_SWORD.get());
+                        output.accept(ModItems.STALINIUM_AXE.get());
                     }).build());
 
     public static void register(IEventBus eventBus) {
