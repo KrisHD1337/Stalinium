@@ -1,9 +1,8 @@
 package net.krituximon.stalinium.item;
 
 import net.minecraft.core.BlockPos;
-import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.world.effect.MobEffectInstance;
-import net.minecraft.world.effect.MobEffects;
+import net.minecraft.tags.BlockTags;
+import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.AxeItem;
@@ -12,7 +11,7 @@ import net.minecraft.world.item.Tier;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 
-import java.util.List;
+import java.util.*;
 
 public class StaliniumAxeItem extends AxeItem {
     public StaliniumAxeItem(Tier tier, Properties properties) {
@@ -21,32 +20,40 @@ public class StaliniumAxeItem extends AxeItem {
 
     @Override
     public boolean mineBlock(ItemStack stack, Level level, BlockState state, BlockPos pos, LivingEntity miningEntity) {
-        if (!level.isClientSide) {
-            MobEffectInstance haste = new MobEffectInstance(MobEffects.DIG_SPEED, 100, 0, false, true);
-            miningEntity.addEffect(haste);
-            Level world = miningEntity.getCommandSenderWorld();
-            var box = miningEntity.getBoundingBox().inflate(10.0);
-            world.getEntitiesOfClass(LivingEntity.class, box, p -> p instanceof LivingEntity).forEach(
-                    p -> p.addEffect(haste)
-            );
+        if (!level.isClientSide && state.is(BlockTags.LOGS)) {
+            cutDownTree(level, pos, (Player)miningEntity, stack);
+            return true;
         }
-        return true;
+        return super.mineBlock(stack, level, state, pos, miningEntity);
     }
 
-    @Override
-    public boolean hurtEnemy(ItemStack stack, LivingEntity target, LivingEntity attacker) {
-        if (!attacker.getCommandSenderWorld().isClientSide) {
-            MobEffectInstance strength = new MobEffectInstance(MobEffects.DAMAGE_BOOST, 100, 0, false, true);
-            attacker.addEffect(strength);
-            Level world = attacker.getCommandSenderWorld();
-            var box = attacker.getBoundingBox().inflate(5.0);
-            List<Player> nearby = world.getEntitiesOfClass(Player.class, box, p -> p instanceof ServerPlayer);
-            for (Player p : nearby) {
-                p.addEffect(strength);
+    private void cutDownTree(Level level, BlockPos start, Player player, ItemStack stack) {
+        Set<BlockPos> toBreak = new HashSet<>();
+        Deque<BlockPos> queue = new ArrayDeque<>();
+        queue.add(start);
+        while (!queue.isEmpty() && toBreak.size() < 256) {
+            BlockPos current = queue.removeFirst();
+            if (toBreak.contains(current)) continue;
+            BlockState bs = level.getBlockState(current);
+            if (bs.is(BlockTags.LOGS)) {
+                toBreak.add(current);
+                for (int dx = -1; dx <= 1; dx++) {
+                    for (int dy = 0; dy <= 1; dy++) {
+                        for (int dz = -1; dz <= 1; dz++) {
+                            BlockPos next = current.offset(dx, dy, dz);
+                            if (!toBreak.contains(next)) {
+                                queue.add(next);
+                            }
+                        }
+                    }
+                }
             }
         }
-        return true;
+        for (BlockPos logPos : toBreak) {
+            level.destroyBlock(logPos, true, player);
+        }
     }
+
 
     @Override
     public int getMaxDamage(ItemStack stack) {
