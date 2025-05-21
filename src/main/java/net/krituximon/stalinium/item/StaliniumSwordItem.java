@@ -24,7 +24,7 @@ public class StaliniumSwordItem extends SwordItem {
             attacker.addEffect(strength);
             Level world = attacker.getCommandSenderWorld();
             var box = attacker.getBoundingBox().inflate(5.0);
-            List<Player> nearby = world.getEntitiesOfClass(Player.class, box, p -> p instanceof ServerPlayer);
+            List<Player> nearby = world.getEntitiesOfClass(Player.class, box, p -> p instanceof ServerPlayer && attacker.isAlliedTo(p));
             for (Player p : nearby) {
                 p.addEffect(strength);
             }
@@ -43,6 +43,11 @@ public class StaliniumSwordItem extends SwordItem {
 
     @Override
     public int getMaxDamage(ItemStack stack) {
-        return 0;
+        return 2;
+    }
+
+    @Override
+    public void postHurtEnemy(ItemStack stack, LivingEntity target, LivingEntity attacker) {
+
     }
 }

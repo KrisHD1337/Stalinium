@@ -1,13 +1,17 @@
 package net.krituximon.stalinium.item;
 
+import net.krituximon.stalinium.util.PlacedLogStorage;
 import net.minecraft.core.BlockPos;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.tags.BlockTags;
+import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.AxeItem;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Tier;
+import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 
@@ -24,17 +28,21 @@ public class StaliniumAxeItem extends AxeItem {
             cutDownTree(level, pos, (Player)miningEntity, stack);
             return true;
         }
-        return super.mineBlock(stack, level, state, pos, miningEntity);
+        return true;
     }
 
     private void cutDownTree(Level level, BlockPos start, Player player, ItemStack stack) {
         Set<BlockPos> toBreak = new HashSet<>();
         Deque<BlockPos> queue = new ArrayDeque<>();
         queue.add(start);
+        PlacedLogStorage storage = PlacedLogStorage.get((ServerLevel) level);
+
         while (!queue.isEmpty() && toBreak.size() < 256) {
             BlockPos current = queue.removeFirst();
             if (toBreak.contains(current)) continue;
             BlockState bs = level.getBlockState(current);
+            if (storage.contains(current)) continue;
+
             if (bs.is(BlockTags.LOGS)) {
                 toBreak.add(current);
                 for (int dx = -1; dx <= 1; dx++) {
@@ -57,7 +65,7 @@ public class StaliniumAxeItem extends AxeItem {
 
     @Override
     public int getMaxDamage(ItemStack stack) {
-        return 0;
+        return 2;
     }
 
     @Override
@@ -68,5 +76,14 @@ public class StaliniumAxeItem extends AxeItem {
     @Override
     public boolean isDamaged(ItemStack stack) {
         return false;
+    }
+
+    @Override
+    public InteractionResult useOn(UseOnContext ctx) {
+        ItemStack stack = ctx.getItemInHand();
+        int oldDamage = stack.getDamageValue();
+        InteractionResult res = super.useOn(ctx);
+        stack.setDamageValue(oldDamage);
+        return res;
     }
 }

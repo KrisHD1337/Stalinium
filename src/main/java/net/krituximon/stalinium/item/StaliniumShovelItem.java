@@ -6,7 +6,6 @@ import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.AxeItem;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.ShovelItem;
 import net.minecraft.world.item.Tier;
@@ -14,6 +13,9 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 
 import java.util.List;
+
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.item.context.UseOnContext;
 
 public class StaliniumShovelItem extends ShovelItem {
     public StaliniumShovelItem(Tier tier, Properties properties) {
@@ -27,9 +29,10 @@ public class StaliniumShovelItem extends ShovelItem {
             miningEntity.addEffect(haste);
             Level world = miningEntity.getCommandSenderWorld();
             var box = miningEntity.getBoundingBox().inflate(10.0);
-            world.getEntitiesOfClass(LivingEntity.class, box, p -> p instanceof LivingEntity).forEach(
-                    p -> p.addEffect(haste)
-            );
+            List<Player> nearby = world.getEntitiesOfClass(Player.class, box, p -> p instanceof ServerPlayer && miningEntity.isAlliedTo(p));
+            for (Player p : nearby) {
+                p.addEffect(haste);
+            }
         }
         return true;
     }
@@ -46,6 +49,15 @@ public class StaliniumShovelItem extends ShovelItem {
 
     @Override
     public int getMaxDamage(ItemStack stack) {
-        return 0;
+        return 2;
+    }
+
+    @Override
+    public InteractionResult useOn(UseOnContext ctx) {
+        ItemStack stack = ctx.getItemInHand();
+        int oldDamage = stack.getDamageValue();
+        InteractionResult res = super.useOn(ctx);
+        stack.setDamageValue(oldDamage);
+        return res;
     }
 }

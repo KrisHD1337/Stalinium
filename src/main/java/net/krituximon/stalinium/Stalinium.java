@@ -10,6 +10,8 @@ import net.krituximon.stalinium.screen.ModMenuTypes;
 import net.krituximon.stalinium.screen.custom.StaliniumPressMenu;
 import net.krituximon.stalinium.screen.custom.StaliniumPressScreen;
 import net.krituximon.stalinium.sound.ModSounds;
+import net.krituximon.stalinium.util.PlacedLogStorage;
+import net.krituximon.stalinium.util.PlayerLogEvents;
 import net.krituximon.stalinium.worldgen.ModFeatures;
 import net.krituximon.stalinium.worldgen.StaliniumVeinFeature;
 import net.minecraft.core.Registry;
@@ -62,6 +64,7 @@ public class Stalinium
         ModSounds.register(modEventBus);
         ModParticles.register(modEventBus);
         ModCreativeModeTabs.register(modEventBus);
+        PlayerLogEvents.register();
 
         // Register ourselves for server and other game events we are interested in.
         // Note that this is necessary if and only if we want *this* class (Stalinium) to respond directly to events.

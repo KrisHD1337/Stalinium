@@ -25,11 +25,11 @@ public class ModItems {
 
     public static final DeferredItem<SwordItem> STALINIUM_SWORD = ITEMS.register("stalinium_sword",
             () -> new StaliniumSwordItem(ModTiers.STALINIUM, new Item.Properties()
-                    .attributes(SwordItem.createAttributes(ModTiers.STALINIUM, 3, -2.4f))));
+                    .attributes(SwordItem.createAttributes(ModTiers.STALINIUM, 3f, -2.4f))));
 
     public static final DeferredItem<AxeItem> STALINIUM_AXE = ITEMS.register("stalinium_axe",
             () -> new StaliniumAxeItem(ModTiers.STALINIUM, new Item.Properties()
-                    .attributes(AxeItem.createAttributes(ModTiers.STALINIUM, 5, -3.0f))));
+                    .attributes(AxeItem.createAttributes(ModTiers.STALINIUM, 5f, -3.0f))));
 
     public static final DeferredItem<ShovelItem> STALINIUM_SHOVEL = ITEMS.register("stalinium_shovel",
             () -> new StaliniumShovelItem(ModTiers.STALINIUM, new Item.Properties()
