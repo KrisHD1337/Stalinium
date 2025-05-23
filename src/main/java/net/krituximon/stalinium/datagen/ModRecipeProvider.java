@@ -52,5 +52,21 @@ public class ModRecipeProvider extends RecipeProvider implements IConditionBuild
                 .define('I', ModItems.STALINIUM_INGOT.get())
                 .define('G', Items.GOLD_BLOCK)
                 .unlockedBy("has_ingot", has(ModItems.STALINIUM_INGOT)).save(recipeOutput);
+
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, ModItems.STALINIUM_SHOVEL.get())
+                .pattern("I")
+                .pattern("G")
+                .pattern("G")
+                .define('I', ModItems.STALINIUM_INGOT.get())
+                .define('G', Items.GOLD_BLOCK)
+                .unlockedBy("has_ingot", has(ModItems.STALINIUM_INGOT)).save(recipeOutput);
+
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, ModItems.STALINIUM_AXE.get())
+                .pattern("II")
+                .pattern("IG")
+                .pattern(" G")
+                .define('I', ModItems.STALINIUM_INGOT.get())
+                .define('G', Items.GOLD_BLOCK)
+                .unlockedBy("has_ingot", has(ModItems.STALINIUM_INGOT)).save(recipeOutput);
     }
 }
