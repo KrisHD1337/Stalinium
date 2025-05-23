@@ -29,6 +29,7 @@ public class ModCreativeModeTabs {
                         output.accept(ModItems.STALINIUM_SWORD.get());
                         output.accept(ModItems.STALINIUM_AXE.get());
                         output.accept(ModItems.STALINIUM_SHOVEL.get());
+                        output.accept(ModItems.STALINIUM_HOE.get());
                     }).build());
 
     public static void register(IEventBus eventBus) {

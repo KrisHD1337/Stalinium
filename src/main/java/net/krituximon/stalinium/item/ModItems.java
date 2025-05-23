@@ -2,10 +2,7 @@ package net.krituximon.stalinium.item;
 
 import net.krituximon.stalinium.Stalinium;
 import net.krituximon.stalinium.sound.ModSounds;
-import net.minecraft.world.item.AxeItem;
-import net.minecraft.world.item.Item;
-import net.minecraft.world.item.ShovelItem;
-import net.minecraft.world.item.SwordItem;
+import net.minecraft.world.item.*;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredItem;
@@ -33,7 +30,11 @@ public class ModItems {
 
     public static final DeferredItem<ShovelItem> STALINIUM_SHOVEL = ITEMS.register("stalinium_shovel",
             () -> new StaliniumShovelItem(ModTiers.STALINIUM, new Item.Properties()
-                    .attributes(AxeItem.createAttributes(ModTiers.STALINIUM, 1.5f, -3.0f))));
+                    .attributes(ShovelItem.createAttributes(ModTiers.STALINIUM, 1.5f, -3.0f))));
+
+    public static final DeferredItem<HoeItem> STALINIUM_HOE = ITEMS.register("stalinium_hoe",
+            () -> new StaliniumHoeItem(ModTiers.STALINIUM, new Item.Properties()
+                    .attributes(HoeItem.createAttributes(ModTiers.STALINIUM, 1.0f, -3.0f))));
 
     public static void register(IEventBus eventBus) {
         ITEMS.register(eventBus);

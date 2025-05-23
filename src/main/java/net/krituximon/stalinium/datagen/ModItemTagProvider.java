@@ -32,5 +32,7 @@ public class ModItemTagProvider extends ItemTagsProvider {
                 .add(ModItems.STALINIUM_AXE.get());
         this.tag(ItemTags.SHOVELS)
                 .add(ModItems.STALINIUM_SHOVEL.get());
+        this.tag(ItemTags.HOES)
+                .add(ModItems.STALINIUM_HOE.get());
     }
 }
