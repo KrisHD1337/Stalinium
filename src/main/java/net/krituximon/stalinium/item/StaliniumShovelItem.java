@@ -2,6 +2,7 @@ package net.krituximon.stalinium.item;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.tags.BlockTags;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.LivingEntity;
@@ -24,14 +25,33 @@ public class StaliniumShovelItem extends ShovelItem {
 
     @Override
     public boolean mineBlock(ItemStack stack, Level level, BlockState state, BlockPos pos, LivingEntity miningEntity) {
-        if (!level.isClientSide) {
-            MobEffectInstance haste = new MobEffectInstance(MobEffects.DIG_SPEED, 100, 0, false, true);
-            miningEntity.addEffect(haste);
-            Level world = miningEntity.getCommandSenderWorld();
-            var box = miningEntity.getBoundingBox().inflate(10.0);
-            List<Player> nearby = world.getEntitiesOfClass(Player.class, box, p -> p instanceof ServerPlayer && miningEntity.isAlliedTo(p));
-            for (Player p : nearby) {
-                p.addEffect(haste);
+        if (level.isClientSide) return true;
+        if (state.is(BlockTags.MINEABLE_WITH_SHOVEL)) {
+            boolean anyBroken = false;
+            for (int dx = -1; dx <= 1; dx++) {
+                for (int dz = -1; dz <= 1; dz++) {
+                    BlockPos target = pos.offset(dx, 0, dz);
+                    BlockState bs = level.getBlockState(target);
+                    if (bs.is(BlockTags.MINEABLE_WITH_SHOVEL)) {
+                        level.destroyBlock(target, true, miningEntity);
+                        anyBroken = true;
+                    }
+                }
+            }
+
+            if (anyBroken && miningEntity instanceof Player player) {
+                MobEffectInstance selfHaste = new MobEffectInstance(MobEffects.DIG_SPEED, 100, 1, false, true, true);
+                player.addEffect(selfHaste);
+                var box = player.getBoundingBox().inflate(10.0);
+                List<Player> allies = level.getEntitiesOfClass(
+                        Player.class,
+                        box,
+                        other -> other instanceof ServerPlayer && player.isAlliedTo(other)
+                );
+                MobEffectInstance allyHaste = new MobEffectInstance(MobEffects.DIG_SPEED, 100, 0, false, true, true);
+                for (Player ally : allies) {
+                    ally.addEffect(allyHaste);
+                }
             }
         }
         return true;
