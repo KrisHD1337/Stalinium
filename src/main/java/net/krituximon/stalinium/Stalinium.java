@@ -2,6 +2,7 @@ package net.krituximon.stalinium;
 
 import net.krituximon.stalinium.block.ModBlocks;
 import net.krituximon.stalinium.block.entity.ModBlockEntities;
+import net.krituximon.stalinium.datagen.ModEffects;
 import net.krituximon.stalinium.item.ModCreativeModeTabs;
 import net.krituximon.stalinium.item.ModItems;
 import net.krituximon.stalinium.particle.BloodParticle;
@@ -79,6 +80,7 @@ public class Stalinium
         ModFeatures.register(modEventBus);
         ModBlockEntities.register(modEventBus);
         ModMenuTypes.register(modEventBus);
+        ModEffects.register(modEventBus);
     }
 
     private void commonSetup(final FMLCommonSetupEvent event)
