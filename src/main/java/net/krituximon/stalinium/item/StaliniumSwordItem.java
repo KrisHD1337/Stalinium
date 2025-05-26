@@ -23,48 +23,18 @@ public class StaliniumSwordItem extends SwordItem {
     public boolean hurtEnemy(ItemStack stack, LivingEntity target, LivingEntity attacker) {
         Level world = attacker.getCommandSenderWorld();
         if (!world.isClientSide && attacker instanceof Player player) {
-            player.addEffect(new MobEffectInstance(MobEffects.DAMAGE_BOOST, 100, 1, false, true));
+            player.addEffect(new MobEffectInstance(MobEffects.DAMAGE_BOOST, 100, 0, false, true));
             AABB box = player.getBoundingBox().inflate(5.0);
             List<Player> allies = world.getEntitiesOfClass(
                     Player.class, box,
                     p -> p instanceof ServerPlayer && player.isAlliedTo(p)
             );
-            MobEffectInstance allyBuff = new MobEffectInstance(MobEffects.DAMAGE_BOOST, 100, 0, false, true);
+            MobEffectInstance allyBuff = new MobEffectInstance(MobEffects.DAMAGE_BOOST, 100, 1, false, true);
             for (Player ally : allies) {
                 ally.addEffect(allyBuff);
             }
         }
         return super.hurtEnemy(stack, target, attacker);
-    }
-
-    @Override
-    public void inventoryTick(ItemStack stack, Level world, Entity entity, int slot, boolean selected) {
-        super.inventoryTick(stack, world, entity, slot, selected);
-        if (world.isClientSide || !selected || !(entity instanceof Player player)) return;
-        if (player.getHealth() < 10.0f) {
-            MobEffectInstance res = new MobEffectInstance(MobEffects.DAMAGE_RESISTANCE, 20, 0, false, false);
-            player.addEffect(res);
-            AABB area = player.getBoundingBox().inflate(3.0);
-            List<Player> allies = world.getEntitiesOfClass(
-                    Player.class, area,
-                    p -> p != player && player.isAlliedTo(p)
-            );
-            for (Player ally : allies) {
-                ally.addEffect(res);
-            }
-        }
-        if (player.getHealth() < 4.0f) {
-            MobEffectInstance res = new MobEffectInstance(MobEffects.DAMAGE_RESISTANCE, 100, 1, false, false);
-            player.addEffect(res);
-            AABB area = player.getBoundingBox().inflate(5.0);
-            List<Player> allies = world.getEntitiesOfClass(
-                    Player.class, area,
-                    p -> p != player && player.isAlliedTo(p)
-            );
-            for (Player ally : allies) {
-                ally.addEffect(res);
-            }
-        }
     }
 
 
