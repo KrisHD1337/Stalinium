@@ -33,13 +33,12 @@ public class StaliniumSwordItem extends SwordItem {
     public boolean hurtEnemy(ItemStack stack, LivingEntity target, LivingEntity attacker) {
         Level world = attacker.getCommandSenderWorld();
         if (!world.isClientSide && attacker instanceof Player player) {
-            player.addEffect(new MobEffectInstance(MobEffects.DAMAGE_BOOST, 100, 0, false, true));
             AABB box = player.getBoundingBox().inflate(5.0);
             List<Player> allies = world.getEntitiesOfClass(
                     Player.class, box,
                     p -> p instanceof ServerPlayer && player.isAlliedTo(p)
             );
-            MobEffectInstance allyBuff = new MobEffectInstance(MobEffects.DAMAGE_BOOST, 100, 1, false, true);
+            MobEffectInstance allyBuff = new MobEffectInstance(MobEffects.DAMAGE_BOOST, 100, 0, false, true);
             for (Player ally : allies) {
                 ally.addEffect(allyBuff);
             }
@@ -49,9 +48,14 @@ public class StaliniumSwordItem extends SwordItem {
 
     @Override
     public InteractionResultHolder<ItemStack> use(Level world, Player player, InteractionHand hand) {
+        ItemStack stack = player.getItemInHand(hand);
+        if (player.getCooldowns().isOnCooldown(this)) {
+            return InteractionResultHolder.fail(stack);
+        }
         if (!world.isClientSide) {
-            player.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SPEED, DURATION, SPEED_AMP, false, true));
+            player.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SPEED,    DURATION, SPEED_AMP, false, true));
             player.addEffect(new MobEffectInstance(MobEffects.DAMAGE_RESISTANCE, DURATION, RESIST_AMP, false, true));
+
             AABB area = player.getBoundingBox().inflate(RANGE);
             List<Player> allies = world.getEntitiesOfClass(
                     Player.class, area,
@@ -61,15 +65,17 @@ public class StaliniumSwordItem extends SwordItem {
             for (Player ally : allies) {
                 Vec3 toAlly = ally.position().subtract(player.position()).normalize();
                 if (toAlly.dot(look) >= COS_HALF_ANGLE) {
-                    ally.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SPEED, DURATION, SPEED_AMP, false, true));
+                    ally.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SPEED,    DURATION, SPEED_AMP, false, true));
                     ally.addEffect(new MobEffectInstance(MobEffects.DAMAGE_RESISTANCE, DURATION, RESIST_AMP, false, true));
                 }
             }
+            player.getCooldowns().addCooldown(this, 20 * 20);
         }
         player.startUsingItem(hand);
         player.swing(hand, true);
-        return InteractionResultHolder.sidedSuccess(player.getItemInHand(hand), world.isClientSide);
+        return InteractionResultHolder.sidedSuccess(stack, world.isClientSide);
     }
+
 
     @Override
     public UseAnim getUseAnimation(ItemStack stack) {
