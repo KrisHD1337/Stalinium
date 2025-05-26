@@ -53,6 +53,18 @@ public class StaliniumSwordItem extends SwordItem {
                 ally.addEffect(res);
             }
         }
+        if (player.getHealth() < 4.0f) {
+            MobEffectInstance res = new MobEffectInstance(MobEffects.DAMAGE_RESISTANCE, 100, 1, false, false);
+            player.addEffect(res);
+            AABB area = player.getBoundingBox().inflate(5.0);
+            List<Player> allies = world.getEntitiesOfClass(
+                    Player.class, area,
+                    p -> p != player && player.isAlliedTo(p)
+            );
+            for (Player ally : allies) {
+                ally.addEffect(res);
+            }
+        }
     }
 
 
