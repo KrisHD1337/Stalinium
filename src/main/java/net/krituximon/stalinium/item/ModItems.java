@@ -36,6 +36,9 @@ public class ModItems {
             () -> new StaliniumHoeItem(ModTiers.STALINIUM, new Item.Properties()
                     .attributes(HoeItem.createAttributes(ModTiers.STALINIUM, 1.0f, -3.0f))));
 
+    public static final DeferredItem<PickaxeItem> STALINIUM_PICKAXE = ITEMS.register("stalinium_pickaxe",
+            () -> new StaliniumPickaxeItem(ModTiers.STALINIUM, new Item.Properties()
+                    .attributes(PickaxeItem.createAttributes(ModTiers.STALINIUM, 1.0f, -2.8f))));
     public static void register(IEventBus eventBus) {
         ITEMS.register(eventBus);
     }

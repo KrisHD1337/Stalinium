@@ -5,6 +5,7 @@
   "item.stalinium.stalinium_axe": "Stalinium Axe",
   "item.stalinium.stalinium_shovel": "Stalinium Shovel",
   "item.stalinium.stalinium_hoe": "Stalinium Hoe",
+  "item.stalinium.stalinium_pickaxe": "Stalinium Pickaxe",
 
   "item.stalinium.soviet_anthem_music_disc": "Soviet Anthem Music Disc",
   "item.stalinium.soviet_anthem_music_disc.desc": "Ministry of Defense of the USSR - Soviet Union national anthem",
@@ -14,5 +15,7 @@
   "block.stalinium.compressed_bedrock": "Compressed Bedrock",
   "block.stalinium.stalinium_press": "Stalinium Press",
 
-  "creativetab.stalinium.stalinium": "Stalinium"
+  "creativetab.stalinium.stalinium": "Stalinium",
+  
+  "effect.stalinium.stalinium_charge": "For the Motherland!"
 }

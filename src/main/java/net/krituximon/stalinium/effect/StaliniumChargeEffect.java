@@ -25,7 +25,7 @@ public class StaliniumChargeEffect extends MobEffect {
         this.addAttributeModifier(
                 Attributes.ATTACK_SPEED,
                 ResourceLocation.fromNamespaceAndPath(Stalinium.MODID, "stalinium_charge_toughness"),
-                0.15,
+                0.1,
                 AttributeModifier.Operation.ADD_MULTIPLIED_BASE
         );
     }
