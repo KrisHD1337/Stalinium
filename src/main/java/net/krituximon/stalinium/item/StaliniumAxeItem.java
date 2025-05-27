@@ -36,8 +36,12 @@ public class StaliniumAxeItem extends AxeItem {
         return true;
     }
 
+    @Override
+    public boolean hurtEnemy(ItemStack stack, LivingEntity target, LivingEntity attacker) {
+        return true;
+    }
+
     private void cutDownTree(Level level, BlockPos start, Player player, ItemStack stack) {
-        // 1) Gather all logs to break
         Set<BlockPos> toBreak = new HashSet<>();
         Deque<BlockPos> queue = new ArrayDeque<>();
         queue.add(start);
@@ -99,21 +103,10 @@ public class StaliniumAxeItem extends AxeItem {
         if (id == null) return null;
         String path = id.getPath();
         if (!path.endsWith("_log")) return null;
-
         String plankPath = path.substring(0, path.length() - 4) + "_planks";
         ResourceLocation plankId = ResourceLocation.fromNamespaceAndPath(id.getNamespace(), plankPath);
-
-        // fall back to oak planks if the specific one isn't registered
         return BuiltInRegistries.BLOCK.getOptional(plankId)
                 .orElse(Blocks.OAK_PLANKS);
-    }
-
-
-
-
-    @Override
-    public int getMaxDamage(ItemStack stack) {
-        return 2;
     }
 
     @Override

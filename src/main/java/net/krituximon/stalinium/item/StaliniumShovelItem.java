@@ -38,7 +38,6 @@ public class StaliniumShovelItem extends ShovelItem {
                     }
                 }
             }
-
             if (anyBroken && miningEntity instanceof Player player) {
                 MobEffectInstance selfHaste = new MobEffectInstance(MobEffects.DIG_SPEED, 100, 1, false, true, true);
                 player.addEffect(selfHaste);
@@ -58,6 +57,11 @@ public class StaliniumShovelItem extends ShovelItem {
     }
 
     @Override
+    public boolean hurtEnemy(ItemStack stack, LivingEntity target, LivingEntity attacker) {
+        return true;
+    }
+    
+    @Override
     public boolean isDamageable(ItemStack stack) {
         return false;
     }
@@ -65,11 +69,6 @@ public class StaliniumShovelItem extends ShovelItem {
     @Override
     public boolean isDamaged(ItemStack stack) {
         return false;
-    }
-
-    @Override
-    public int getMaxDamage(ItemStack stack) {
-        return 2;
     }
 
     @Override
