@@ -21,9 +21,7 @@ import net.minecraft.core.registries.Registries;
 import java.util.*;
 
 public class StaliniumPickaxeItem extends PickaxeItem {
-    private static final TagKey<Block> ORE_TAG =
-            TagKey.create(Registries.BLOCK, ResourceLocation.fromNamespaceAndPath("minecraft", "ores"));
-
+    
     public StaliniumPickaxeItem(Tier tier, Properties properties) {
         super(tier, properties);
     }
