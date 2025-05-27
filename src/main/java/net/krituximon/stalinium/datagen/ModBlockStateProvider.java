@@ -4,6 +4,8 @@ import net.krituximon.stalinium.block.ModBlocks;
 import net.krituximon.stalinium.Stalinium;
 import net.minecraft.data.PackOutput;
 import net.neoforged.neoforge.client.model.generators.BlockStateProvider;
+import net.neoforged.neoforge.client.model.generators.ConfiguredModel;
+import net.neoforged.neoforge.client.model.generators.ModelFile;
 import net.neoforged.neoforge.common.data.ExistingFileHelper;
 import net.neoforged.neoforge.registries.DeferredBlock;
 
@@ -17,6 +19,15 @@ public class ModBlockStateProvider extends BlockStateProvider {
         blockWithItem(ModBlocks.COMPRESSED_BEDROCK);
         blockWithItem(ModBlocks.STALINIUM_BLOCK);
         blockWithItem(ModBlocks.STALINIUM_ORE);
+        ModelFile pressModel = models()
+                .getBuilder("stalinium_press")
+                .parent(new ModelFile.UncheckedModelFile(modLoc("block/stalinium_press")));
+        getVariantBuilder(ModBlocks.STALINIUM_PRESS.get())
+                .forAllStates(state -> ConfiguredModel.builder()
+                        .modelFile(pressModel)
+                        .build());
+        simpleBlockItem(ModBlocks.STALINIUM_PRESS.get(), pressModel);
+
     }
 
 
