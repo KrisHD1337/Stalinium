@@ -1,6 +1,7 @@
 package net.krituximon.stalinium.item;
 
 import net.krituximon.stalinium.Stalinium;
+import net.krituximon.stalinium.item.custom.*;
 import net.krituximon.stalinium.sound.ModSounds;
 import net.minecraft.world.item.*;
 import net.neoforged.bus.api.IEventBus;
@@ -40,15 +41,15 @@ public class ModItems {
                     .attributes(HoeItem.createAttributes(ModTiers.STALINIUM, 1.0f, -3.0f))));
 
     public static final DeferredItem<ArmorItem> STALINIUM_HELMET = ITEMS.register("stalinium_helmet",
-            () -> new ArmorItem(ModArmorMaterials.STALINIUM_ARMOR_MATERIAL, ArmorItem.Type.HELMET,
+            () -> new ModArmorItem(ModArmorMaterials.STALINIUM_ARMOR_MATERIAL, ArmorItem.Type.HELMET,
                     new Item.Properties().durability(ArmorItem.Type.HELMET.getDurability(19))));
 
     public static final DeferredItem<ArmorItem> STALINIUM_CHESTPLATE = ITEMS.register("stalinium_chestplate",
-            () -> new ArmorItem(ModArmorMaterials.STALINIUM_ARMOR_MATERIAL, ArmorItem.Type.CHESTPLATE,
+            () -> new StaliniumChestplateLeggingsItem(ModArmorMaterials.STALINIUM_ARMOR_MATERIAL, ArmorItem.Type.CHESTPLATE,
                     new Item.Properties().durability(ArmorItem.Type.CHESTPLATE.getDurability(19))));
 
     public static final DeferredItem<ArmorItem> STALINIUM_LEGGINGS = ITEMS.register("stalinium_leggings",
-            () -> new ArmorItem(ModArmorMaterials.STALINIUM_ARMOR_MATERIAL, ArmorItem.Type.LEGGINGS,
+            () -> new StaliniumChestplateLeggingsItem(ModArmorMaterials.STALINIUM_ARMOR_MATERIAL, ArmorItem.Type.LEGGINGS,
                     new Item.Properties().durability(ArmorItem.Type.LEGGINGS.getDurability(19))));
 
     public static final DeferredItem<ArmorItem> STALINIUM_BOOTS = ITEMS.register("stalinium_boots",

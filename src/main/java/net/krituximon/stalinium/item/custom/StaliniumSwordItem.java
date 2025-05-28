@@ -1,4 +1,4 @@
-package net.krituximon.stalinium.item;
+package net.krituximon.stalinium.item.custom;
 
 import net.krituximon.stalinium.Stalinium;
 import net.minecraft.client.gui.screens.Screen;
