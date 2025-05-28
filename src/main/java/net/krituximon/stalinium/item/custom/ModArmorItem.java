@@ -3,6 +3,7 @@ package net.krituximon.stalinium.item.custom;
 import com.google.common.collect.ImmutableMap;
 import net.krituximon.stalinium.item.ModArmorMaterials;
 import net.minecraft.core.Holder;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.Entity;
@@ -11,6 +12,7 @@ import net.minecraft.world.item.ArmorItem;
 import net.minecraft.world.item.ArmorMaterial;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.phys.AABB;
 
 import java.util.List;
 import java.util.Map;
@@ -19,8 +21,7 @@ public class ModArmorItem extends ArmorItem {
     private static final Map<Holder<ArmorMaterial>, List<MobEffectInstance>> MATERIAL_TO_EFFECT_MAP =
             (new ImmutableMap.Builder<Holder<ArmorMaterial>, List<MobEffectInstance>>())
                     .put(ModArmorMaterials.STALINIUM_ARMOR_MATERIAL,
-                            List.of(new MobEffectInstance(MobEffects.JUMP, 200, 1, false, false),
-                            new MobEffectInstance(MobEffects.GLOWING, 200, 1, false, false)))
+                            List.of(new MobEffectInstance(MobEffects.HEALTH_BOOST, 100, 0, false, false)))
                     .build();
 
     public ModArmorItem(Holder<ArmorMaterial> material, Type type, Properties properties) {
@@ -29,36 +30,45 @@ public class ModArmorItem extends ArmorItem {
 
     @Override
     public void inventoryTick(ItemStack stack, Level level, Entity entity, int slotId, boolean isSelected) {
-        if(entity instanceof Player player && !level.isClientSide() && hasFullSuitOfArmorOn(player)) {
+        if (entity instanceof Player player && !level.isClientSide() && hasFullSuitOfArmorOn(player)) {
             evaluateArmorEffects(player);
         }
     }
 
     private void evaluateArmorEffects(Player player) {
-        for(Map.Entry<Holder<ArmorMaterial>, List<MobEffectInstance>> entry : MATERIAL_TO_EFFECT_MAP.entrySet()) {
+        for (Map.Entry<Holder<ArmorMaterial>, List<MobEffectInstance>> entry : MATERIAL_TO_EFFECT_MAP.entrySet()) {
             Holder<ArmorMaterial> mapArmorMaterial = entry.getKey();
             List<MobEffectInstance> mapEffect = entry.getValue();
 
-            if(hasPlayerCorrectArmorOn(mapArmorMaterial, player)) {
+            if (hasPlayerCorrectArmorOn(mapArmorMaterial, player)) {
                 addEffectToPlayer(player, mapEffect);
             }
         }
     }
 
     private void addEffectToPlayer(Player player, List<MobEffectInstance> mapEffect) {
-        boolean hasPlayerEffect = mapEffect.stream().allMatch(effect -> player.hasEffect(effect.getEffect()));
+        AABB box = player.getBoundingBox().inflate(20.0);
+        int playersInBox = player.level().getEntitiesOfClass(
+                Player.class,
+                box,
+                p -> p instanceof ServerPlayer && player.isAlliedTo(p)
+        ).size();
 
-        if(!hasPlayerEffect) {
-            for (MobEffectInstance effect : mapEffect) {
-                player.addEffect(new MobEffectInstance(effect.getEffect(),
-                        effect.getDuration(), effect.getAmplifier(), effect.isAmbient(), effect.isVisible()));
-            }
+        for (MobEffectInstance effect : mapEffect) {
+            int newAmplifier = Math.min(4, effect.getAmplifier() + playersInBox);
+            player.addEffect(new MobEffectInstance(
+                    effect.getEffect(),
+                    effect.getDuration(),
+                    newAmplifier,
+                    effect.isAmbient(),
+                    effect.isVisible()
+            ));
         }
     }
 
     private boolean hasPlayerCorrectArmorOn(Holder<ArmorMaterial> mapArmorMaterial, Player player) {
-        for(ItemStack armorStack : player.getArmorSlots()) {
-            if(!(armorStack.getItem() instanceof ArmorItem)) {
+        for (ItemStack armorStack : player.getArmorSlots()) {
+            if (!(armorStack.getItem() instanceof ArmorItem)) {
                 return false;
             }
         }
