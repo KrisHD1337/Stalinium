@@ -1,7 +1,6 @@
-package net.krituximon.stalinium.datagen;
+package net.krituximon.stalinium.effect;
 
 import net.krituximon.stalinium.Stalinium;
-import net.krituximon.stalinium.effect.StaliniumChargeEffect;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.core.registries.Registries;
 import net.neoforged.bus.api.IEventBus;

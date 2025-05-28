@@ -2,23 +2,16 @@ package net.krituximon.stalinium;
 
 import net.krituximon.stalinium.block.ModBlocks;
 import net.krituximon.stalinium.block.entity.ModBlockEntities;
-import net.krituximon.stalinium.datagen.ModEffects;
+import net.krituximon.stalinium.effect.ModEffects;
 import net.krituximon.stalinium.item.ModCreativeModeTabs;
 import net.krituximon.stalinium.item.ModItems;
 import net.krituximon.stalinium.particle.BloodParticle;
 import net.krituximon.stalinium.particle.ModParticles;
 import net.krituximon.stalinium.screen.ModMenuTypes;
-import net.krituximon.stalinium.screen.custom.StaliniumPressMenu;
 import net.krituximon.stalinium.screen.custom.StaliniumPressScreen;
 import net.krituximon.stalinium.sound.ModSounds;
-import net.krituximon.stalinium.util.PlacedLogStorage;
 import net.krituximon.stalinium.util.PlayerLogEvents;
 import net.krituximon.stalinium.worldgen.ModFeatures;
-import net.krituximon.stalinium.worldgen.StaliniumVeinFeature;
-import net.minecraft.core.Registry;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.level.levelgen.feature.Feature;
-import net.minecraft.world.level.levelgen.feature.configurations.NoneFeatureConfiguration;
 import net.neoforged.neoforge.client.event.RegisterMenuScreensEvent;
 import net.neoforged.neoforge.client.event.RegisterParticleProvidersEvent;
 import org.slf4j.Logger;
@@ -40,8 +33,6 @@ import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.event.BuildCreativeModeTabContentsEvent;
 import net.neoforged.neoforge.event.server.ServerStartingEvent;
-
-import static net.krituximon.stalinium.worldgen.ModFeatures.FEATURES;
 
 // The value here should match an entry in the META-INF/neoforge.mods.toml file
 @Mod(Stalinium.MODID)
