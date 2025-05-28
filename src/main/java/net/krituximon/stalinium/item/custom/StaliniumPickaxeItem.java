@@ -1,4 +1,4 @@
-package net.krituximon.stalinium.item;
+package net.krituximon.stalinium.item.custom;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;

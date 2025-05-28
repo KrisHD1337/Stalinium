@@ -1,6 +1,7 @@
 package net.krituximon.stalinium.item;
 
 import net.krituximon.stalinium.Stalinium;
+import net.krituximon.stalinium.item.custom.*;
 import net.krituximon.stalinium.sound.ModSounds;
 import net.minecraft.world.item.*;
 import net.neoforged.bus.api.IEventBus;
