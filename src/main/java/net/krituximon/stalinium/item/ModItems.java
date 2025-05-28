@@ -4,7 +4,6 @@ import net.krituximon.stalinium.Stalinium;
 import net.krituximon.stalinium.sound.ModSounds;
 import net.minecraft.world.item.*;
 import net.neoforged.bus.api.IEventBus;
-import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredItem;
 import net.neoforged.neoforge.registries.DeferredRegister;
 
@@ -28,6 +27,10 @@ public class ModItems {
             () -> new StaliniumAxeItem(ModTiers.STALINIUM, new Item.Properties()
                     .attributes(AxeItem.createAttributes(ModTiers.STALINIUM, 5f, -3.0f))));
 
+    public static final DeferredItem<PickaxeItem> STALINIUM_PICKAXE = ITEMS.register("stalinium_pickaxe",
+            () -> new StaliniumPickaxeItem(ModTiers.STALINIUM, new Item.Properties()
+                    .attributes(PickaxeItem.createAttributes(ModTiers.STALINIUM, 1.0f, -2.8f))));
+
     public static final DeferredItem<ShovelItem> STALINIUM_SHOVEL = ITEMS.register("stalinium_shovel",
             () -> new StaliniumShovelItem(ModTiers.STALINIUM, new Item.Properties()
                     .attributes(ShovelItem.createAttributes(ModTiers.STALINIUM, 1.5f, -3.0f))));
@@ -36,9 +39,22 @@ public class ModItems {
             () -> new StaliniumHoeItem(ModTiers.STALINIUM, new Item.Properties()
                     .attributes(HoeItem.createAttributes(ModTiers.STALINIUM, 1.0f, -3.0f))));
 
-    public static final DeferredItem<PickaxeItem> STALINIUM_PICKAXE = ITEMS.register("stalinium_pickaxe",
-            () -> new StaliniumPickaxeItem(ModTiers.STALINIUM, new Item.Properties()
-                    .attributes(PickaxeItem.createAttributes(ModTiers.STALINIUM, 1.0f, -2.8f))));
+    public static final DeferredItem<ArmorItem> STALINIUM_HELMET = ITEMS.register("stalinium_helmet",
+            () -> new ArmorItem(ModArmorMaterials.STALINIUM_ARMOR_MATERIAL, ArmorItem.Type.HELMET,
+                    new Item.Properties().durability(ArmorItem.Type.HELMET.getDurability(19))));
+
+    public static final DeferredItem<ArmorItem> STALINIUM_CHESTPLATE = ITEMS.register("stalinium_chestplate",
+            () -> new ArmorItem(ModArmorMaterials.STALINIUM_ARMOR_MATERIAL, ArmorItem.Type.CHESTPLATE,
+                    new Item.Properties().durability(ArmorItem.Type.CHESTPLATE.getDurability(19))));
+
+    public static final DeferredItem<ArmorItem> STALINIUM_LEGGINGS = ITEMS.register("stalinium_leggings",
+            () -> new ArmorItem(ModArmorMaterials.STALINIUM_ARMOR_MATERIAL, ArmorItem.Type.LEGGINGS,
+                    new Item.Properties().durability(ArmorItem.Type.LEGGINGS.getDurability(19))));
+
+    public static final DeferredItem<ArmorItem> STALINIUM_BOOTS = ITEMS.register("stalinium_boots",
+            () -> new ArmorItem(ModArmorMaterials.STALINIUM_ARMOR_MATERIAL, ArmorItem.Type.BOOTS,
+                    new Item.Properties().durability(ArmorItem.Type.BOOTS.getDurability(19))));
+
     public static void register(IEventBus eventBus) {
         ITEMS.register(eventBus);
     }
