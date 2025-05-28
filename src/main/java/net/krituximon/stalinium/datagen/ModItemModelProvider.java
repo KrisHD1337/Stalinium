@@ -16,6 +16,10 @@ public class ModItemModelProvider extends ItemModelProvider {
         basicItem(ModItems.STALINIUM_INGOT.get());
         basicItem(ModItems.SOVIET_ANTHEM_MUSIC_DISC.get());
         basicItem(ModItems.STALINIUM_NUGGET.get());
+        basicItem(ModItems.STALINIUM_HELMET.get());
+        basicItem(ModItems.STALINIUM_CHESTPLATE.get());
+        basicItem(ModItems.STALINIUM_LEGGINGS.get());
+        basicItem(ModItems.STALINIUM_BOOTS.get());
         handheldItem(ModItems.STALINIUM_SWORD.get());
         handheldItem(ModItems.STALINIUM_AXE.get());
         handheldItem(ModItems.STALINIUM_SHOVEL.get());
