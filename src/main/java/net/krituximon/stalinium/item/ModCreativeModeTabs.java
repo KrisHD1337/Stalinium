@@ -28,8 +28,13 @@ public class ModCreativeModeTabs {
                         output.accept(ModBlocks.STALINIUM_PRESS.get());
                         output.accept(ModItems.STALINIUM_SWORD.get());
                         output.accept(ModItems.STALINIUM_AXE.get());
+                        output.accept(ModItems.STALINIUM_PICKAXE.get());
                         output.accept(ModItems.STALINIUM_SHOVEL.get());
                         output.accept(ModItems.STALINIUM_HOE.get());
+                        output.accept(ModItems.STALINIUM_HELMET.get());
+                        output.accept(ModItems.STALINIUM_CHESTPLATE.get());
+                        output.accept(ModItems.STALINIUM_LEGGINGS.get());
+                        output.accept(ModItems.STALINIUM_BOOTS.get());
                     }).build());
 
     public static void register(IEventBus eventBus) {
