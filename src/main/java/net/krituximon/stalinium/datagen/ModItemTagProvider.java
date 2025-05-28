@@ -34,6 +34,8 @@ public class ModItemTagProvider extends ItemTagsProvider {
                 .add(ModItems.STALINIUM_SHOVEL.get());
         this.tag(ItemTags.HOES)
                 .add(ModItems.STALINIUM_HOE.get());
+        this.tag(ItemTags.PICKAXES)
+                .add(ModItems.STALINIUM_PICKAXE.get());
         this.tag(ItemTags.TRIMMABLE_ARMOR)
                 .add(ModItems.STALINIUM_HELMET.get())
                 .add(ModItems.STALINIUM_CHESTPLATE.get())
