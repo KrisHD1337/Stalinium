@@ -25,7 +25,7 @@ public class ModPlacedFeatures {
                 InSquarePlacement.spread(),
                 HeightRangePlacement.uniform(
                         VerticalAnchor.absolute(-64),
-                        VerticalAnchor.absolute(-61)
+                        VerticalAnchor.absolute(-55)
                 ),
                 BiomeFilter.biome()
         );
