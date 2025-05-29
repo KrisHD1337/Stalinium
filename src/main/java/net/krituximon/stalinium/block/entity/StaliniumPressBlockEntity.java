@@ -171,8 +171,8 @@ public class StaliniumPressBlockEntity extends BlockEntity implements MenuProvid
     private Optional<RecipeHolder<StaliniumPressRecipe>> getCurrentRecipe() {
         return this.level.getRecipeManager()
                 .getRecipeFor(ModRecipes.STALINIUM_PRESS_TYPE.get(), new StaliniumPressRecipeInput(
-                        itemHandler.getStackInSlot(INPUT_SLOT),
                         itemHandler.getStackInSlot(REDSTONE_FUEL_SLOT),
+                        itemHandler.getStackInSlot(INPUT_SLOT),
                         itemHandler.getStackInSlot(LAVA_FUEL_SLOT)
                 ), level);
     }

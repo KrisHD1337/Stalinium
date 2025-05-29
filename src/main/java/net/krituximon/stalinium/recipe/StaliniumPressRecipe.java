@@ -36,6 +36,12 @@ public record StaliniumPressRecipe(NonNullList<Ingredient> ingredients,
     /* --------------------------------------------------------------------- */
     /* Recipe implementation                                                 */
     /* --------------------------------------------------------------------- */
+
+    @Override
+    public NonNullList<Ingredient> getIngredients() {          // <--  add this
+        return ingredients;
+    }
+
     @Override
     public boolean matches(StaliniumPressRecipeInput input, Level level) {
         if (level.isClientSide()) return false;
@@ -80,14 +86,16 @@ public record StaliniumPressRecipe(NonNullList<Ingredient> ingredients,
         /* ---------- Codec used for JSON files ---------- */
         public static final MapCodec<StaliniumPressRecipe> CODEC =
                 RecordCodecBuilder.mapCodec(inst -> inst.group(
-                        Ingredient.CODEC_NONEMPTY.fieldOf("nugget").forGetter(StaliniumPressRecipe::nugget),
-                        Ingredient.CODEC_NONEMPTY.fieldOf("power").forGetter(StaliniumPressRecipe::power),
-                        Ingredient.CODEC_NONEMPTY.fieldOf("fuel").forGetter(StaliniumPressRecipe::fuel),
+                        Ingredient.CODEC_NONEMPTY.fieldOf("nugget").forGetter(r -> r.nugget()),
+                        Ingredient.CODEC_NONEMPTY.fieldOf("power").forGetter(r -> r.power()),
+                        Ingredient.CODEC_NONEMPTY.fieldOf("fuel").forGetter(r -> r.fuel()),
                         ItemStack.CODEC.fieldOf("result").forGetter(StaliniumPressRecipe::output)
-                ).apply(inst, (p, n, f, res) -> {
-                    NonNullList<Ingredient> list = NonNullList.of(Ingredient.EMPTY, p, n, f);
-                    return new StaliniumPressRecipe(list, res);
+                ).apply(inst, (nugget, power, fuel, result) -> {
+                    NonNullList<Ingredient> list = NonNullList.of(Ingredient.EMPTY,
+                            power, nugget, fuel);           // keep the slot order you want in JEI
+                    return new StaliniumPressRecipe(list, result);
                 }));
+
 
         /* ---------- Codec used for network sync ---------- */
         private static final StreamCodec<RegistryFriendlyByteBuf, StaliniumPressRecipe> STREAM_CODEC =
