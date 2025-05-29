@@ -7,6 +7,7 @@ import net.krituximon.stalinium.item.ModCreativeModeTabs;
 import net.krituximon.stalinium.item.ModItems;
 import net.krituximon.stalinium.particle.BloodParticle;
 import net.krituximon.stalinium.particle.ModParticles;
+import net.krituximon.stalinium.recipe.ModRecipes;
 import net.krituximon.stalinium.screen.ModMenuTypes;
 import net.krituximon.stalinium.screen.custom.StaliniumPressScreen;
 import net.krituximon.stalinium.sound.ModSounds;
@@ -57,6 +58,7 @@ public class Stalinium
         ModParticles.register(modEventBus);
         ModCreativeModeTabs.register(modEventBus);
         PlayerLogEvents.register();
+        ModRecipes.register(modEventBus);
 
         // Register ourselves for server and other game events we are interested in.
         // Note that this is necessary if and only if we want *this* class (Stalinium) to respond directly to events.

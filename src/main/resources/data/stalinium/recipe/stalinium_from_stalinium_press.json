@@ -1,0 +1,15 @@
+{
+  "type": "stalinium:stalinium_press",
+  "nugget": {
+    "item": "stalinium:stalinium_nugget"
+  },
+  "power": {
+    "item": "minecraft:redstone_block"
+  },
+  "fuel": {
+    "item": "minecraft:lava_bucket"
+  },
+  "result": {
+    "id": "stalinium:stalinium_ingot"
+  }
+}

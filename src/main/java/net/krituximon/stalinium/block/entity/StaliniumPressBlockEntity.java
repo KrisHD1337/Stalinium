@@ -1,6 +1,9 @@
 package net.krituximon.stalinium.block.entity;
 
 import net.krituximon.stalinium.item.ModItems;
+import net.krituximon.stalinium.recipe.ModRecipes;
+import net.krituximon.stalinium.recipe.StaliniumPressRecipe;
+import net.krituximon.stalinium.recipe.StaliniumPressRecipeInput;
 import net.krituximon.stalinium.screen.custom.StaliniumPressMenu;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.HolderLookup;
@@ -18,6 +21,7 @@ import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.ContainerData;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
@@ -25,6 +29,7 @@ import net.neoforged.neoforge.items.ItemStackHandler;
 import org.jetbrains.annotations.Nullable;
 
 import javax.swing.plaf.basic.BasicComboBoxUI;
+import java.util.Optional;
 
 public class StaliniumPressBlockEntity extends BlockEntity implements MenuProvider {
     public final ItemStackHandler itemHandler = new ItemStackHandler(4) {
@@ -37,10 +42,10 @@ public class StaliniumPressBlockEntity extends BlockEntity implements MenuProvid
         }
     };
 
-    public static final int INPUT_SLOT          = 0;
-    public static final int REDSTONE_FUEL_SLOT  = 1;
-    public static final int LAVA_FUEL_SLOT      = 2;
-    public static final int OUTPUT_SLOT         = 3;
+    public static final int INPUT_SLOT = 0;
+    public static final int REDSTONE_FUEL_SLOT = 1;
+    public static final int LAVA_FUEL_SLOT = 2;
+    public static final int OUTPUT_SLOT = 3;
 
     protected final ContainerData data;
     private int progress = 0;
@@ -127,11 +132,12 @@ public class StaliniumPressBlockEntity extends BlockEntity implements MenuProvid
     }
 
     private void craftItem() {
-        itemHandler.extractItem(INPUT_SLOT,         9, false);
+        Optional<RecipeHolder<StaliniumPressRecipe>> recipe = getCurrentRecipe();
+        itemHandler.extractItem(INPUT_SLOT, 9, false);
         itemHandler.extractItem(REDSTONE_FUEL_SLOT, 1, false);
-        itemHandler.extractItem(LAVA_FUEL_SLOT,     1, false);
+        itemHandler.extractItem(LAVA_FUEL_SLOT, 1, false);
         itemHandler.setStackInSlot(LAVA_FUEL_SLOT, new ItemStack(Items.BUCKET, 1));
-        ItemStack out = new ItemStack(ModItems.STALINIUM_INGOT.get(), 1);
+        ItemStack out = recipe.get().value().output();
         itemHandler.setStackInSlot(
                 OUTPUT_SLOT,
                 new ItemStack(
@@ -155,15 +161,20 @@ public class StaliniumPressBlockEntity extends BlockEntity implements MenuProvid
     }
 
     private boolean hasRecipe() {
-        ItemStack in   = itemHandler.getStackInSlot(INPUT_SLOT);
-        ItemStack red  = itemHandler.getStackInSlot(REDSTONE_FUEL_SLOT);
-        ItemStack lava = itemHandler.getStackInSlot(LAVA_FUEL_SLOT);
+        Optional<RecipeHolder<StaliniumPressRecipe>> recipe = getCurrentRecipe();
+        if (recipe.isEmpty()) return false;
 
-        if (in.getItem()  != ModItems.STALINIUM_NUGGET.get() || in.getCount()  < 9)   return false;
-        if (red.getItem() != Items.REDSTONE_BLOCK   || red.getCount() < 1)   return false;
-        if (lava.getItem()!= Items.LAVA_BUCKET      || lava.getCount()< 1)   return false;
-        ItemStack out  = new ItemStack(ModItems.STALINIUM_INGOT.get(), 1);
+        ItemStack out = recipe.get().value().output();
         return canInsertItemIntoOutputSlot(out) && canInsertAmountIntoOutputSlot(out.getCount());
+    }
+
+    private Optional<RecipeHolder<StaliniumPressRecipe>> getCurrentRecipe() {
+        return this.level.getRecipeManager()
+                .getRecipeFor(ModRecipes.STALINIUM_PRESS_TYPE.get(), new StaliniumPressRecipeInput(
+                        itemHandler.getStackInSlot(INPUT_SLOT),
+                        itemHandler.getStackInSlot(REDSTONE_FUEL_SLOT),
+                        itemHandler.getStackInSlot(LAVA_FUEL_SLOT)
+                ), level);
     }
 
     private boolean canInsertItemIntoOutputSlot(ItemStack output) {
