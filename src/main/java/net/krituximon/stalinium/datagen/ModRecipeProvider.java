@@ -84,5 +84,37 @@ public class ModRecipeProvider extends RecipeProvider implements IConditionBuild
                 .define('I', ModItems.STALINIUM_INGOT.get())
                 .define('G', Items.GOLD_BLOCK)
                 .unlockedBy("has_ingot", has(ModItems.STALINIUM_INGOT)).save(recipeOutput);
+
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, ModItems.STALINIUM_HELMET.get())
+                .pattern("NSN")
+                .pattern("S S")
+                .pattern("   ")
+                .define('S', ModItems.STALINIUM_INGOT.get())
+                .define('N', Items.NETHERITE_INGOT)
+                .unlockedBy("has_ingot", has(ModItems.STALINIUM_INGOT)).save(recipeOutput);
+
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, ModItems.STALINIUM_CHESTPLATE.get())
+                .pattern("S S")
+                .pattern("SSS")
+                .pattern("NNN")
+                .define('S', ModItems.STALINIUM_INGOT.get())
+                .define('N', Items.NETHERITE_INGOT)
+                .unlockedBy("has_ingot", has(ModItems.STALINIUM_INGOT)).save(recipeOutput);
+
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, ModItems.STALINIUM_LEGGINGS.get())
+                .pattern("NNN")
+                .pattern("S S")
+                .pattern("S S")
+                .define('S', ModItems.STALINIUM_INGOT.get())
+                .define('N', Items.NETHERITE_INGOT)
+                .unlockedBy("has_ingot", has(ModItems.STALINIUM_INGOT)).save(recipeOutput);
+
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, ModItems.STALINIUM_BOOTS.get())
+                .pattern("S S")
+                .pattern("N N")
+                .pattern("   ")
+                .define('S', ModItems.STALINIUM_INGOT.get())
+                .define('N', Items.NETHERITE_INGOT)
+                .unlockedBy("has_ingot", has(ModItems.STALINIUM_INGOT)).save(recipeOutput);
     }
 }
