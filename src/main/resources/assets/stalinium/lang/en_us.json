@@ -28,7 +28,7 @@
   "item.stalinium_sword.tooltip_shift": "Sword made out of §cStalinium\n\n§l§cPower to the people!:§f\nWhen hitting an enemy, allies within 5 blocks gain Strength 1 for 5 seconds\n\n§l§cForward, Comrades!:§f\nPressing Right Click applies a speed and haste boost on yourself and all allies infront of you.",
 
   "item.stalinium_axe.tooltip": "Axe made out of §cStalinium§0\n\n§l§cStalinium Efficiency§0\n\n§l§cLumber for the People\n\n§f(Shift to expand)",
-  "item.stalinium_axe.tooltip_shift": "Axe made out of §cStalinium\n\n§l§cStalinium Efficiency:§f\nInstantly break trees\n\n§l§cLumber for the people:§f\nEach nearby ally gets 1 plank and 1 sapling per log broken with the axe.",
+  "item.stalinium_axe.tooltip_shift": "Axe made out of §cStalinium\n\n§l§cStalinium Efficiency:§f\nInstantly breaks trees.\n\n§l§cLumber for the people:§f\nEach nearby ally gets 1 plank and 1 sapling per log broken with the axe.",
 
   "item.stalinium_shovel.tooltip": "Shovel made out of §cStalinium§0\n\n§l§cPath of Progress§0\n\n§l§cTo Each According to Their Labor\n\n§f(Shift to expand)",
   "item.stalinium_shovel.tooltip_shift": "Shovel made out of §cStalinium\n\n§l§cPath of Progress:§f\nDigs a 3x3 area.\n\n§l§cTo Each According to Their Labor:§f\nMining grants Haste II to you, and Haste I to nearby comrades.",
