@@ -91,7 +91,6 @@ public class StaliniumChestplateLeggingsItem extends ArmorItem {
     private boolean hasChestAndLeggingsOn(Player player) {
         ItemStack leggings = player.getInventory().getArmor(1);
         ItemStack chestplate = player.getInventory().getArmor(2);
-
         return !leggings.isEmpty() && !chestplate.isEmpty();
     }
 

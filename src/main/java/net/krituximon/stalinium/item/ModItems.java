@@ -53,7 +53,7 @@ public class ModItems {
                     new Item.Properties().durability(ArmorItem.Type.LEGGINGS.getDurability(19))));
 
     public static final DeferredItem<ArmorItem> STALINIUM_BOOTS = ITEMS.register("stalinium_boots",
-            () -> new ArmorItem(ModArmorMaterials.STALINIUM_ARMOR_MATERIAL, ArmorItem.Type.BOOTS,
+            () -> new StaliniumBootsItem(ModArmorMaterials.STALINIUM_ARMOR_MATERIAL, ArmorItem.Type.BOOTS,
                     new Item.Properties().durability(ArmorItem.Type.BOOTS.getDurability(19))));
 
     public static void register(IEventBus eventBus) {
