@@ -19,7 +19,7 @@ import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
 
 public class StaliniumBootsItem extends ArmorItem {
-    private static final int SPRINT_THRESHOLD = 5 * 20; // 5 seconds
+    private static final int SPRINT_THRESHOLD = 5 * 20;
     private static final double RADIUS = 5.0;
     private static final Map<UUID, Integer> sprintTicks = new ConcurrentHashMap<>();
 
@@ -45,7 +45,7 @@ public class StaliniumBootsItem extends ArmorItem {
                         area,
                         p -> p instanceof ServerPlayer && p != player && player.isAlliedTo(p)
                 );
-                MobEffectInstance buff = new MobEffectInstance(MobEffects.MOVEMENT_SPEED, 6 * 20, 0, false, true);
+                MobEffectInstance buff = new MobEffectInstance(MobEffects.MOVEMENT_SPEED, 5 * 20, 0, false, true);
                 for (Player ally : allies) {
                     ally.addEffect(buff);
                 }
