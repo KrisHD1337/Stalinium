@@ -20,12 +20,12 @@ import java.util.function.Supplier;
 public class ModArmorMaterials {
     public static final Holder<ArmorMaterial> STALINIUM_ARMOR_MATERIAL = register("stalinium",
             Util.make(new EnumMap<>(ArmorItem.Type.class), attribute -> {
-                attribute.put(ArmorItem.Type.BOOTS, 5);
-                attribute.put(ArmorItem.Type.LEGGINGS, 7);
-                attribute.put(ArmorItem.Type.CHESTPLATE, 9);
-                attribute.put(ArmorItem.Type.HELMET, 5);
-                attribute.put(ArmorItem.Type.BODY, 11);
-            }), 16, 2f, 0.1f, () -> ModItems.STALINIUM_INGOT.get());
+                attribute.put(ArmorItem.Type.BOOTS, 6);
+                attribute.put(ArmorItem.Type.LEGGINGS, 8);
+                attribute.put(ArmorItem.Type.CHESTPLATE, 10);
+                attribute.put(ArmorItem.Type.HELMET, 6);
+                attribute.put(ArmorItem.Type.BODY, 12);
+            }), 25, 3.5f, 0.15f, () -> ModItems.STALINIUM_INGOT.get());
 
 
     private static Holder<ArmorMaterial> register(String name, EnumMap<ArmorItem.Type, Integer> typeProtection,

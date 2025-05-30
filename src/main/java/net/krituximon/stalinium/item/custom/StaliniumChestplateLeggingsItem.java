@@ -2,15 +2,19 @@ package net.krituximon.stalinium.item.custom;
 
 import com.google.common.collect.ImmutableMap;
 import net.krituximon.stalinium.item.ModArmorMaterials;
+import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.core.Holder;
+import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ArmorItem;
 import net.minecraft.world.item.ArmorMaterial;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.AABB;
 
@@ -80,10 +84,8 @@ public class StaliniumChestplateLeggingsItem extends ArmorItem {
         if (leggingsStack.isEmpty() || chestplateStack.isEmpty()) {
             return false;
         }
-
         ArmorItem leggingsItem   = (ArmorItem) leggingsStack.getItem();
         ArmorItem chestplateItem = (ArmorItem) chestplateStack.getItem();
-
         return leggingsItem.getMaterial()   == mapArmorMaterial
             && chestplateItem.getMaterial() == mapArmorMaterial;
     }
@@ -103,4 +105,21 @@ public class StaliniumChestplateLeggingsItem extends ArmorItem {
     public boolean isDamaged(ItemStack stack) {
         return false;
     }
+
+    @Override
+    public void appendHoverText(ItemStack stack, TooltipContext context, List<Component> tooltipComponents, TooltipFlag tooltipFlag) {
+        super.appendHoverText(stack, context, tooltipComponents, tooltipFlag);
+        boolean shift = Screen.hasShiftDown();
+        EquipmentSlot slot = this.getEquipmentSlot();
+        if (slot == EquipmentSlot.CHEST) {
+            tooltipComponents.add( shift
+                    ? Component.translatable("item.stalinium_chestplate.tooltip_shift")
+                    : Component.translatable("item.stalinium_chestplate.tooltip") );
+        } else if (slot == EquipmentSlot.LEGS) {
+            tooltipComponents.add( shift
+                    ? Component.translatable("item.stalinium_leggings.tooltip_shift")
+                    : Component.translatable("item.stalinium_leggings.tooltip") );
+        }
+    }
+
 }

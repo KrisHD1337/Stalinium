@@ -1,7 +1,9 @@
 package net.krituximon.stalinium.item.custom;
 
 import net.krituximon.stalinium.item.ModArmorMaterials;
+import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.core.Holder;
+import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
@@ -10,6 +12,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ArmorItem;
 import net.minecraft.world.item.ArmorMaterial;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.AABB;
 
@@ -63,5 +66,15 @@ public class StaliniumBootsItem extends ArmorItem {
     @Override
     public boolean isDamaged(ItemStack stack) {
         return false;
+    }
+
+    @Override
+    public void appendHoverText(ItemStack stack, TooltipContext context, List<Component> tooltipComponents, TooltipFlag tooltipFlag) {
+        if(Screen.hasShiftDown()) {
+            tooltipComponents.add(Component.translatable("item.stalinium_boots.tooltip_shift"));
+        } else {
+            tooltipComponents.add(Component.translatable("item.stalinium_boots.tooltip"));
+        }
+        super.appendHoverText(stack, context, tooltipComponents, tooltipFlag);
     }
 }

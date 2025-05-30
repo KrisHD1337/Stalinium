@@ -24,18 +24,30 @@
   
   "effect.stalinium.stalinium_charge": "For the Motherland!",
   
-  "item.stalinium_sword.tooltip": "Sword made out of §cStalinium§0\n\n§l§cPower to the people!§0\n\n§l§cForward, Comrades!\n§f(Shift to expand)",
+  "item.stalinium_sword.tooltip": "Sword made out of §cStalinium§0\n\n§l§cPower to the people!§0\n\n§l§cForward, Comrades!\n\n§f(Shift to expand)",
   "item.stalinium_sword.tooltip_shift": "Sword made out of §cStalinium\n\n§l§cPower to the people!:§f\nWhen hitting an enemy, allies within 5 blocks gain Strength 1 for 5 seconds\n\n§l§cForward, Comrades!:§f\nPressing Right Click applies a speed and haste boost on yourself and all allies infront of you.",
 
-  "item.stalinium_axe.tooltip": "Axe made out of §cStalinium§0\n\n§l§cStalinium Efficiency§0\n\n§l§cLumber for the People\n§f(Shift to expand)",
-  "item.stalinium_axe.tooltip_shift": "Axe made out of §cStalinium\n\n§l§cStalinium Efficiency:§f\nInstantly break trees\n\n§l§cLumber of the people:§f\nEach nearby ally gets 1 plank and 1 sapling per log broken with the axe.",
+  "item.stalinium_axe.tooltip": "Axe made out of §cStalinium§0\n\n§l§cStalinium Efficiency§0\n\n§l§cLumber for the People\n\n§f(Shift to expand)",
+  "item.stalinium_axe.tooltip_shift": "Axe made out of §cStalinium\n\n§l§cStalinium Efficiency:§f\nInstantly break trees\n\n§l§cLumber for the people:§f\nEach nearby ally gets 1 plank and 1 sapling per log broken with the axe.",
 
-  "item.stalinium_shovel.tooltip": "Shovel made out of §cStalinium§0\n\n§l§cPath of Progress§0\n\n§l§cTo Each According to Their Labor\n§f(Shift to expand)",
+  "item.stalinium_shovel.tooltip": "Shovel made out of §cStalinium§0\n\n§l§cPath of Progress§0\n\n§l§cTo Each According to Their Labor\n\n§f(Shift to expand)",
   "item.stalinium_shovel.tooltip_shift": "Shovel made out of §cStalinium\n\n§l§cPath of Progress:§f\nDigs a 3x3 area.\n\n§l§cTo Each According to Their Labor:§f\nMining grants Haste II to you, and Haste I to nearby comrades.",
 
-  "item.stalinium_hoe.tooltip": "Hoe made out of §cStalinium§0\n\n§l§cRain Dividend§0\n\n§l§cShared Bounty\n§f(Shift to expand)",
+  "item.stalinium_hoe.tooltip": "Hoe made out of §cStalinium§0\n\n§l§cRain Dividend§0\n\n§l§cShared Bounty\n\n§f(Shift to expand)",
   "item.stalinium_hoe.tooltip_shift": "Hoe made out of §cStalinium\n\n§l§cRain Dividend:§f\nRain doubles your harvest yields.\n\n§l§cShared Bounty:§f\n50% chance your comrades get the same crop drops as you.",
 
-  "item.stalinium_pickaxe.tooltip": "Pickaxe made out of §cStalinium§0\n\n§l§cVein of Unity:§0\n\n§l§cOre for All\n§f(Shift to expand)",
-  "item.stalinium_pickaxe.tooltip_shift": "Pickaxe made out of §cStalinium\n\n§l§cVein of Unity:§f\nInstantly mines all connected ore blocks.\n\n§l§cOre for all:§f\n50% chance nearby comrades also receive your ore drops."
+  "item.stalinium_pickaxe.tooltip": "Pickaxe made out of §cStalinium§0\n\n§l§cVein of Unity§0\n\n§l§cOre for All\n\n§f(Shift to expand)",
+  "item.stalinium_pickaxe.tooltip_shift": "Pickaxe made out of §cStalinium\n\n§l§cVein of Unity:§f\nInstantly mines all connected ore blocks.\n\n§l§cOre for all:§f\n50% chance nearby comrades also receive your ore drops.",
+  
+  "item.stalinium_boots.tooltip": "Boots made out of §cStalinium\n\n§l§cMarch of Progress\n\n§fFull Armor Set Bonus:\n§l§cPower of the Many\n\n§f(Shift to expand)",
+  "item.stalinium_boots.tooltip_shift": "Boots made out of §cStalinium\n\n§l§cMarch of Progress:§f\nSprinting gives you and everyone nearby Speed I.\n\n§fFull Armor Set Bonus:\n§l§cPower of the Many: Gain more hearts the more allies are nearby.",
+
+  "item.stalinium_helmet.tooltip": "Helmet made out of §cStalinium\n\n§l§cWatchful Comrade\n\n§fFull Armor Set Bonus:\n§l§cPower of the Many\n\n§f(Shift to expand)",
+  "item.stalinium_helmet.tooltip_shift": "Helmet made out of §cStalinium\n\n§l§cWatchful Comrade:§f\nHitting an enemy marks them for everyone to see.\n\n§fFull Armor Set Bonus:\n§l§cPower of the Many: Gain more hearts the more allies are nearby.",
+
+  "item.stalinium_chestplate.tooltip": "Chestplate made out of §cStalinium\n\n§l§cIron Will of the Collective\n\n§fFull Armor Set Bonus:\n§l§cPower of the Many\n\n§f(Shift to expand)",
+  "item.stalinium_chestplate.tooltip_shift": "Chestplate made out of §cStalinium\n\n§l§cIron Will of the Collective:§f\nWhen wearing the chestplate alongside the leggings, gain Resistance I.\n\n§fFull Armor Set Bonus:\n§l§cPower of the Many: Gain more hearts the more allies are nearby.",
+
+  "item.stalinium_leggings.tooltip": "Leggings made out of §cStalinium\n\n§l§cIron Will of the Collective\n\n§fFull Armor Set Bonus:\n§l§cPower of the Many\n\n§f(Shift to expand)",
+  "item.stalinium_leggings.tooltip_shift": "Leggings made out of §cStalinium\n\n§l§cIron Will of the Collective:§f\nWhen wearing the chestplate alongside the leggings, gain Resistance I.\n\n§fFull Armor Set Bonus:\n§l§cPower of the Many: Gain more hearts the more allies are nearby."
 }
