@@ -41,7 +41,7 @@ public class ModItems {
                     .attributes(HoeItem.createAttributes(ModTiers.STALINIUM, 1.0f, -3.0f))));
 
     public static final DeferredItem<ArmorItem> STALINIUM_HELMET = ITEMS.register("stalinium_helmet",
-            () -> new ModArmorItem(ModArmorMaterials.STALINIUM_ARMOR_MATERIAL, ArmorItem.Type.HELMET,
+            () -> new StaliniumHelmetItem(ModArmorMaterials.STALINIUM_ARMOR_MATERIAL, ArmorItem.Type.HELMET,
                     new Item.Properties().durability(ArmorItem.Type.HELMET.getDurability(19))));
 
     public static final DeferredItem<ArmorItem> STALINIUM_CHESTPLATE = ITEMS.register("stalinium_chestplate",
