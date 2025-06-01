@@ -54,8 +54,10 @@
   "item.minecraft.potion.effect.vodka": "Bottle of Vodka",
   "item.minecraft.splash_potion.effect.vodka": "Throwable Bottle of Vodka",
   "item.minecraft.lingering_potion.effect.vodka": "Lingering Bottle of Vodka",
+  "item.minecraft.tipped_arrow.effect.vodka": "Arrow of Vodka",
 
   "item.minecraft.potion.effect.weapons_grade_vodka": "Weapons Grade Vodka",
   "item.minecraft.splash_potion.effect.weapons_grade_vodka": "Throwable Weapons Grade Vodka",
-  "item.minecraft.lingering_potion.effect.weapons_grade_vodka": "Lingering Weapons Grade Vodka"
+  "item.minecraft.lingering_potion.effect.weapons_grade_vodka": "Lingering Weapons Grade Vodka",
+  "item.minecraft.tipped_arrow.effect.weapons_grade_vodka": "Arrow of Weapons Grade Vodka"
 }
