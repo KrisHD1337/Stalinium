@@ -3,10 +3,12 @@ package net.krituximon.stalinium;
 import net.krituximon.stalinium.block.ModBlocks;
 import net.krituximon.stalinium.block.entity.ModBlockEntities;
 import net.krituximon.stalinium.effect.ModEffects;
+import net.krituximon.stalinium.event.ModEvents;
 import net.krituximon.stalinium.item.ModCreativeModeTabs;
 import net.krituximon.stalinium.item.ModItems;
 import net.krituximon.stalinium.particle.BloodParticle;
 import net.krituximon.stalinium.particle.ModParticles;
+import net.krituximon.stalinium.potion.ModPotions;
 import net.krituximon.stalinium.recipe.ModRecipes;
 import net.krituximon.stalinium.screen.ModMenuTypes;
 import net.krituximon.stalinium.screen.custom.StaliniumPressScreen;
@@ -74,6 +76,7 @@ public class Stalinium
         ModBlockEntities.register(modEventBus);
         ModMenuTypes.register(modEventBus);
         ModEffects.register(modEventBus);
+        ModPotions.register(modEventBus);
     }
 
     private void commonSetup(final FMLCommonSetupEvent event)

@@ -49,5 +49,13 @@
   "item.stalinium_chestplate.tooltip_shift": "Chestplate made out of §cStalinium\n\n§l§cIron Will of the Collective:§f\nWhen wearing the chestplate alongside the leggings, gain Resistance I.\n\n§fFull Armor Set Bonus:\n§l§cPower of the Many: Gain more hearts the more allies are nearby.",
 
   "item.stalinium_leggings.tooltip": "Leggings made out of §cStalinium\n\n§l§cIron Will of the Collective\n\n§fFull Armor Set Bonus:\n§l§cPower of the Many\n\n§f(Shift to expand)",
-  "item.stalinium_leggings.tooltip_shift": "Leggings made out of §cStalinium\n\n§l§cIron Will of the Collective:§f\nWhen wearing the chestplate alongside the leggings, gain Resistance I.\n\n§fFull Armor Set Bonus:\n§l§cPower of the Many: Gain more hearts the more allies are nearby."
+  "item.stalinium_leggings.tooltip_shift": "Leggings made out of §cStalinium\n\n§l§cIron Will of the Collective:§f\nWhen wearing the chestplate alongside the leggings, gain Resistance I.\n\n§fFull Armor Set Bonus:\n§l§cPower of the Many: Gain more hearts the more allies are nearby.",
+  
+  "item.minecraft.potion.effect.vodka": "Bottle of Vodka",
+  "item.minecraft.splash_potion.effect.vodka": "Throwable Bottle of Vodka",
+  "item.minecraft.lingering_potion.effect.vodka": "Lingering Bottle of Vodka",
+
+  "item.minecraft.potion.effect.weapons_grade_vodka": "Weapons Grade Vodka",
+  "item.minecraft.splash_potion.effect.weapons_grade_vodka": "Throwable Weapons Grade Vodka",
+  "item.minecraft.lingering_potion.effect.weapons_grade_vodka": "Lingering Weapons Grade Vodka"
 }
