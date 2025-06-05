@@ -13,26 +13,26 @@ public class StaliniumChargeEffect extends MobEffect {
         this.addAttributeModifier(
                 Attributes.MOVEMENT_SPEED,
                 ResourceLocation.fromNamespaceAndPath(Stalinium.MODID, "stalinium_charge_speed"),
-                0.15,
+                0.1,
                 AttributeModifier.Operation.ADD_MULTIPLIED_BASE
         );
         this.addAttributeModifier(
                 Attributes.KNOCKBACK_RESISTANCE,
                 ResourceLocation.fromNamespaceAndPath(Stalinium.MODID, "stalinium_charge_knockback"),
-                0.35,
+                0.33,
                 AttributeModifier.Operation.ADD_VALUE
         );
         this.addAttributeModifier(
                 Attributes.ATTACK_SPEED,
                 ResourceLocation.fromNamespaceAndPath(Stalinium.MODID, "stalinium_charge_toughness"),
-                0.1,
+                0.075,
                 AttributeModifier.Operation.ADD_MULTIPLIED_BASE
         );
         this.addAttributeModifier(
                 Attributes.ATTACK_DAMAGE,
                 ResourceLocation.fromNamespaceAndPath(Stalinium.MODID, "stalinium_charge_damage"),
-                0.1,
-                AttributeModifier.Operation.ADD_MULTIPLIED_BASE
+                1,
+                AttributeModifier.Operation.ADD_VALUE
         );
     }
 }

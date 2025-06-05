@@ -1,8 +1,11 @@
 package net.krituximon.stalinium;
 
+import com.mojang.brigadier.builder.LiteralArgumentBuilder;
+import com.mojang.brigadier.context.CommandContext;
 import net.krituximon.stalinium.block.ModBlocks;
 import net.krituximon.stalinium.block.entity.ModBlockEntities;
 import net.krituximon.stalinium.effect.ModEffects;
+import net.krituximon.stalinium.event.ComradeHandler;
 import net.krituximon.stalinium.event.ModEvents;
 import net.krituximon.stalinium.item.ModCreativeModeTabs;
 import net.krituximon.stalinium.item.ModItems;
@@ -15,8 +18,11 @@ import net.krituximon.stalinium.screen.custom.StaliniumPressScreen;
 import net.krituximon.stalinium.sound.ModSounds;
 import net.krituximon.stalinium.util.PlayerLogEvents;
 import net.krituximon.stalinium.worldgen.ModFeatures;
+import net.minecraft.commands.CommandSourceStack;
+import net.minecraft.network.chat.Component;
 import net.neoforged.neoforge.client.event.RegisterMenuScreensEvent;
 import net.neoforged.neoforge.client.event.RegisterParticleProvidersEvent;
+import net.neoforged.neoforge.event.RegisterCommandsEvent;
 import org.slf4j.Logger;
 
 import com.mojang.logging.LogUtils;
@@ -36,6 +42,8 @@ import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.event.BuildCreativeModeTabContentsEvent;
 import net.neoforged.neoforge.event.server.ServerStartingEvent;
+
+import java.util.function.Supplier;
 
 // The value here should match an entry in the META-INF/neoforge.mods.toml file
 @Mod(Stalinium.MODID)
@@ -77,6 +85,7 @@ public class Stalinium
         ModMenuTypes.register(modEventBus);
         ModEffects.register(modEventBus);
         ModPotions.register(modEventBus);
+        NeoForge.EVENT_BUS.register(ComradeHandler.class);
     }
 
     private void commonSetup(final FMLCommonSetupEvent event)
