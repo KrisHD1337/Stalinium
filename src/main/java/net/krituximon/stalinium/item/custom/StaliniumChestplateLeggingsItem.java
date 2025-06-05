@@ -1,6 +1,7 @@
 package net.krituximon.stalinium.item.custom;
 
 import com.google.common.collect.ImmutableMap;
+import net.krituximon.stalinium.event.ComradeHandler;
 import net.krituximon.stalinium.item.ModArmorMaterials;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.core.Holder;
@@ -16,10 +17,9 @@ import net.minecraft.world.item.ArmorMaterial;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.phys.AABB;
-
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 public class StaliniumChestplateLeggingsItem extends ArmorItem {
     private static final Map<Holder<ArmorMaterial>, List<MobEffectInstance>> MATERIAL_TO_EFFECT_MAP =
@@ -28,22 +28,30 @@ public class StaliniumChestplateLeggingsItem extends ArmorItem {
                             List.of(new MobEffectInstance(MobEffects.DAMAGE_RESISTANCE, 100, 0, false, false)))
                     .build();
 
-    public StaliniumChestplateLeggingsItem(Holder<ArmorMaterial> material, Type type, Properties properties) {
+    public StaliniumChestplateLeggingsItem(Holder<ArmorMaterial> material,
+                                           Type type,
+                                           Properties properties) {
         super(material, type, properties);
     }
 
     @Override
-    public void inventoryTick(ItemStack stack, Level level, Entity entity, int slotId, boolean isSelected) {
-        if (entity instanceof Player player && !level.isClientSide() && hasChestAndLeggingsOn(player)) {
+    public void inventoryTick(ItemStack stack,
+                              Level level,
+                              Entity entity,
+                              int slotId,
+                              boolean isSelected) {
+        if (level.isClientSide || !(entity instanceof Player)) return;
+        Player player = (Player) entity;
+        if (hasChestAndLeggingsOn(player)) {
             evaluateArmorEffects(player);
         }
     }
 
     private void evaluateArmorEffects(Player player) {
-        for (Map.Entry<Holder<ArmorMaterial>, List<MobEffectInstance>> entry : MATERIAL_TO_EFFECT_MAP.entrySet()) {
+        for (Map.Entry<Holder<ArmorMaterial>, List<MobEffectInstance>> entry
+                : MATERIAL_TO_EFFECT_MAP.entrySet()) {
             Holder<ArmorMaterial> mapArmorMaterial = entry.getKey();
             List<MobEffectInstance> mapEffect = entry.getValue();
-
             if (hasPlayerCorrectArmorOn(mapArmorMaterial, player)) {
                 addEffectToPlayer(player, mapEffect);
             }
@@ -51,33 +59,43 @@ public class StaliniumChestplateLeggingsItem extends ArmorItem {
     }
 
     private void addEffectToPlayer(Player player, List<MobEffectInstance> mapEffect) {
-        AABB box = player.getBoundingBox().inflate(5.0);
-        List<Player> allies = player.level().getEntitiesOfClass(
-                Player.class,
-                box,
-                p -> p instanceof ServerPlayer && player.isAlliedTo(p)
-        );
-
         for (MobEffectInstance effect : mapEffect) {
             player.addEffect(new MobEffectInstance(
                     effect.getEffect(),
                     effect.getDuration(),
                     effect.getAmplifier(),
                     effect.isAmbient(),
-                    effect.isVisible()));
-            for (Player ally : allies) {
-                ally.addEffect(new MobEffectInstance(
-                        effect.getEffect(),
-                        effect.getDuration(),
-                        effect.getAmplifier(),
-                        effect.isAmbient(),
-                        effect.isVisible()
-                ));
+                    effect.isVisible()
+            ));
+            for (ComradeHandler.Party party : ComradeHandler.PARTIES.values()) {
+                if (party.isMember(player.getUUID())) {
+                    ServerPlayer serverPlayer = (ServerPlayer) player;
+                    for (UUID memberUuid : party.members) {
+                        if (memberUuid.equals(player.getUUID())) continue;
+                        ServerPlayer online = serverPlayer.level()
+                                .getServer()
+                                .getPlayerList()
+                                .getPlayer(memberUuid);
+                        if (online != null) {
+                            if (online.distanceTo(player) <= 5.0) {
+                                online.addEffect(new MobEffectInstance(
+                                        effect.getEffect(),
+                                        effect.getDuration(),
+                                        effect.getAmplifier(),
+                                        effect.isAmbient(),
+                                        effect.isVisible()
+                                ));
+                            }
+                        }
+                    }
+                    break;
+                }
             }
         }
     }
 
-    private boolean hasPlayerCorrectArmorOn(Holder<ArmorMaterial> mapArmorMaterial, Player player) {
+    private boolean hasPlayerCorrectArmorOn(Holder<ArmorMaterial> mapArmorMaterial,
+                                            Player player) {
         ItemStack leggingsStack   = player.getInventory().getArmor(1);
         ItemStack chestplateStack = player.getInventory().getArmor(2);
 
@@ -87,11 +105,11 @@ public class StaliniumChestplateLeggingsItem extends ArmorItem {
         ArmorItem leggingsItem   = (ArmorItem) leggingsStack.getItem();
         ArmorItem chestplateItem = (ArmorItem) chestplateStack.getItem();
         return leggingsItem.getMaterial()   == mapArmorMaterial
-            && chestplateItem.getMaterial() == mapArmorMaterial;
+                && chestplateItem.getMaterial() == mapArmorMaterial;
     }
 
     private boolean hasChestAndLeggingsOn(Player player) {
-        ItemStack leggings = player.getInventory().getArmor(1);
+        ItemStack leggings   = player.getInventory().getArmor(1);
         ItemStack chestplate = player.getInventory().getArmor(2);
         return !leggings.isEmpty() && !chestplate.isEmpty();
     }
@@ -107,19 +125,23 @@ public class StaliniumChestplateLeggingsItem extends ArmorItem {
     }
 
     @Override
-    public void appendHoverText(ItemStack stack, TooltipContext context, List<Component> tooltipComponents, TooltipFlag tooltipFlag) {
+    public void appendHoverText(ItemStack stack,
+                                net.minecraft.world.item.Item.TooltipContext context,
+                                List<Component> tooltipComponents,
+                                TooltipFlag tooltipFlag) {
         super.appendHoverText(stack, context, tooltipComponents, tooltipFlag);
         boolean shift = Screen.hasShiftDown();
         EquipmentSlot slot = this.getEquipmentSlot();
         if (slot == EquipmentSlot.CHEST) {
             tooltipComponents.add( shift
                     ? Component.translatable("item.stalinium_chestplate.tooltip_shift")
-                    : Component.translatable("item.stalinium_chestplate.tooltip") );
+                    : Component.translatable("item.stalinium_chestplate.tooltip")
+            );
         } else if (slot == EquipmentSlot.LEGS) {
             tooltipComponents.add( shift
                     ? Component.translatable("item.stalinium_leggings.tooltip_shift")
-                    : Component.translatable("item.stalinium_leggings.tooltip") );
+                    : Component.translatable("item.stalinium_leggings.tooltip")
+            );
         }
     }
-
 }

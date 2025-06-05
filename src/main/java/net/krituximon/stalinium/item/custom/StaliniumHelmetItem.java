@@ -23,11 +23,6 @@ public class StaliniumHelmetItem extends ArmorItem {
     public StaliniumHelmetItem(Holder<ArmorMaterial> material, Type slot, Properties props) {
         super(material, slot, props);
     }
-
-    /**
-     * Static subscriber that listens for when *any* player attacks an entity.
-     * If the attacker is wearing our helmet, we give the target Glowing for 10 s.
-     */
     @EventBusSubscriber(modid = Stalinium.MODID)
     public static class HitSubscriber {
         @SubscribeEvent

@@ -37,22 +37,22 @@ import java.util.concurrent.ConcurrentHashMap;
 )
 public class ComradeHandler {
     /** Maps each party leader → Party object.  Only the leader’s UUID is the key. */
-    private static final Map<UUID, Party> PARTIES = new ConcurrentHashMap<>();
+    public static final Map<UUID, Party> PARTIES = new ConcurrentHashMap<>();
 
     /** If player X has been invited by leader Y, pendingInvites maps X → Y. */
     private static final Map<UUID, UUID> PENDING_INVITES = new ConcurrentHashMap<>();
 
     /** A small helper class to store party data. */
-    private static class Party {
+    public static class Party {
         final UUID leader;
-        final Set<UUID> members = ConcurrentHashMap.newKeySet();
+        public final Set<UUID> members = ConcurrentHashMap.newKeySet();
 
         Party(UUID leader) {
             this.leader = leader;
             this.members.add(leader);
         }
 
-        boolean isMember(UUID uuid) {
+        public boolean isMember(UUID uuid) {
             return members.contains(uuid);
         }
 
@@ -69,7 +69,7 @@ public class ComradeHandler {
         }
     }
     
-    private static Optional<Party> findPartyOf(UUID uuid) {
+    public static Optional<Party> findPartyOf(UUID uuid) {
         return PARTIES.values().stream()
                 .filter(p -> p.isMember(uuid))
                 .findAny();

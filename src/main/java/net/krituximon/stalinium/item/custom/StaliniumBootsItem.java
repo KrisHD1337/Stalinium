@@ -1,12 +1,13 @@
 package net.krituximon.stalinium.item.custom;
 
-import net.krituximon.stalinium.item.ModArmorMaterials;
+import net.krituximon.stalinium.event.ComradeHandler;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.core.Holder;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
+import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ArmorItem;
@@ -14,8 +15,8 @@ import net.minecraft.world.item.ArmorMaterial;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.phys.AABB;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
@@ -31,31 +32,53 @@ public class StaliniumBootsItem extends ArmorItem {
     }
 
     @Override
-    public void inventoryTick(ItemStack stack, Level level, Entity entity, int slotId, boolean isSelected) {
-        if (level.isClientSide() || !(entity instanceof Player player)) return;
-        ItemStack boots = player.getInventory().getArmor(0);
-        if (boots.getItem() != this) return;
+    public void inventoryTick(ItemStack stack,
+                              Level level,
+                              Entity entity,
+                              int slotId,
+                              boolean isSelected) {
+        if (level.isClientSide || !(entity instanceof Player)) return;
+        Player player = (Player) entity;
+        ItemStack feet = player.getItemBySlot(EquipmentSlot.FEET);
+        if (feet.getItem() != this) return;
         UUID id = player.getUUID();
         int ticks = sprintTicks.getOrDefault(id, 0);
         if (player.isSprinting()) {
             ticks++;
             if (ticks >= SPRINT_THRESHOLD) {
                 ticks = 0;
-                player.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SPEED, 5 * 20, 0, false, true));
-                AABB area = player.getBoundingBox().inflate(RADIUS);
-                List<Player> allies = level.getEntitiesOfClass(
-                        Player.class,
-                        area,
-                        p -> p instanceof ServerPlayer && p != player && player.isAlliedTo(p)
-                );
-                MobEffectInstance buff = new MobEffectInstance(MobEffects.MOVEMENT_SPEED, 5 * 20, 0, false, true);
+                player.addEffect(new MobEffectInstance(
+                        MobEffects.MOVEMENT_SPEED, 5 * 20, 0, false, true
+                ));
+                List<Player> allies = new ArrayList<>();
+                for (ComradeHandler.Party party : ComradeHandler.PARTIES.values()) {
+                    if (party.isMember(player.getUUID())) {
+                        ServerPlayer serverPlayer = (ServerPlayer) player;
+                        for (UUID memberUuid : party.members) {
+                            if (memberUuid.equals(player.getUUID())) continue;
+                            ServerPlayer online = serverPlayer.level()
+                                    .getServer()
+                                    .getPlayerList()
+                                    .getPlayer(memberUuid);
+                            if (online != null && online.distanceTo(player) <= RADIUS) {
+                                allies.add(online);
+                            }
+                        }
+                        break;
+                    }
+                }
+
+                // Apply Speed I to each ally
                 for (Player ally : allies) {
-                    ally.addEffect(buff);
+                    ally.addEffect(new MobEffectInstance(
+                            MobEffects.MOVEMENT_SPEED, 5 * 20, 0, false, true
+                    ));
                 }
             }
         } else {
             ticks = 0;
         }
+
         sprintTicks.put(id, ticks);
     }
 
@@ -63,14 +86,18 @@ public class StaliniumBootsItem extends ArmorItem {
     public boolean isDamageable(ItemStack stack) {
         return false;
     }
+
     @Override
     public boolean isDamaged(ItemStack stack) {
         return false;
     }
 
     @Override
-    public void appendHoverText(ItemStack stack, TooltipContext context, List<Component> tooltipComponents, TooltipFlag tooltipFlag) {
-        if(Screen.hasShiftDown()) {
+    public void appendHoverText(ItemStack stack,
+                                net.minecraft.world.item.Item.TooltipContext context,
+                                List<Component> tooltipComponents,
+                                TooltipFlag tooltipFlag) {
+        if (Screen.hasShiftDown()) {
             tooltipComponents.add(Component.translatable("item.stalinium_boots.tooltip_shift"));
         } else {
             tooltipComponents.add(Component.translatable("item.stalinium_boots.tooltip"));
