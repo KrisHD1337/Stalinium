@@ -158,7 +158,6 @@ public class ComradeHandler {
                                         })
                                 )
                         )
-                        // /comrade accept <leader>
                         .then(Commands.literal("accept")
                                 .then(Commands.argument("leader", EntityArgument.player())
                                         .executes(ctx -> {
@@ -196,7 +195,6 @@ public class ComradeHandler {
                                         })
                                 )
                         )
-                        // /comrade remove <player>
                         .then(Commands.literal("remove")
                                 .then(Commands.argument("player", EntityArgument.player())
                                         .executes(ctx -> {

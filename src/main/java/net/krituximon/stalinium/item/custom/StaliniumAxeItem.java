@@ -26,6 +26,7 @@ import java.util.*;
 
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.tags.BlockTags;
+import org.jetbrains.annotations.NotNull;
 
 public class StaliniumAxeItem extends AxeItem {
     public StaliniumAxeItem(Tier tier, Properties properties) {
@@ -33,20 +34,20 @@ public class StaliniumAxeItem extends AxeItem {
     }
 
     @Override
-    public boolean mineBlock(ItemStack stack,
+    public boolean mineBlock(@NotNull ItemStack stack,
                              Level level,
-                             BlockState state,
-                             BlockPos pos,
-                             LivingEntity miningEntity) {
+                             @NotNull BlockState state,
+                             @NotNull BlockPos pos,
+                             @NotNull LivingEntity miningEntity) {
         if (!level.isClientSide() && state.is(BlockTags.LOGS) && miningEntity instanceof Player) {
             cutDownTree(level, pos, (Player) miningEntity, stack);
             return true;
         }
-        return true; // allow the chain to continue
+        return true;
     }
 
     @Override
-    public boolean hurtEnemy(ItemStack stack, LivingEntity target, LivingEntity attacker) {
+    public boolean hurtEnemy(@NotNull ItemStack stack, LivingEntity target, LivingEntity attacker) {
         return true;
     }
 
