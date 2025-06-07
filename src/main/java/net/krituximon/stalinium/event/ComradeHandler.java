@@ -18,55 +18,25 @@ import net.neoforged.neoforge.event.entity.player.AttackEntityEvent;
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 
-/**
- * Party/”comrade” handler.  
- *
- * Commands:
- *   /comrade party create
- *   /comrade invite <player>
- *   /comrade accept <leader>
- *   /comrade remove <member>
- *   /comrade list
- *
- * Only the party “leader” can remove others.  Invites must be accepted by the target.  
- * If you invite someone but you aren’t yet in a party, you automatically become leader of a new party.
- */
 @EventBusSubscriber(
         modid = Stalinium.MODID,
         bus   = EventBusSubscriber.Bus.GAME
 )
 public class ComradeHandler {
-    /** Maps each party leader → Party object.  Only the leader’s UUID is the key. */
     public static final Map<UUID, Party> PARTIES = new ConcurrentHashMap<>();
-
-    /** If player X has been invited by leader Y, pendingInvites maps X → Y. */
     private static final Map<UUID, UUID> PENDING_INVITES = new ConcurrentHashMap<>();
 
-    /** A small helper class to store party data. */
     public static class Party {
-        final UUID leader;
+        public final UUID leader;
         public final Set<UUID> members = ConcurrentHashMap.newKeySet();
-
-        Party(UUID leader) {
+        public Party(UUID leader) {
             this.leader = leader;
             this.members.add(leader);
         }
-
-        public boolean isMember(UUID uuid) {
-            return members.contains(uuid);
-        }
-
-        void addMember(UUID uuid) {
-            members.add(uuid);
-        }
-
-        void removeMember(UUID uuid) {
-            members.remove(uuid);
-        }
-
-        boolean isLeader(UUID uuid) {
-            return leader.equals(uuid);
-        }
+        public boolean isMember(UUID u) { return members.contains(u); }
+        public boolean isLeader(UUID u) { return leader.equals(u); }
+        public void addMember(UUID u)    { members.add(u); }
+        public void removeMember(UUID u) { members.remove(u); }
     }
     
     public static Optional<Party> findPartyOf(UUID uuid) {
@@ -75,10 +45,10 @@ public class ComradeHandler {
                 .findAny();
     }
     
-    private static Optional<Party> findPartyByLeader(UUID leaderUuid) {
-        return Optional.ofNullable(PARTIES.get(leaderUuid));
+    private static Optional<Party> findPartyByLeader(UUID leader) {
+        return Optional.ofNullable(PARTIES.get(leader));
     }
-    
+
     @SubscribeEvent
     public static void onRegisterCommands(RegisterCommandsEvent event) {
         event.getDispatcher().register(
@@ -87,224 +57,193 @@ public class ComradeHandler {
                                 .then(Commands.literal("create")
                                         .executes(ctx -> {
                                             ServerPlayer sender = ctx.getSource().getPlayerOrException();
-                                            UUID senderId = sender.getUUID();
-
-                                            // If sender is already in a party, do nothing.
-                                            if (findPartyOf(senderId).isPresent()) {
-                                                ctx.getSource().sendFailure(
-                                                        Component.literal("§eYou are already in a party.")
-                                                );
+                                            UUID me = sender.getUUID();
+                                            if (findPartyOf(me).isPresent()) {
+                                                ctx.getSource().sendFailure(Component.literal("§eYou are already in a party."));
                                                 return 0;
                                             }
-                                            Party newParty = new Party(senderId);
-                                            PARTIES.put(senderId, newParty);
-                                            ctx.getSource().sendSuccess(
-                                                    () -> Component.literal("§aParty created. You are now the leader."),
-                                                    false
-                                            );
+                                            PARTIES.put(me, new Party(me));
+                                            ctx.getSource().sendSuccess(() -> Component.literal("§aParty created. You are now the leader."), false);
                                             return 1;
                                         })
                                 )
-                        )
-                        .then(Commands.literal("invite")
-                                .then(Commands.argument("player", EntityArgument.player())
-                                        .executes(ctx -> {
-                                            ServerPlayer sender = ctx.getSource().getPlayerOrException();
-                                            ServerPlayer target = EntityArgument.getPlayer(ctx, "player");
-                                            UUID senderId = sender.getUUID();
-                                            UUID targetId = target.getUUID();
-                                            if (senderId.equals(targetId)) {
-                                                ctx.getSource().sendFailure(
-                                                        Component.literal("§eYou cannot invite yourself.")
-                                                );
-                                                return 0;
-                                            }
-                                            Optional<Party> senderPartyOpt = findPartyOf(senderId);
-                                            if (senderPartyOpt.isPresent()) {
-                                                Party party = senderPartyOpt.get();
-                                                if (party.isMember(targetId)) {
-                                                    ctx.getSource().sendFailure(
-                                                            Component.literal("§eThat player is already in your party.")
-                                                    );
-                                                    return 0;
-                                                }
-                                            } else {
-                                                Party auto = new Party(senderId);
-                                                PARTIES.put(senderId, auto);
-                                                senderPartyOpt = Optional.of(auto);
-                                                ctx.getSource().sendSuccess(
-                                                        () -> Component.literal("§aNo party found, so one was automatically created. You are now leader."),
-                                                        false
-                                                );
-                                            }
-                                            Party party = senderPartyOpt.get();
-                                            if (!party.isLeader(senderId)) {
-                                                ctx.getSource().sendFailure(
-                                                        Component.literal("§eOnly the party leader can invite new comrades.")
-                                                );
-                                                return 0;
-                                            }
-                                            PENDING_INVITES.put(targetId, senderId);
-                                            target.sendSystemMessage(
-                                                    Component.literal("§6" + sender.getName().getString()
-                                                            + " §awants you to join their party. Type §e/comrade accept "
-                                                            + sender.getName().getString() + " §ato accept.")
-                                            );
-                                            ctx.getSource().sendSuccess(
-                                                    () -> Component.literal("§aInvitation sent to §6" + target.getName().getString() + "§a."),
-                                                    false
-                                            );
-                                            return 1;
-                                        })
-                                )
-                        )
-                        .then(Commands.literal("accept")
-                                .then(Commands.argument("leader", EntityArgument.player())
-                                        .executes(ctx -> {
-                                            ServerPlayer accepter = ctx.getSource().getPlayerOrException();
-                                            ServerPlayer leader = EntityArgument.getPlayer(ctx, "leader");
-                                            UUID accepterId = accepter.getUUID();
-                                            UUID leaderId = leader.getUUID();
-                                            UUID expected = PENDING_INVITES.get(accepterId);
-                                            if (expected == null || !expected.equals(leaderId)) {
-                                                ctx.getSource().sendFailure(
-                                                        Component.literal("§eNo invitation found from that leader.")
-                                                );
-                                                return 0;
-                                            }
-
-                                            // Find (or create) the leader’s party:
-                                            Party party = findPartyByLeader(leaderId)
-                                                    .orElseGet(() -> {
-                                                        Party brandNew = new Party(leaderId);
-                                                        PARTIES.put(leaderId, brandNew);
-                                                        return brandNew;
+                                .then(Commands.literal("invite")
+                                        .then(Commands.argument("player", EntityArgument.player())
+                                                .executes(ctx -> {
+                                                    ServerPlayer leader = ctx.getSource().getPlayerOrException();
+                                                    ServerPlayer target = EntityArgument.getPlayer(ctx, "player");
+                                                    UUID lid = leader.getUUID(), tid = target.getUUID();
+                                                    if (lid.equals(tid)) {
+                                                        ctx.getSource().sendFailure(Component.literal("§eYou cannot invite yourself."));
+                                                        return 0;
+                                                    }
+                                                    // ensure party exists & you are leader
+                                                    Party party = findPartyOf(lid).orElseGet(() -> {
+                                                        Party auto = new Party(lid);
+                                                        PARTIES.put(lid, auto);
+                                                        ctx.getSource().sendSuccess(() -> Component.literal("§aNo existing party—one was created for you."), false);
+                                                        return auto;
                                                     });
-
-                                            // Add this player to that party:
-                                            party.addMember(accepterId);
-                                            PENDING_INVITES.remove(accepterId);
-
-                                            accepter.sendSystemMessage(
-                                                    Component.literal("§aYou have joined §6" + leader.getName().getString() + "§a’s party.")
-                                            );
-                                            leader.sendSystemMessage(
-                                                    Component.literal("§a" + accepter.getName().getString() + " §ais now your comrade.")
-                                            );
-                                            return 1;
-                                        })
+                                                    if (!party.isLeader(lid)) {
+                                                        ctx.getSource().sendFailure(Component.literal("§eOnly the party leader can invite."));
+                                                        return 0;
+                                                    }
+                                                    if (party.isMember(tid)) {
+                                                        ctx.getSource().sendFailure(Component.literal("§eThat player is already in your party."));
+                                                        return 0;
+                                                    }
+                                                    PENDING_INVITES.put(tid, lid);
+                                                    target.sendSystemMessage(Component.literal(
+                                                            "§6" + leader.getName().getString()
+                                                                    + " §awants you to join their party! Type §e/comrade party accept "
+                                                                    + leader.getName().getString() + "§a."
+                                                    ));
+                                                    ctx.getSource().sendSuccess(() ->
+                                                            Component.literal("§aInvitation sent to §6" + target.getName().getString()), false);
+                                                    return 1;
+                                                })
+                                        )
                                 )
-                        )
-                        .then(Commands.literal("remove")
-                                .then(Commands.argument("player", EntityArgument.player())
+                                .then(Commands.literal("accept")
+                                        .then(Commands.argument("leader", EntityArgument.player())
+                                                .executes(ctx -> {
+                                                    ServerPlayer you    = ctx.getSource().getPlayerOrException();
+                                                    ServerPlayer leader= EntityArgument.getPlayer(ctx,"leader");
+                                                    UUID yid = you.getUUID(), lid = leader.getUUID();
+                                                    if (!Objects.equals(PENDING_INVITES.get(yid), lid)) {
+                                                        ctx.getSource().sendFailure(Component.literal("§eNo invitation found from that leader."));
+                                                        return 0;
+                                                    }
+                                                    Party party = findPartyByLeader(lid)
+                                                            .orElseGet(() -> {
+                                                                Party p = new Party(lid);
+                                                                PARTIES.put(lid, p);
+                                                                return p;
+                                                            });
+                                                    party.addMember(yid);
+                                                    PENDING_INVITES.remove(yid);
+                                                    you.sendSystemMessage(Component.literal("§aYou joined §6" + leader.getName().getString() + "§a’s party."));
+                                                    leader.sendSystemMessage(Component.literal("§a" + you.getName().getString() + " §ais now your comrade."));
+                                                    return 1;
+                                                })
+                                        )
+                                )
+                                .then(Commands.literal("remove")
+                                        .then(Commands.argument("player", EntityArgument.player())
+                                                .executes(ctx -> {
+                                                    ServerPlayer leader = ctx.getSource().getPlayerOrException();
+                                                    ServerPlayer target = EntityArgument.getPlayer(ctx,"player");
+                                                    UUID lid = leader.getUUID(), tid = target.getUUID();
+                                                    Optional<Party> opt = findPartyOf(lid);
+                                                    if (opt.isEmpty()) {
+                                                        ctx.getSource().sendFailure(Component.literal("§eYou have no party."));
+                                                        return 0;
+                                                    }
+                                                    Party party = opt.get();
+                                                    if (!party.isLeader(lid)) {
+                                                        ctx.getSource().sendFailure(Component.literal("§eOnly the leader can remove."));
+                                                        return 0;
+                                                    }
+                                                    if (!party.isMember(tid)) {
+                                                        ctx.getSource().sendFailure(Component.literal("§eThat player is not in your party."));
+                                                        return 0;
+                                                    }
+                                                    party.removeMember(tid);
+                                                    target.sendSystemMessage(Component.literal(
+                                                            "§cYou have been removed from §6" + leader.getName().getString() + "§c’s party."
+                                                    ));
+                                                    ctx.getSource().sendSuccess(() ->
+                                                            Component.literal("§aRemoved “" + target.getName().getString() + "”."), false);
+                                                    return 1;
+                                                })
+                                        )
+                                )
+                                .then(Commands.literal("leave")
                                         .executes(ctx -> {
-                                            ServerPlayer sender = ctx.getSource().getPlayerOrException();
-                                            ServerPlayer toRemove = EntityArgument.getPlayer(ctx, "player");
-                                            UUID senderId   = sender.getUUID();
-                                            UUID removeId   = toRemove.getUUID();
-                                            Optional<Party> maybeParty = findPartyOf(senderId);
-                                            if (maybeParty.isEmpty()) {
-                                                ctx.getSource().sendFailure(
-                                                        Component.literal("§eYou are not comrades with anyone.")
-                                                );
+                                            ServerPlayer you = ctx.getSource().getPlayerOrException();
+                                            UUID youId = you.getUUID();
+                                            Optional<Party> opt = findPartyOf(youId);
+                                            if (opt.isEmpty()) {
+                                                ctx.getSource().sendFailure(Component.literal("§eYou are not in a party."));
                                                 return 0;
                                             }
-                                            Party party = maybeParty.get();
-                                            if (!party.isLeader(senderId)) {
-                                                ctx.getSource().sendFailure(
-                                                        Component.literal("§eOnly the party leader may remove members.")
-                                                );
+                                            Party party = opt.get();
+                                            if (party.isLeader(youId)) {
+                                                ctx.getSource().sendFailure(Component.literal(
+                                                        "§eYou are the leader — use /comrade party disband to tear it down."));
                                                 return 0;
                                             }
-                                            if (removeId.equals(senderId)) {
-                                                ctx.getSource().sendFailure(
-                                                        Component.literal("§eYou cannot remove yourself from your own party.")
-                                                );
-                                                return 0;
-                                            }
-                                            if (!party.isMember(removeId)) {
-                                                ctx.getSource().sendFailure(
-                                                        Component.literal("§eThat player is not one of your comrades.")
-                                                );
-                                                return 0;
-                                            }
-
-                                            party.removeMember(removeId);
-                                            toRemove.sendSystemMessage(
-                                                    Component.literal("§cYou are no longer "
-                                                            + sender.getName().getString() + "'s comrade.")
-                                            );
-                                            ctx.getSource().sendSuccess(
-                                                    () -> Component.literal("§a“" + toRemove.getName().getString()
-                                                            + "” is no longer your comrade."),
-                                                    false
-                                            );
-                                            if (party.members.size() == 1 && party.isLeader(senderId)) {
-                                                PARTIES.remove(senderId);
-                                                sender.sendSystemMessage(
-                                                        Component.literal("§6Your party was disbanded (no more members).")
-                                                );
+                                            party.removeMember(youId);
+                                            you.sendSystemMessage(Component.literal("§cYou left the party."));
+                                            MinecraftServer srv = ctx.getSource().getServer();
+                                            ServerPlayer leader = srv.getPlayerList().getPlayer(party.leader);
+                                            if (leader != null) {
+                                                leader.sendSystemMessage(Component.literal(
+                                                        "§e" + you.getName().getString() + " has left your party."));
                                             }
                                             return 1;
                                         })
                                 )
-                        )
-                        .then(Commands.literal("list")
-                                .executes(ctx -> {
-                                    ServerPlayer sender = ctx.getSource().getPlayerOrException();
-                                    UUID senderId = sender.getUUID();
-                                    Optional<Party> maybeParty = findPartyOf(senderId);
-                                    if (maybeParty.isEmpty()) {
-                                        ctx.getSource().sendSuccess(
-                                                () -> Component.literal("§eYou are not in a party."),
-                                                false
-                                        );
-                                        return 0;
-                                    }
-                                    Party party = maybeParty.get();
-                                    MinecraftServer server = ctx.getSource().getServer();
-                                    List<String> displayNames = new ArrayList<>();
-                                    for (UUID memberUuid : party.members) {
-                                        ServerPlayer online = server.getPlayerList().getPlayer(memberUuid);
-                                        if (online != null) {
-                                            displayNames.add(online.getName().getString());
-                                        } else {
-                                            displayNames.add(memberUuid.toString());
-                                        }
-                                    }
-                                    String joined = String.join(", ", displayNames);
-                                    ctx.getSource().sendSuccess(
-                                            () -> Component.literal("§6Party members: §f" + joined),
-                                            false
-                                    );
-                                    return 1;
-                                })
+                                .then(Commands.literal("disband")
+                                        .executes(ctx -> {
+                                            ServerPlayer leader = ctx.getSource().getPlayerOrException();
+                                            UUID lid = leader.getUUID();
+                                            Optional<Party> opt = findPartyByLeader(lid);
+                                            if (opt.isEmpty()) {
+                                                ctx.getSource().sendFailure(Component.literal("§eYou are not leading any party."));
+                                                return 0;
+                                            }
+                                            Party party = opt.get();
+                                            MinecraftServer srv = ctx.getSource().getServer();
+                                            party.members.forEach(m -> {
+                                                ServerPlayer p = srv.getPlayerList().getPlayer(m);
+                                                if (p != null) {
+                                                    p.sendSystemMessage(Component.literal("§cYour party has been disbanded."));
+                                                }
+                                            });
+                                            PENDING_INVITES.entrySet().removeIf(e -> e.getValue().equals(lid));
+                                            PARTIES.remove(lid);
+
+                                            return 1;
+                                        })
+                                )
+                                .then(Commands.literal("list")
+                                        .executes(ctx -> {
+                                            ServerPlayer you = ctx.getSource().getPlayerOrException();
+                                            UUID youId = you.getUUID();
+                                            Optional<Party> opt = findPartyOf(youId);
+                                            if (opt.isEmpty()) {
+                                                ctx.getSource().sendSuccess(() -> Component.literal("§eYou are not in a party."), false);
+                                                return 0;
+                                            }
+                                            Party party = opt.get();
+                                            MinecraftServer srv = ctx.getSource().getServer();
+                                            List<String> names = new ArrayList<>();
+                                            for(UUID m : party.members){
+                                                ServerPlayer p = srv.getPlayerList().getPlayer(m);
+                                                names.add(p != null ? p.getName().getString() : m.toString());
+                                            }
+                                            String out = String.join(", ", names);
+                                            ctx.getSource().sendSuccess(() -> Component.literal("§6Party: §f" + out), false);
+                                            return 1;
+                                        })
+                                )
                         )
         );
     }
-    
+
     @SubscribeEvent
     public static void onPlayerAttackEntity(AttackEntityEvent event) {
-        LivingEntity source = event.getEntity();
-        if (source.level().isClientSide) return;
-        if (!(source instanceof Player)) return;
-
-        if (event.getTarget() instanceof ServerPlayer targetPlayer) {
-            UUID sourceId = source.getUUID();
-            UUID targetId = targetPlayer.getUUID();
-
-            // If both are in the same party, cancel damage:
-            Optional<Party> maybeParty = findPartyOf(sourceId);
-            if (maybeParty.isPresent()) {
-                Party party = maybeParty.get();
-                if (party.isMember(targetId)) {
-                    event.setCanceled(true);
-                    source.sendSystemMessage(
-                            Component.literal("§cYou cannot hurt your comrade “"
-                                    + targetPlayer.getName().getString() + "”!")
-                    );
-                }
-            }
+        LivingEntity src = event.getEntity();
+        if (src.level().isClientSide || !(src instanceof Player)) return;
+        if (!(event.getTarget() instanceof ServerPlayer victim)) return;
+        UUID a = src.getUUID(), b = victim.getUUID();
+        Optional<Party> opt = findPartyOf(a);
+        if (opt.isPresent() && opt.get().isMember(b)) {
+            event.setCanceled(true);
+            src.sendSystemMessage(Component.literal(
+                    "§cYou cannot hurt your comrade “" + victim.getName().getString() + "”!"
+            ));
         }
     }
 }
