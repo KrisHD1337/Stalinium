@@ -10,7 +10,6 @@ import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.ArmorItem;
 import net.minecraft.world.item.ArmorMaterial;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
@@ -22,7 +21,7 @@ import java.util.Map;
 import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
 
-public class StaliniumBootsItem extends ArmorItem {
+public class StaliniumBootsItem extends ModArmorItem {
     private static final int SPRINT_THRESHOLD = 5 * 20;
     private static final double RADIUS = 5.0;
     private static final Map<UUID, Integer> sprintTicks = new ConcurrentHashMap<>();
