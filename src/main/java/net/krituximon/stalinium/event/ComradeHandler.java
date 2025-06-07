@@ -77,7 +77,6 @@ public class ComradeHandler {
                                                         ctx.getSource().sendFailure(Component.literal("§eYou cannot invite yourself."));
                                                         return 0;
                                                     }
-                                                    // ensure party exists & you are leader
                                                     Party party = findPartyOf(lid).orElseGet(() -> {
                                                         Party auto = new Party(lid);
                                                         PARTIES.put(lid, auto);
