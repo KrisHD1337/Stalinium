@@ -68,26 +68,30 @@ public class StaliniumPressRecipeCategory implements IRecipeCategory<StaliniumPr
 
     @Override
     public void setRecipe(IRecipeLayoutBuilder builder,
-                      StaliniumPressRecipe recipe,
-                      IFocusGroup focuses) {
-
-    // -------------------- INPUT SLOTS --------------------
-    var ingredients = recipe.getIngredients();
-    int slotCount = Math.min(ingredients.size(), INPUT_SLOT_POSITIONS.length);
-
-    for (int i = 0; i < slotCount; i++) {
-        int x = INPUT_SLOT_POSITIONS[i][0];
-        int y = INPUT_SLOT_POSITIONS[i][1];
-        builder.addSlot(RecipeIngredientRole.INPUT, x, y)
-               .addIngredients(ingredients.get(i));
+                          StaliniumPressRecipe recipe,
+                          IFocusGroup focuses) {
+        var ingredients = recipe.getIngredients();
+        builder
+                .addSlot(RecipeIngredientRole.INPUT,
+                        INPUT_SLOT_POSITIONS[0][0],
+                        INPUT_SLOT_POSITIONS[0][1])
+                .addIngredients(ingredients.get(1));
+        builder
+                .addSlot(RecipeIngredientRole.INPUT,
+                        INPUT_SLOT_POSITIONS[1][0],
+                        INPUT_SLOT_POSITIONS[1][1])
+                .addIngredients(ingredients.get(0));
+        builder
+                .addSlot(RecipeIngredientRole.INPUT,
+                        INPUT_SLOT_POSITIONS[2][0],
+                        INPUT_SLOT_POSITIONS[2][1])
+                .addIngredients(ingredients.get(2));
+        var output = recipe.getResultItem(
+                net.minecraft.client.Minecraft.getInstance()
+                        .level
+                        .registryAccess());
+        builder
+                .addSlot(RecipeIngredientRole.OUTPUT, OUTPUT_X, OUTPUT_Y)
+                .addItemStack(output);
     }
-
-    // -------------------- OUTPUT SLOT --------------------
-    var output = recipe.getResultItem(
-            net.minecraft.client.Minecraft.getInstance()
-                                          .level
-                                          .registryAccess());   // <- real registry
-    builder.addSlot(RecipeIngredientRole.OUTPUT, OUTPUT_X, OUTPUT_Y)
-           .addItemStack(output);
-}
 }
