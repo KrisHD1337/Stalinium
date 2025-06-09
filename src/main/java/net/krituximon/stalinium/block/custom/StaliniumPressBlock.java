@@ -76,6 +76,6 @@ public class StaliniumPressBlock extends BaseEntityBlock {
         }
 
         return createTickerHelper(blockEntityType, net.krituximon.stalinium.block.entity.ModBlockEntities.STALINIUM_PRESS_BE.get(),
-                (level1, blockPos, blockState, blockEntity) -> blockEntity.tick(level1, blockPos, blockState));
+                (level1, blockPos, blockState, blockEntity) -> blockEntity.tick(level1, blockPos, blockState, blockEntity));
     }
 }
