@@ -56,6 +56,9 @@ public class ModItems {
             () -> new StaliniumBootsItem(ModArmorMaterials.STALINIUM_ARMOR_MATERIAL, ArmorItem.Type.BOOTS,
                     new Item.Properties().durability(ArmorItem.Type.BOOTS.getDurability(19))));
 
+    public static final DeferredItem<Item> STALINIUM_SMITHING_TEMPLATE = ITEMS.register("stalinium_smithing_template",
+            () -> new Item(new Item.Properties()));
+
     public static void register(IEventBus eventBus) {
         ITEMS.register(eventBus);
     }

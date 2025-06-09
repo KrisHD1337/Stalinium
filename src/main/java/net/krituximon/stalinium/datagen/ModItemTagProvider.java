@@ -44,7 +44,6 @@ public class ModItemTagProvider extends ItemTagsProvider {
                 .add(ModItems.STALINIUM_LEGGINGS.get());
         this.tag(ItemTags.FOOT_ARMOR)
                 .add(ModItems.STALINIUM_BOOTS.get());
-
         this.tag(ItemTags.TRIMMABLE_ARMOR)
                 .add(ModItems.STALINIUM_HELMET.get())
                 .add(ModItems.STALINIUM_CHESTPLATE.get())

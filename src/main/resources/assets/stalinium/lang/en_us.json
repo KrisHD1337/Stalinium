@@ -59,5 +59,7 @@
   "item.minecraft.potion.effect.weapons_grade_vodka": "Weapons Grade Vodka",
   "item.minecraft.splash_potion.effect.weapons_grade_vodka": "Throwable Weapons Grade Vodka",
   "item.minecraft.lingering_potion.effect.weapons_grade_vodka": "Lingering Weapons Grade Vodka",
-  "item.minecraft.tipped_arrow.effect.weapons_grade_vodka": "Arrow of Weapons Grade Vodka"
+  "item.minecraft.tipped_arrow.effect.weapons_grade_vodka": "Arrow of Weapons Grade Vodka",
+  
+  "item.stalinium.stalinium_smithing_template": "Stalinium Upgrade Template"
 }

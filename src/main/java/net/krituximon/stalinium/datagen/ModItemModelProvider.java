@@ -20,6 +20,7 @@ public class ModItemModelProvider extends ItemModelProvider {
         basicItem(ModItems.STALINIUM_CHESTPLATE.get());
         basicItem(ModItems.STALINIUM_LEGGINGS.get());
         basicItem(ModItems.STALINIUM_BOOTS.get());
+        basicItem(ModItems.STALINIUM_SMITHING_TEMPLATE.get());
         handheldItem(ModItems.STALINIUM_SWORD.get());
         handheldItem(ModItems.STALINIUM_AXE.get());
         handheldItem(ModItems.STALINIUM_SHOVEL.get());
