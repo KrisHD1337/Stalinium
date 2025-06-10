@@ -36,6 +36,7 @@ public class ModCreativeModeTabs {
                         output.accept(ModItems.STALINIUM_LEGGINGS.get());
                         output.accept(ModItems.STALINIUM_BOOTS.get());
                         output.accept(ModItems.STALINIUM_SMITHING_TEMPLATE.get());
+                        output.accept(ModBlocks.STALINIUM_CACHE.get());
                     }).build());
 
     public static void register(IEventBus eventBus) {
