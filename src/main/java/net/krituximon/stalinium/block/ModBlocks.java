@@ -2,6 +2,7 @@ package net.krituximon.stalinium.block;
 
 import net.krituximon.stalinium.Stalinium;
 import net.krituximon.stalinium.block.custom.CompressedBedrock;
+import net.krituximon.stalinium.block.custom.StaliniumCacheBlock;
 import net.krituximon.stalinium.block.custom.StaliniumPressBlock;
 import net.krituximon.stalinium.item.ModItems;
 import net.minecraft.util.valueproviders.UniformInt;
@@ -45,6 +46,10 @@ public class ModBlocks {
 
     public static final DeferredBlock<Block> STALINIUM_PRESS = registerBlock("stalinium_press",
             () -> new StaliniumPressBlock(BlockBehaviour.Properties.of()));
+
+    public static final DeferredBlock<StaliniumCacheBlock> STALINIUM_CACHE = registerBlock(
+            "stalinium_cache",
+            () -> new StaliniumCacheBlock(Block.Properties.of()));
 
     private static <T extends Block> DeferredBlock<T> registerBlock(String name, Supplier<T> block) {
         DeferredBlock<T> toReturn = BLOCKS.register(name, block);

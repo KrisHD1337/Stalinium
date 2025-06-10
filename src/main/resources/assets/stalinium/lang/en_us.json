@@ -19,6 +19,7 @@
   "block.stalinium.stalinium_ore": "Stalinium Ore",
   "block.stalinium.compressed_bedrock": "Compressed Bedrock",
   "block.stalinium.stalinium_press": "Stalinium Press",
+  "block.stalinium.stalinium_cache": "Stalinium Cache",
 
   "creativetab.stalinium.stalinium": "Stalinium",
   
@@ -61,5 +62,7 @@
   "item.minecraft.lingering_potion.effect.weapons_grade_vodka": "Lingering Weapons Grade Vodka",
   "item.minecraft.tipped_arrow.effect.weapons_grade_vodka": "Arrow of Weapons Grade Vodka",
   
-  "item.stalinium.stalinium_smithing_template": "Stalinium Upgrade Template"
+  "item.stalinium.stalinium_smithing_template": "Stalinium Upgrade Template",
+  
+  "container.stalinium.cache": "Stalinium Cache"
 }

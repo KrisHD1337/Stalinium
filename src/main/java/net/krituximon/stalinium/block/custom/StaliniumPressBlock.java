@@ -64,7 +64,6 @@ public class StaliniumPressBlock extends BaseEntityBlock {
                 throw new IllegalStateException("Our Container provider is missing!");
             }
         }
-
         return ItemInteractionResult.sidedSuccess(pLevel.isClientSide());
     }
 

@@ -38,6 +38,7 @@ public class ModBlockLootTableProvider extends BlockLootSubProvider {
         dropSelf(ModBlocks.STALINIUM_BLOCK.get());
         dropSelf(ModBlocks.COMPRESSED_BEDROCK.get());
         dropSelf(ModBlocks.STALINIUM_PRESS.get());
+        dropSelf(ModBlocks.STALINIUM_CACHE.get());
     }
 
 

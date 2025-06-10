@@ -19,6 +19,14 @@ public class ModBlockEntities {
             BLOCK_ENTITIES.register("stalinium_press_be", () -> BlockEntityType.Builder.of(
                     StaliniumPressBlockEntity::new, ModBlocks.STALINIUM_PRESS.get()).build(null));
 
+    public static final Supplier<BlockEntityType<StaliniumCacheBlockEntity>> STALINIUM_CACHE_BE =
+            BLOCK_ENTITIES.register("stalinium_cache", () ->
+                    BlockEntityType.Builder.of(
+                            StaliniumCacheBlockEntity::new,
+                            ModBlocks.STALINIUM_CACHE.get()
+                    ).build(null)
+            );
+
     public static void register(IEventBus eventBus) {
         BLOCK_ENTITIES.register(eventBus);
     }
