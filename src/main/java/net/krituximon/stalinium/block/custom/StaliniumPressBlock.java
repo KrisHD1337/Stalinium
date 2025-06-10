@@ -22,6 +22,7 @@ import org.jetbrains.annotations.Nullable;
 
 public class StaliniumPressBlock extends BaseEntityBlock {
     public static final MapCodec<StaliniumPressBlock> CODEC = simpleCodec(StaliniumPressBlock::new);
+
     public StaliniumPressBlock(Properties properties) {
         super(properties);
     }
@@ -33,9 +34,9 @@ public class StaliniumPressBlock extends BaseEntityBlock {
 
     @Override
     public @Nullable BlockEntity newBlockEntity(BlockPos blockPos, BlockState blockState) {
-        return net.krituximon.stalinium.block.entity.ModBlockEntities.STALINIUM_PRESS_BE.get().create(blockPos, blockState) ;
+        return net.krituximon.stalinium.block.entity.ModBlockEntities.STALINIUM_PRESS_BE.get().create(blockPos, blockState);
     }
-    
+
     @Override
     protected RenderShape getRenderShape(BlockState state) {
         return RenderShape.MODEL;
@@ -49,7 +50,6 @@ public class StaliniumPressBlock extends BaseEntityBlock {
                 StaliniumPressBlockEntity.drops();
             }
         }
-
         super.onRemove(pState, pLevel, pPos, pNewState, pIsMoving);
     }
 
@@ -58,7 +58,7 @@ public class StaliniumPressBlock extends BaseEntityBlock {
                                               Player pPlayer, InteractionHand pHand, BlockHitResult pHitResult) {
         if (!pLevel.isClientSide()) {
             BlockEntity entity = pLevel.getBlockEntity(pPos);
-            if(entity instanceof StaliniumPressBlockEntity staliniumPressBlockEntity) {
+            if (entity instanceof StaliniumPressBlockEntity staliniumPressBlockEntity) {
                 ((ServerPlayer) pPlayer).openMenu(new SimpleMenuProvider(staliniumPressBlockEntity, Component.literal("Stalinium Press")), pPos);
             } else {
                 throw new IllegalStateException("Our Container provider is missing!");
@@ -70,7 +70,7 @@ public class StaliniumPressBlock extends BaseEntityBlock {
     @Nullable
     @Override
     public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> blockEntityType) {
-        if(level.isClientSide()) {
+        if (level.isClientSide()) {
             return null;
         }
 
