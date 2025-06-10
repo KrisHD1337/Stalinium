@@ -47,9 +47,9 @@ public class ModBlocks {
     public static final DeferredBlock<Block> STALINIUM_PRESS = registerBlock("stalinium_press",
             () -> new StaliniumPressBlock(BlockBehaviour.Properties.of()));
 
-    public static final DeferredBlock<StaliniumCacheBlock> STALINIUM_CACHE = registerBlock(
+    public static final DeferredBlock<Block> STALINIUM_CACHE = registerBlock(
             "stalinium_cache",
-            () -> new StaliniumCacheBlock(Block.Properties.of()));
+            () -> new StaliniumCacheBlock(BlockBehaviour.Properties.of()));
 
     private static <T extends Block> DeferredBlock<T> registerBlock(String name, Supplier<T> block) {
         DeferredBlock<T> toReturn = BLOCKS.register(name, block);

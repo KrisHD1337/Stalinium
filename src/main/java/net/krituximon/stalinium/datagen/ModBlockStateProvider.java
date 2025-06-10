@@ -28,6 +28,14 @@ public class ModBlockStateProvider extends BlockStateProvider {
                         .build());
         simpleBlockItem(ModBlocks.STALINIUM_PRESS.get(), pressModel);
 
+        ModelFile cacheModel = models()
+                .getBuilder("stalinium_cache")
+                .parent(new ModelFile.UncheckedModelFile(modLoc("block/stalinium_cache")));
+        getVariantBuilder(ModBlocks.STALINIUM_CACHE.get())
+                .forAllStates(state -> ConfiguredModel.builder()
+                        .modelFile(cacheModel)
+                        .build());
+        simpleBlockItem(ModBlocks.STALINIUM_CACHE.get(), cacheModel);
     }
 
 

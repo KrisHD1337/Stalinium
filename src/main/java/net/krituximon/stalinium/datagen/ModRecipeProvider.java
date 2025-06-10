@@ -53,6 +53,15 @@ public class ModRecipeProvider extends RecipeProvider implements IConditionBuild
                 .define('S', Items.NETHER_STAR)
                 .unlockedBy("has_nugget", has(ModItems.STALINIUM_NUGGET)).save(recipeOutput);
 
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, ModBlocks.STALINIUM_CACHE.get())
+                .pattern("ISI")
+                .pattern("SES")
+                .pattern("SIS")
+                .define('I', Items.IRON_BLOCK)
+                .define('E', Items.ENDER_CHEST)
+                .define('S', ModItems.STALINIUM_INGOT.get())
+                .unlockedBy("has_nugget", has(ModItems.STALINIUM_NUGGET)).save(recipeOutput);
+
         ShapedRecipeBuilder.shaped(RecipeCategory.MISC, ModItems.STALINIUM_SMITHING_TEMPLATE.get(), 4)
                 .pattern("NNN")
                 .pattern("NIN")

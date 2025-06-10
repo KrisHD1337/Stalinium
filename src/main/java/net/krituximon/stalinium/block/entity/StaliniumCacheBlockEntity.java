@@ -29,27 +29,24 @@ import java.util.concurrent.ConcurrentHashMap;
 
 public class StaliniumCacheBlockEntity extends BlockEntity {
     private static final int SIZE = 27;
-
-    // each party → shared 27‐slot inventory
     private static final Map<UUID, SimpleContainer> PARTY_INVENTORIES = new ConcurrentHashMap<>();
 
     public StaliniumCacheBlockEntity(BlockPos pos, BlockState state) {
         super(ModBlockEntities.STALINIUM_CACHE_BE.get(), pos, state);
     }
-
-    /**
-     * Grab (or create) the shared SimpleContainer for this player's party  
-     */
-    public static SimpleContainer getPartyInventory(Player who) {
+    
+    public static SimpleContainer getPartyInventory(@Nullable Player who) {
+        if (who == null) {
+            UUID defaultKey = UUID.randomUUID(); 
+            return PARTY_INVENTORIES.computeIfAbsent(defaultKey, __ -> new SimpleContainer(SIZE));
+        }
         Optional<ComradeHandler.Party> opt = ComradeHandler.findPartyOf(who.getUUID());
         UUID key = opt.map(p -> p.leader).orElse(who.getUUID());
         return PARTY_INVENTORIES.computeIfAbsent(key, __ -> new SimpleContainer(SIZE));
     }
 
-    /** Drop everything, using that same shared container */
     public void drops() {
-        SimpleContainer inv = getPartyInventory((ServerPlayer) null);
-        // actually, we don't know "who" here—just drop all slots
+        SimpleContainer inv = getPartyInventory(null);
         SimpleContainer tmp = new SimpleContainer(SIZE);
         for (int i = 0; i < SIZE; i++) {
             tmp.setItem(i, inv.getItem(i));

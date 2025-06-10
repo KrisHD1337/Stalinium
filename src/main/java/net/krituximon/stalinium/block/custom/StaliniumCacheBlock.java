@@ -22,7 +22,6 @@ import net.minecraft.world.phys.BlockHitResult;
 import org.jetbrains.annotations.Nullable;
 
 public class StaliniumCacheBlock extends BaseEntityBlock {
-    // 1) supply a real codec so the block actually constructs from your registry
     public static final MapCodec<StaliniumCacheBlock> CODEC =
             simpleCodec(StaliniumCacheBlock::new);
 
