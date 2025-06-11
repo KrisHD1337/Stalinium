@@ -3,6 +3,7 @@
 package net.krituximon.stalinium.block.entity;
 
 import net.krituximon.stalinium.event.ComradeHandler;
+import net.krituximon.stalinium.util.StaliniumPartyCacheData;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.Registries;
@@ -29,22 +30,39 @@ import java.util.concurrent.ConcurrentHashMap;
 
 public class StaliniumCacheBlockEntity extends BlockEntity {
     private static final int SIZE = 27;
-    private static final Map<UUID, SimpleContainer> PARTY_INVENTORIES = new ConcurrentHashMap<>();
 
     public StaliniumCacheBlockEntity(BlockPos pos, BlockState state) {
         super(ModBlockEntities.STALINIUM_CACHE_BE.get(), pos, state);
     }
-    
+
+    /**
+     * Obtain – and create if necessary – the inventory that belongs to the player’s party.
+     */
     public static SimpleContainer getPartyInventory(@Nullable Player who) {
+        UUID key;
         if (who == null) {
-            UUID defaultKey = UUID.randomUUID(); 
-            return PARTY_INVENTORIES.computeIfAbsent(defaultKey, __ -> new SimpleContainer(SIZE));
+            key = new UUID(0L, 0L);                // world-wide default dump
+        } else {
+            Optional<ComradeHandler.Party> opt = ComradeHandler.findPartyOf(who.getUUID());
+            key = opt.map(p -> p.leader).orElse(who.getUUID());
         }
-        Optional<ComradeHandler.Party> opt = ComradeHandler.findPartyOf(who.getUUID());
-        UUID key = opt.map(p -> p.leader).orElse(who.getUUID());
-        return PARTY_INVENTORIES.computeIfAbsent(key, __ -> new SimpleContainer(SIZE));
+
+        // We keep the containers in the world-persistent SavedData
+        Level lvl = who != null ? who.level() : null;
+        if (lvl == null || lvl.isClientSide)           // should never happen on the server
+            return new SimpleContainer(SIZE);
+
+        StaliniumPartyCacheData data = StaliniumPartyCacheData.get(lvl);
+        return data.getOrCreate(key);
     }
 
+    /* ---------- helper to mark the SavedData dirty whenever the container changes ---------- */
+    public static void markDirty(Level level, UUID key) {
+        if (level.isClientSide) return;
+        StaliniumPartyCacheData.get(level).setDirty();
+    }
+
+    // drop-logic unchanged …
     public void drops() {
         SimpleContainer inv = getPartyInventory(null);
         SimpleContainer tmp = new SimpleContainer(SIZE);
