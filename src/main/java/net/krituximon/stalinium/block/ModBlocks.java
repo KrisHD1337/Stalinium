@@ -45,11 +45,11 @@ public class ModBlocks {
                     .sound(SoundType.NETHERITE_BLOCK)));
 
     public static final DeferredBlock<Block> STALINIUM_PRESS = registerBlock("stalinium_press",
-            () -> new StaliniumPressBlock(BlockBehaviour.Properties.of()));
+            () -> new StaliniumPressBlock(BlockBehaviour.Properties.of().noOcclusion()));
 
     public static final DeferredBlock<Block> STALINIUM_CACHE = registerBlock(
             "stalinium_cache",
-            () -> new StaliniumCacheBlock(BlockBehaviour.Properties.of()));
+            () -> new StaliniumCacheBlock(BlockBehaviour.Properties.of().noOcclusion()));
 
     private static <T extends Block> DeferredBlock<T> registerBlock(String name, Supplier<T> block) {
         DeferredBlock<T> toReturn = BLOCKS.register(name, block);
