@@ -59,6 +59,7 @@ public class StaliniumPressRecipeCategory implements IRecipeCategory<StaliniumPr
         return icon;
     }
 
+    @SuppressWarnings("removal")
     @Override
     public IDrawable getBackground() {
         return background;
