@@ -1,28 +1,28 @@
 {
-    "criteria": {
-        "tick": {
-            "trigger": "minecraft:tick"
-        }
+  "criteria": {
+    "tick": {
+      "trigger": "minecraft:tick"
+    }
+  },
+  "display": {
+    "announce_to_chat": false,
+    "background": "minecraft:textures/gui/advancements/backgrounds/stone.png",
+    "description": {
+      "translate": "advancements.stalinium.stalinium.root.desc"
     },
-    "display": {
-        "announce_to_chat": false,
-        "background": "minecraft:textures/gui/advancements/backgrounds/stone.png",
-        "description": {
-            "translate": "advancements.stalinium.stalinium.root.desc"
-        },
-        "icon": {
-            "count": 1,
-            "id": "stalinium:stalinium_ingot"
-        },
-        "show_toast": false,
-        "title": {
-            "translate": "advancements.stalinium.stalinium.root.title"
-        }
+    "icon": {
+      "count": 1,
+      "id": "stalinium:stalinium_ingot"
     },
-    "requirements": [
-        [
-            "tick"
-        ]
-    ],
-    "sends_telemetry_event": true
+    "show_toast": false,
+    "title": {
+      "translate": "advancements.stalinium.stalinium.root.title"
+    }
+  },
+  "requirements": [
+    [
+      "tick"
+    ]
+  ],
+  "sends_telemetry_event": true
 }

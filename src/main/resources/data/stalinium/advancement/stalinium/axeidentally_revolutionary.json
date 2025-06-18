@@ -1,11 +1,11 @@
-{
-  "parent": "stalinium:stalinium/root",
+﻿{
+  "parent": "stalinium:stalinium/means_revolution",
   "criteria": {
-    "stalinium": {
+    "stalinium_axe": {
       "conditions": {
         "items": [
           {
-            "items": "stalinium:compressed_bedrock"
+            "items": "stalinium:stalinium_axe"
           }
         ]
       },
@@ -15,19 +15,19 @@
   "display": {
     "background": "minecraft:textures/gui/advancements/backgrounds/stone.png",
     "description": {
-      "translate": "advancements.stalinium.stalinium.compressed_bedrock.desc"
+      "translate": "advancements.stalinium.stalinium.axeidentally_revolutionary.desc"
     },
     "icon": {
       "count": 1,
-      "id": "stalinium:compressed_bedrock"
+      "id": "stalinium:stalinium_axe"
     },
     "title": {
-      "translate": "advancements.stalinium.stalinium.compressed_bedrock.title"
+      "translate": "advancements.stalinium.stalinium.axeidentally_revolutionary.title"
     }
   },
   "requirements": [
     [
-      "stalinium"
+      "stalinium_axe"
     ]
   ],
   "sends_telemetry_event": true
