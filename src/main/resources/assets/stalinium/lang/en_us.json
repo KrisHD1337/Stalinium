@@ -7,6 +7,12 @@
   "item.stalinium.stalinium_hoe": "Stalinium Hoe",
   "item.stalinium.stalinium_pickaxe": "Stalinium Pickaxe",
 
+  "advancements.stalinium.stalinium.root.title": "The start of the revolution",
+  "advancements.stalinium.stalinium.root.desc": "Load the mod",
+  "advancements.stalinium.stalinium.compressed_bedrock.title": "Why is it bleeding?",
+  "advancements.stalinium.stalinium.compressed_bedrock.desc": "Obatain Compressed Bedrock",
+
+
   "item.stalinium.stalinium_helmet": "Stalinium Helmet",
   "item.stalinium.stalinium_chestplate": "Stalinium Chestplate",
   "item.stalinium.stalinium_leggings": "Stalinium Leggings",

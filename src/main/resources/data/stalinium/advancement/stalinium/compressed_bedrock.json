@@ -1,0 +1,36 @@
+{
+    "parent": "stalinium:stalinium/root",
+    "criteria": {
+        "stalinium": {
+            "conditions": {
+                "items": [
+                    {
+                        "predicates": {
+                            "stalinium:compressed_bedrock": {}
+                        }
+                    }
+                ]
+            },
+            "trigger": "minecraft:inventory_changed"
+        }
+    },
+    "display": {
+        "background": "minecraft:textures/gui/advancements/backgrounds/stone.png",
+        "description": {
+            "translate": "advancements.stalinium.stalinium.compressed_bedrock.desc"
+        },
+        "icon": {
+            "count": 1,
+            "id": "stalinium:compressed_bedrock"
+        },
+        "title": {
+            "translate": "advancements.stalinium.stalinium.compressed_bedrock.title"
+        }
+    },
+    "requirements": [
+        [
+            "stalinium"
+        ]
+    ],
+    "sends_telemetry_event": true
+}
