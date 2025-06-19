@@ -1,7 +1,9 @@
 package net.krituximon.stalinium.item.custom;
 
 import net.krituximon.stalinium.event.ComradeHandler;
+import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.core.BlockPos;
+import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.LivingEntity;
@@ -9,6 +11,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.HoeItem;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Tier;
+import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
@@ -32,8 +35,6 @@ public class StaliniumHoeItem extends HoeItem {
                              LivingEntity miner) {
         if (level.isClientSide || !(miner instanceof Player player))
             return super.mineBlock(stack, level, state, pos, miner);
-
-        // only for fully grown crops:
         if (state.getBlock() instanceof CropBlock) {
             List<ItemStack> drops = Block.getDrops(
                     state,
@@ -43,16 +44,10 @@ public class StaliniumHoeItem extends HoeItem {
                     player,
                     stack
             );
-
-            // break the crop:
             level.setBlock(pos, Blocks.AIR.defaultBlockState(), 3);
-
-            // 1) give base drops to the harvester:
             for (ItemStack drop : drops) {
                 player.addItem(drop.copy());
             }
-
-            // 2) if raining here, give them a second batch:
             if (level.isRaining() && level.isRainingAt(pos)) {
                 for (ItemStack drop : drops) {
                     ItemStack extra = drop.copy();
@@ -60,8 +55,6 @@ public class StaliniumHoeItem extends HoeItem {
                     player.addItem(extra);
                 }
             }
-
-            // 3) 50% chance to also duplicate to each ally in range:
             if (!level.isClientSide() && level.getRandom().nextFloat() < 0.5f) {
                 Optional<ComradeHandler.Party> partyOpt = ComradeHandler.findPartyOf(player.getUUID());
                 if (partyOpt.isPresent()) {
@@ -89,4 +82,17 @@ public class StaliniumHoeItem extends HoeItem {
 
     @Override public boolean isDamageable(ItemStack stack) { return false; }
     @Override public boolean isDamaged(ItemStack stack)    { return false; }
+
+    @Override
+    public void appendHoverText(ItemStack stack,
+                                TooltipContext context,
+                                List<Component> tooltipComponents,
+                                TooltipFlag tooltipFlag) {
+        if (Screen.hasShiftDown()) {
+            tooltipComponents.add(Component.translatable("item.stalinium_hoe.tooltip_shift"));
+        } else {
+            tooltipComponents.add(Component.translatable("item.stalinium_hoe.tooltip"));
+        }
+        super.appendHoverText(stack, context, tooltipComponents, tooltipFlag);
+    }
 }

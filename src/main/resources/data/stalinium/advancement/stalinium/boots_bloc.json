@@ -1,0 +1,34 @@
+﻿{
+  "parent": "stalinium:stalinium/full_metal_marxist",
+  "criteria": {
+    "stalinium_boots": {
+      "conditions": {
+        "items": [
+          {
+            "items": "stalinium:stalinium_boots"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "background": "minecraft:textures/gui/advancements/backgrounds/stone.png",
+    "description": {
+      "translate": "advancements.stalinium.stalinium.boots_bloc.desc"
+    },
+    "icon": {
+      "count": 1,
+      "id": "stalinium:stalinium_boots"
+    },
+    "title": {
+      "translate": "advancements.stalinium.stalinium.boots_bloc.title"
+    }
+  },
+  "requirements": [
+    [
+      "stalinium_boots"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

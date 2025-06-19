@@ -1,0 +1,34 @@
+﻿{
+  "parent": "stalinium:stalinium/full_metal_marxist",
+  "criteria": {
+    "stalinium_helmet": {
+      "conditions": {
+        "items": [
+          {
+            "items": "stalinium:stalinium_helmet"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "background": "minecraft:textures/gui/advancements/backgrounds/stone.png",
+    "description": {
+      "translate": "advancements.stalinium.stalinium.cranial_defense.desc"
+    },
+    "icon": {
+      "count": 1,
+      "id": "stalinium:stalinium_helmet"
+    },
+    "title": {
+      "translate": "advancements.stalinium.stalinium.cranial_defense.title"
+    }
+  },
+  "requirements": [
+    [
+      "stalinium_helmet"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

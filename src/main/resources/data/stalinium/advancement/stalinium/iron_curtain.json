@@ -1,0 +1,34 @@
+﻿{
+  "parent": "stalinium:stalinium/full_metal_marxist",
+  "criteria": {
+    "stalinium_chestplate": {
+      "conditions": {
+        "items": [
+          {
+            "items": "stalinium:stalinium_chestplate"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "background": "minecraft:textures/gui/advancements/backgrounds/stone.png",
+    "description": {
+      "translate": "advancements.stalinium.stalinium.iron_curtain.desc"
+    },
+    "icon": {
+      "count": 1,
+      "id": "stalinium:stalinium_chestplate"
+    },
+    "title": {
+      "translate": "advancements.stalinium.stalinium.iron_curtain.title"
+    }
+  },
+  "requirements": [
+    [
+      "stalinium_chestplate"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

@@ -1,0 +1,34 @@
+﻿{
+  "parent": "stalinium:stalinium/full_metal_marxist",
+  "criteria": {
+    "stalinium_leggings": {
+      "conditions": {
+        "items": [
+          {
+            "items": "stalinium:stalinium_leggings"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "background": "minecraft:textures/gui/advancements/backgrounds/stone.png",
+    "description": {
+      "translate": "advancements.stalinium.stalinium.leg_lenin.desc"
+    },
+    "icon": {
+      "count": 1,
+      "id": "stalinium:stalinium_leggings"
+    },
+    "title": {
+      "translate": "advancements.stalinium.stalinium.leg_lenin.title"
+    }
+  },
+  "requirements": [
+    [
+      "stalinium_leggings"
+    ]
+  ],
+  "sends_telemetry_event": true
+}
