@@ -6,6 +6,10 @@ import net.krituximon.stalinium.sound.ModSounds;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.world.item.*;
 import net.minecraft.world.item.component.Unbreakable;
+import net.minecraft.world.item.component.ItemAttributeModifiers;
+import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.entity.ai.attributes.AttributeModifier;
+import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.registries.DeferredItem;
 import net.neoforged.neoforge.registries.DeferredRegister;
@@ -62,6 +66,11 @@ public class ModItems {
     public static final DeferredItem<ArmorItem> STALINIUM_BOOTS = ITEMS.register("stalinium_boots",
             () -> new StaliniumBootsItem(ModArmorMaterials.STALINIUM_ARMOR_MATERIAL, ArmorItem.Type.BOOTS,
                     new Item.Properties().component(DataComponents.UNBREAKABLE, new Unbreakable(true)).stacksTo(1)));
+
+    public static final DeferredItem<MaceItem> STALINIUM_MACE = ITEMS.register("stalinium_mace",
+            () -> new StaliniumMaceItem(new Item.Properties()
+                    .component(DataComponents.UNBREAKABLE, new Unbreakable(true))
+                    .attributes(StaliniumMaceItem.createAttributes())));
 
     public static final DeferredItem<Item> STALINIUM_SMITHING_TEMPLATE = ITEMS.register("stalinium_smithing_template",
             () -> new Item(new Item.Properties()));
