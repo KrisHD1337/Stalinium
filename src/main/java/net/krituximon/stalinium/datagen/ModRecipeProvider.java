@@ -169,5 +169,16 @@ public class ModRecipeProvider extends RecipeProvider implements IConditionBuild
                 .unlocks("has_netherite", has(Items.NETHERITE_BOOTS))
                 .save(recipeOutput,
                         ResourceLocation.fromNamespaceAndPath(Stalinium.MODID, "smithing/stalinium_boots"));
+
+        SmithingTransformRecipeBuilder.smithing(
+                        Ingredient.of(ModItems.STALINIUM_SMITHING_TEMPLATE.get()),
+                        Ingredient.of(Items.MACE),
+                        Ingredient.of(ModBlocks.STALINIUM_BLOCK.get()),
+                        RecipeCategory.COMBAT,
+                        ModItems.STALINIUM_MACE.get()
+                )
+                .unlocks("has_netherite", has(Items.NETHERITE_BOOTS))
+                .save(recipeOutput,
+                        ResourceLocation.fromNamespaceAndPath(Stalinium.MODID, "smithing/stalinium_mace"));
     }
 }
