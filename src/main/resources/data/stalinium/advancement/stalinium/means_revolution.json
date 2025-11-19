@@ -81,7 +81,8 @@
       "stalinium_pickaxe",
       "stalinium_shovel",
       "stalinium_hoe",
-      "stalinium_sword"
+      "stalinium_sword",
+      "stalinium_mace"
     ]
   ],
   "sends_telemetry_event": true
