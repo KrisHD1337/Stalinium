@@ -1,0 +1,34 @@
+﻿{
+  "parent": "stalinium:stalinium/strike_state",
+  "criteria": {
+    "stalinium_mace": {
+      "conditions": {
+        "items": [
+          {
+            "items": "stalinium:stalinium_mace"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "background": "minecraft:textures/gui/advancements/backgrounds/stone.png",
+    "description": {
+      "translate": "advancements.stalinium.stalinium.amacing_hammer.desc"
+    },
+    "icon": {
+      "count": 1,
+      "id": "stalinium:stalinium_mace"
+    },
+    "title": {
+      "translate": "advancements.stalinium.stalinium.amacing_hammer.title"
+    }
+  },
+  "requirements": [
+    [
+      "stalinium_mace"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

@@ -1,8 +1,10 @@
 package net.krituximon.stalinium.item.custom;
 
 import net.krituximon.stalinium.item.ModItems;
+import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.core.particles.BlockParticleOption;
 import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
@@ -18,6 +20,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.windcharge.WindCharge;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.MaceItem;
+import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.component.ItemAttributeModifiers;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
@@ -130,5 +133,18 @@ public class StaliniumMaceItem extends MaceItem {
         double x = vec.x * cos - vec.z * sin;
         double z = vec.x * sin + vec.z * cos;
         return new Vec3(x, vec.y, z);
+    }
+
+    @Override
+    public void appendHoverText(ItemStack stack,
+                                TooltipContext context,
+                                List<Component> tooltipComponents,
+                                TooltipFlag tooltipFlag) {
+        if (Screen.hasShiftDown()) {
+            tooltipComponents.add(Component.translatable("item.stalinium_mace.tooltip_shift"));
+        } else {
+            tooltipComponents.add(Component.translatable("item.stalinium_mace.tooltip"));
+        }
+        super.appendHoverText(stack, context, tooltipComponents, tooltipFlag);
     }
 }

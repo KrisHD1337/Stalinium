@@ -50,6 +50,16 @@
         ]
       },
       "trigger": "minecraft:inventory_changed"
+    },
+    "stalinium_mace": {
+      "conditions": {
+        "items": [
+          {
+            "items": "stalinium:stalinium_mace"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
     }
   },
   "display": {
