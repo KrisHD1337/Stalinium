@@ -26,5 +26,6 @@ public class ModItemModelProvider extends ItemModelProvider {
         handheldItem(ModItems.STALINIUM_SHOVEL.get());
         handheldItem(ModItems.STALINIUM_HOE.get());
         handheldItem(ModItems.STALINIUM_PICKAXE.get());
+        handheldItem(ModItems.STALINIUM_MACE.get());
     }
 }

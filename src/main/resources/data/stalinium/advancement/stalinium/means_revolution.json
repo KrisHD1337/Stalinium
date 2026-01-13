@@ -50,6 +50,16 @@
         ]
       },
       "trigger": "minecraft:inventory_changed"
+    },
+    "stalinium_mace": {
+      "conditions": {
+        "items": [
+          {
+            "items": "stalinium:stalinium_mace"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
     }
   },
   "display": {
@@ -71,7 +81,8 @@
       "stalinium_pickaxe",
       "stalinium_shovel",
       "stalinium_hoe",
-      "stalinium_sword"
+      "stalinium_sword",
+      "stalinium_mace"
     ]
   ],
   "sends_telemetry_event": true

@@ -6,6 +6,7 @@
   "item.stalinium.stalinium_shovel": "Stalinium Shovel",
   "item.stalinium.stalinium_hoe": "Stalinium Hoe",
   "item.stalinium.stalinium_pickaxe": "Stalinium Pickaxe",
+  "item.stalinium.stalinium_mace": "Stalinium Mace",
 
   "advancements.stalinium.stalinium.root.title": "The Start of the Revolution",
   "advancements.stalinium.stalinium.root.desc": "Welcome to Stalinium",
@@ -41,7 +42,9 @@
   "advancements.stalinium.stalinium.boots_bloc.desc": "Obtain the Stalinium Boots",
   "advancements.stalinium.stalinium.comrade_prime.title": "Comrade Prime",
   "advancements.stalinium.stalinium.comrade_prime.desc": "Wear a full set of Stalinium Armor",
-  
+  "advancements.stalinium.stalinium.amacing_hammer.title": "Amacing Hammer",
+  "advancements.stalinium.stalinium.amacing_hammer.desc": "Obtain the Stalinium Mace",
+
 
   "item.stalinium.stalinium_helmet": "Stalinium Helmet",
   "item.stalinium.stalinium_chestplate": "Stalinium Chestplate",
@@ -75,7 +78,7 @@
 
   "item.stalinium_pickaxe.tooltip": "Pickaxe made out of §cStalinium§0\n\n§l§cVein of Unity§0\n\n§l§cOre for All\n\n§f(Shift to expand)",
   "item.stalinium_pickaxe.tooltip_shift": "Pickaxe made out of §cStalinium\n\n§l§cVein of Unity:§f\nInstantly mines all connected ore blocks.\n\n§l§cOre for all:§f\n50% chance nearby comrades also receive your ore drops.",
-  
+
   "item.stalinium_boots.tooltip": "Boots made out of §cStalinium\n\n§l§cMarch of Progress\n\n§fFull Armor Set Bonus:\n§l§cPower of the Many\n\n§f(Shift to expand)",
   "item.stalinium_boots.tooltip_shift": "Boots made out of §cStalinium\n\n§l§cMarch of Progress:§f\nSprinting gives you and everyone nearby Speed I.\n\n§fFull Armor Set Bonus:\n§l§cPower of the Many: Gain more hearts the more allies are nearby.",
 
@@ -87,7 +90,10 @@
 
   "item.stalinium_leggings.tooltip": "Leggings made out of §cStalinium\n\n§l§cIron Will of the Collective\n\n§fFull Armor Set Bonus:\n§l§cPower of the Many\n\n§f(Shift to expand)",
   "item.stalinium_leggings.tooltip_shift": "Leggings made out of §cStalinium\n\n§l§cIron Will of the Collective:§f\nWhen wearing the chestplate alongside the leggings, gain Resistance I.\n\n§fFull Armor Set Bonus:\n§l§cPower of the Many: Gain more hearts the more allies are nearby.",
-  
+
+  "item.stalinium_mace.tooltip": "Mace made out of §cStalinium\n\n§l§cWinds of Revolution§0\n\n§l§cCrush the Bourgeoisie\n\n§f(Shift to expand)",
+  "item.stalinium_mace.tooltip_shift": "Mace made out of §cStalinium\n\n§l§cWinds of Revolution§f\nShoots a Wind Charge on regular right-click.\n\n§l§cCrush the Bourgeoisie§f\nWhen right-clicking while sneaking, do a smash attack launching enemies away and dealing damage.",
+
   "item.minecraft.potion.effect.vodka": "Bottle of Vodka",
   "item.minecraft.splash_potion.effect.vodka": "Throwable Bottle of Vodka",
   "item.minecraft.lingering_potion.effect.vodka": "Lingering Bottle of Vodka",

@@ -26,6 +26,7 @@ public class ModCreativeModeTabs {
                         output.accept(ModBlocks.STALINIUM_ORE.get());
                         output.accept(ModBlocks.COMPRESSED_BEDROCK.get());
                         output.accept(ModBlocks.STALINIUM_PRESS.get());
+                        output.accept(ModItems.STALINIUM_MACE.get());
                         output.accept(ModItems.STALINIUM_SWORD.get());
                         output.accept(ModItems.STALINIUM_AXE.get());
                         output.accept(ModItems.STALINIUM_PICKAXE.get());

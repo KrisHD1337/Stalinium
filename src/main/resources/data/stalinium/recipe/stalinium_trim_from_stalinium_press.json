@@ -1,0 +1,9 @@
+{
+  "type": "stalinium:stalinium_press",
+  "nugget": {
+    "item": "stalinium:compressed_bedrock"
+  },
+  "result": {
+    "id": "stalinium:stalinium_ingot"
+  }
+}
