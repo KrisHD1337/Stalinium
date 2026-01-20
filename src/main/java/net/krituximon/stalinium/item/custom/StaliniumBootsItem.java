@@ -10,9 +10,10 @@ import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.ArmorMaterial;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
+import net.minecraft.world.item.equipment.ArmorMaterial;
+import net.minecraft.world.item.equipment.ArmorType;
 import net.minecraft.world.level.Level;
 
 import java.util.ArrayList;
@@ -26,7 +27,7 @@ public class StaliniumBootsItem extends ModArmorItem {
     private static final double RADIUS = 5.0;
     private static final Map<UUID, Integer> sprintTicks = new ConcurrentHashMap<>();
 
-    public StaliniumBootsItem(Holder<ArmorMaterial> material, Type slot, Properties props) {
+    public StaliniumBootsItem(ArmorMaterial material, ArmorType slot, Properties props) {
         super(material, slot, props);
     }
 

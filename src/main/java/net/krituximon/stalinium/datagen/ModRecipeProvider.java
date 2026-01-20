@@ -19,57 +19,73 @@ import net.minecraft.world.item.crafting.Ingredient;
 import java.util.concurrent.CompletableFuture;
 
 public class ModRecipeProvider extends RecipeProvider implements IConditionBuilder {
-    public ModRecipeProvider(PackOutput output, CompletableFuture<HolderLookup.Provider> registries) {
-        super(output, registries);
+    public ModRecipeProvider(HolderLookup.Provider provider, RecipeOutput recipeOutput) {
+        super(provider, recipeOutput);
+    }
+
+    public static class Runner extends RecipeProvider.Runner {
+        public Runner(PackOutput packOutput, CompletableFuture<HolderLookup.Provider> provider) {
+            super(packOutput, provider);
+        }
+
+        @Override
+        public RecipeProvider createRecipeProvider(HolderLookup.Provider provider, RecipeOutput recipeOutput) {
+            return new ModRecipeProvider(provider, recipeOutput);
+        }
+
+        @Override
+        public String getName() {
+            return "Stalinium Recipes";
+        }
     }
 
     @Override
-    protected void buildRecipes(RecipeOutput recipeOutput) {
-        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, ModBlocks.STALINIUM_BLOCK.get())
+    protected void buildRecipes() {
+        shaped(RecipeCategory.MISC, ModBlocks.STALINIUM_BLOCK.get())
                 .pattern("BBB")
                 .pattern("BBB")
                 .pattern("BBB")
                 .define('B', ModItems.STALINIUM_INGOT.get())
-                .unlockedBy("has_stalinium", has(ModItems.STALINIUM_INGOT)).save(recipeOutput);
+                .unlockedBy("has_stalinium", has(ModItems.STALINIUM_INGOT)).save(output);
 
-        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, ModItems.SOVIET_ANTHEM_MUSIC_DISC.get())
+        shaped(RecipeCategory.MISC, ModItems.SOVIET_ANTHEM_MUSIC_DISC.get())
                 .pattern("BBB")
                 .pattern("BSB")
                 .pattern("BBB")
                 .define('B', ModItems.STALINIUM_INGOT.get())
                 .define('S', Items.GOLD_BLOCK)
-                .unlockedBy("has_stalinium", has(ModItems.STALINIUM_INGOT)).save(recipeOutput);
+                .unlockedBy("has_stalinium", has(ModItems.STALINIUM_INGOT)).save(output);
 
-        ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, ModItems.STALINIUM_INGOT.get(), 9)
+        shapeless(RecipeCategory.MISC, ModItems.STALINIUM_INGOT.get(), 9)
                 .requires(ModBlocks.STALINIUM_BLOCK)
-                .unlockedBy("has_stalinium_block", has(ModBlocks.STALINIUM_BLOCK)).save(recipeOutput);
+                .unlockedBy("has_stalinium_block", has(ModBlocks.STALINIUM_BLOCK)).save(output);
 
-        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, ModBlocks.STALINIUM_PRESS.get())
+        shaped(RecipeCategory.MISC, ModBlocks.STALINIUM_PRESS.get())
                 .pattern("INI")
                 .pattern("NSN")
                 .pattern("INI")
                 .define('I', Items.NETHERITE_INGOT)
                 .define('N', ModItems.STALINIUM_NUGGET.get())
                 .define('S', Items.NETHER_STAR)
-                .unlockedBy("has_nugget", has(ModItems.STALINIUM_NUGGET)).save(recipeOutput);
+                .unlockedBy("has_nugget", has(ModItems.STALINIUM_NUGGET)).save(output);
 
-        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, ModBlocks.STALINIUM_CACHE.get())
+        shaped(RecipeCategory.MISC, ModBlocks.STALINIUM_CACHE.get())
                 .pattern("ISI")
                 .pattern("SES")
                 .pattern("SIS")
                 .define('I', Items.IRON_BLOCK)
                 .define('E', Items.ENDER_CHEST)
                 .define('S', ModItems.STALINIUM_INGOT.get())
-                .unlockedBy("has_nugget", has(ModItems.STALINIUM_NUGGET)).save(recipeOutput);
+                .unlockedBy("has_nugget", has(ModItems.STALINIUM_NUGGET)).save(output);
 
-        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, ModItems.STALINIUM_SMITHING_TEMPLATE.get(), 4)
+        shaped(RecipeCategory.MISC, ModItems.STALINIUM_SMITHING_TEMPLATE.get(), 4)
                 .pattern("NNN")
                 .pattern("NIN")
                 .pattern("NSN")
                 .define('I', ModItems.STALINIUM_INGOT)
                 .define('N', ModItems.STALINIUM_NUGGET.get())
                 .define('S', Items.IRON_BLOCK)
-                .unlockedBy("has_nugget", has(ModItems.STALINIUM_NUGGET)).save(recipeOutput);
+                .unlockedBy("has_nugget", has(ModItems.STALINIUM_NUGGET)).save(output);
 
         SmithingTransformRecipeBuilder.smithing(
                         Ingredient.of(ModItems.STALINIUM_SMITHING_TEMPLATE.get()),
@@ -79,8 +95,7 @@ public class ModRecipeProvider extends RecipeProvider implements IConditionBuild
                         ModItems.STALINIUM_SWORD.get()
                 )
                 .unlocks("has_netherite", has(Items.NETHERITE_SWORD))
-                .save(recipeOutput,
-                        ResourceLocation.fromNamespaceAndPath(Stalinium.MODID, "smithing/stalinium_sword"));
+                .save(output, "smithing/stalinium_sword");
 
         SmithingTransformRecipeBuilder.smithing(
                         Ingredient.of(ModItems.STALINIUM_SMITHING_TEMPLATE.get()),
@@ -90,8 +105,7 @@ public class ModRecipeProvider extends RecipeProvider implements IConditionBuild
                         ModItems.STALINIUM_PICKAXE.get()
                 )
                 .unlocks("has_netherite", has(Items.NETHERITE_PICKAXE))
-                .save(recipeOutput,
-                        ResourceLocation.fromNamespaceAndPath(Stalinium.MODID, "smithing/stalinium_pickaxe"));
+                .save(output, "smithing/stalinium_pickaxe");
 
         SmithingTransformRecipeBuilder.smithing(
                         Ingredient.of(ModItems.STALINIUM_SMITHING_TEMPLATE.get()),
@@ -101,8 +115,7 @@ public class ModRecipeProvider extends RecipeProvider implements IConditionBuild
                         ModItems.STALINIUM_AXE.get()
                 )
                 .unlocks("has_netherite", has(Items.NETHERITE_AXE))
-                .save(recipeOutput,
-                        ResourceLocation.fromNamespaceAndPath(Stalinium.MODID, "smithing/stalinium_axe"));
+                .save(output, "smithing/stalinium_axe");
 
         SmithingTransformRecipeBuilder.smithing(
                         Ingredient.of(ModItems.STALINIUM_SMITHING_TEMPLATE.get()),
@@ -112,8 +125,7 @@ public class ModRecipeProvider extends RecipeProvider implements IConditionBuild
                         ModItems.STALINIUM_SHOVEL.get()
                 )
                 .unlocks("has_netherite", has(Items.NETHERITE_SHOVEL))
-                .save(recipeOutput,
-                        ResourceLocation.fromNamespaceAndPath(Stalinium.MODID, "smithing/stalinium_shovel"));
+                .save(output, "smithing/stalinium_shovel");
 
         SmithingTransformRecipeBuilder.smithing(
                         Ingredient.of(ModItems.STALINIUM_SMITHING_TEMPLATE.get()),
@@ -123,8 +135,7 @@ public class ModRecipeProvider extends RecipeProvider implements IConditionBuild
                         ModItems.STALINIUM_HOE.get()
                 )
                 .unlocks("has_netherite", has(Items.NETHERITE_HOE))
-                .save(recipeOutput,
-                        ResourceLocation.fromNamespaceAndPath(Stalinium.MODID, "smithing/stalinium_hoe"));
+                .save(output, "smithing/stalinium_hoe");
 
         SmithingTransformRecipeBuilder.smithing(
                         Ingredient.of(ModItems.STALINIUM_SMITHING_TEMPLATE.get()),
@@ -134,8 +145,7 @@ public class ModRecipeProvider extends RecipeProvider implements IConditionBuild
                         ModItems.STALINIUM_HELMET.get()
                 )
                 .unlocks("has_netherite", has(Items.NETHERITE_HELMET))
-                .save(recipeOutput,
-                        ResourceLocation.fromNamespaceAndPath(Stalinium.MODID, "smithing/stalinium_helmet"));
+                .save(output, "smithing/stalinium_helmet");
 
         SmithingTransformRecipeBuilder.smithing(
                         Ingredient.of(ModItems.STALINIUM_SMITHING_TEMPLATE.get()),
@@ -145,8 +155,7 @@ public class ModRecipeProvider extends RecipeProvider implements IConditionBuild
                         ModItems.STALINIUM_CHESTPLATE.get()
                 )
                 .unlocks("has_netherite", has(Items.NETHERITE_CHESTPLATE))
-                .save(recipeOutput,
-                        ResourceLocation.fromNamespaceAndPath(Stalinium.MODID, "smithing/stalinium_chestplate"));
+                .save(output, "smithing/stalinium_chestplate");
 
         SmithingTransformRecipeBuilder.smithing(
                         Ingredient.of(ModItems.STALINIUM_SMITHING_TEMPLATE.get()),
@@ -156,8 +165,7 @@ public class ModRecipeProvider extends RecipeProvider implements IConditionBuild
                         ModItems.STALINIUM_LEGGINGS.get()
                 )
                 .unlocks("has_netherite", has(Items.NETHERITE_LEGGINGS))
-                .save(recipeOutput,
-                        ResourceLocation.fromNamespaceAndPath(Stalinium.MODID, "smithing/stalinium_leggings"));
+                .save(output, "smithing/stalinium_leggings");
 
         SmithingTransformRecipeBuilder.smithing(
                         Ingredient.of(ModItems.STALINIUM_SMITHING_TEMPLATE.get()),
@@ -167,8 +175,7 @@ public class ModRecipeProvider extends RecipeProvider implements IConditionBuild
                         ModItems.STALINIUM_BOOTS.get()
                 )
                 .unlocks("has_netherite", has(Items.NETHERITE_BOOTS))
-                .save(recipeOutput,
-                        ResourceLocation.fromNamespaceAndPath(Stalinium.MODID, "smithing/stalinium_boots"));
+                .save(output, "smithing/stalinium_boots");
 
         SmithingTransformRecipeBuilder.smithing(
                         Ingredient.of(ModItems.STALINIUM_SMITHING_TEMPLATE.get()),
@@ -178,7 +185,6 @@ public class ModRecipeProvider extends RecipeProvider implements IConditionBuild
                         ModItems.STALINIUM_MACE.get()
                 )
                 .unlocks("has_netherite", has(Items.NETHERITE_BOOTS))
-                .save(recipeOutput,
-                        ResourceLocation.fromNamespaceAndPath(Stalinium.MODID, "smithing/stalinium_mace"));
+                .save(output, "smithing/stalinium_mace");
     }
 }

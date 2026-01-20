@@ -10,6 +10,7 @@ import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
 import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectInstance;
@@ -34,8 +35,8 @@ public class StaliniumSwordItem extends SwordItem {
     private static final int AMP = 0;
     private static final int COOLDOWN = 30 * 20;
 
-    public StaliniumSwordItem(Tier tier, Properties props) {
-        super(tier, props);
+    public StaliniumSwordItem(ToolMaterial tier, float attackDamage, float attackSpeed, Properties props) {
+        super(tier, attackDamage, attackSpeed, props);
     }
 
     @Override
@@ -70,12 +71,12 @@ public class StaliniumSwordItem extends SwordItem {
     }
 
     @Override
-    public InteractionResultHolder<ItemStack> use(Level world,
-                                                  Player player,
-                                                  InteractionHand hand) {
+    public InteractionResult use(Level world,
+                                 Player player,
+                                 InteractionHand hand) {
         ItemStack stack = player.getItemInHand(hand);
         if (player.getCooldowns().isOnCooldown(this)) {
-            return InteractionResultHolder.fail(stack);
+            return InteractionResult.FAIL;
         }
         if (!world.isClientSide) {
             Holder<MobEffect> chargeHolder = world
@@ -118,7 +119,7 @@ public class StaliniumSwordItem extends SwordItem {
         }
         player.startUsingItem(hand);
         player.swing(hand, true);
-        return InteractionResultHolder.sidedSuccess(stack, world.isClientSide);
+        return InteractionResult.SUCCESS;
     }
 
     @Override

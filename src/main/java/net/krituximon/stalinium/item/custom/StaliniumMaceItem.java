@@ -9,6 +9,7 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
 import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
@@ -56,7 +57,7 @@ public class StaliniumMaceItem extends MaceItem {
     }
 
     @Override
-    public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand usedHand) {
+    public InteractionResult use(Level level, Player player, InteractionHand usedHand) {
         if (!level.isClientSide && player.isCrouching()) {
             smash(player);
         } else if (!level.isClientSide && !player.isCrouching()) {
@@ -76,10 +77,10 @@ public class StaliniumMaceItem extends MaceItem {
             level.playSound(null, player.getX(), player.getY(), player.getZ(),
                     SoundEvents.BREEZE_CHARGE, SoundSource.PLAYERS, 1.0F, 1.0F);
 
-            player.getCooldowns().addCooldown(this, 15);
+            player.getCooldowns().addCooldown(ModItems.STALINIUM_MACE.get(), 20);
         }
 
-        return InteractionResultHolder.success(player.getItemInHand(usedHand));
+        return InteractionResult.SUCCESS;
     }
 
     public static void smash(Player player) {

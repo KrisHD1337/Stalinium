@@ -1,4 +1,4 @@
-package net.krituximon.stalinium.compat;
+/*package net.krituximon.stalinium.compat;
 
 import mezz.jei.api.IModPlugin;
 import mezz.jei.api.JeiPlugin;
@@ -52,3 +52,4 @@ public class JEIStaliniumPlugin implements IModPlugin {
                 StaliniumPressRecipeCategory.TYPE);
     }
 }
+*/

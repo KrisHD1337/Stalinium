@@ -15,10 +15,10 @@ public class ModPotions {
             DeferredRegister.create(BuiltInRegistries.POTION, Stalinium.MODID);
     
     public static final Holder<Potion> VODKA = POTIONS.register("vodka", 
-            () -> new Potion(new MobEffectInstance(MobEffects.CONFUSION, 1200, 0)));
+            () -> new Potion("vodka", new MobEffectInstance(MobEffects.CONFUSION, 1200, 0)));
     
     public static final Holder<Potion> WEAPONS_GRADE_VODKA = POTIONS.register("weapons_grade_vodka",
-            () -> new Potion(new MobEffectInstance(ModEffects.STALINIUM_CHARGE, 1200, 2)));
+            () -> new Potion("weapons_grade_vodka", new MobEffectInstance(ModEffects.STALINIUM_CHARGE, 1200, 2)));
     
     public static void register(IEventBus eventBus) {
         POTIONS.register(eventBus);

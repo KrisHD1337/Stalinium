@@ -1,4 +1,4 @@
-package net.krituximon.stalinium.compat;
+/*package net.krituximon.stalinium.compat;
 
 import mezz.jei.api.constants.VanillaTypes;
 import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
@@ -89,3 +89,5 @@ public class StaliniumPressRecipeCategory implements IRecipeCategory<StaliniumPr
                 );
     }
 }
+
+ */

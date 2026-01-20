@@ -1,9 +1,11 @@
 package net.krituximon.stalinium;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+import net.minecraft.core.Holder;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
@@ -41,7 +43,7 @@ public class Config
     public static boolean logDirtBlock;
     public static int magicNumber;
     public static String magicNumberIntroduction;
-    public static Set<Item> items;
+    public static Set<Optional<Holder.Reference<Item>>> items;
 
     private static boolean validateItemName(final Object obj)
     {

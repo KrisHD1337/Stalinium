@@ -240,9 +240,9 @@ public class ComradeHandler {
         Optional<Party> opt = findPartyOf(a);
         if (opt.isPresent() && opt.get().isMember(b)) {
             event.setCanceled(true);
-            src.sendSystemMessage(Component.literal(
+            ((Player) src).displayClientMessage(Component.literal(
                     "§cYou cannot hurt your comrade “" + victim.getName().getString() + "”!"
-            ));
+            ), false);
         }
     }
 }

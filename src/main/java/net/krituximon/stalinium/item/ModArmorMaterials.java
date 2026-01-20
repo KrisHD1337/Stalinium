@@ -1,6 +1,7 @@
 package net.krituximon.stalinium.item;
 
 import net.krituximon.stalinium.Stalinium;
+import net.krituximon.stalinium.util.ModTags;
 import net.minecraft.Util;
 import net.minecraft.core.Holder;
 import net.minecraft.core.Registry;
@@ -9,39 +10,23 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.item.ArmorItem;
-import net.minecraft.world.item.ArmorMaterial;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.world.item.equipment.ArmorMaterial;
+import net.minecraft.world.item.equipment.ArmorType;
 
 import java.util.EnumMap;
 import java.util.List;
 import java.util.function.Supplier;
 
 public class ModArmorMaterials {
-    public static final Holder<ArmorMaterial> STALINIUM_ARMOR_MATERIAL = register("stalinium",
-            Util.make(new EnumMap<>(ArmorItem.Type.class), attribute -> {
-                attribute.put(ArmorItem.Type.BOOTS, 6);
-                attribute.put(ArmorItem.Type.LEGGINGS, 8);
-                attribute.put(ArmorItem.Type.CHESTPLATE, 10);
-                attribute.put(ArmorItem.Type.HELMET, 6);
-                attribute.put(ArmorItem.Type.BODY, 12);
-            }), 25, 3.5f, 0.15f, () -> ModItems.STALINIUM_INGOT.get());
-
-
-    private static Holder<ArmorMaterial> register(String name, EnumMap<ArmorItem.Type, Integer> typeProtection,
-                                                  int enchantability, float toughness, float knockbackResistance,
-                                                  Supplier<Item> ingredientItem) {
-        ResourceLocation location = ResourceLocation.fromNamespaceAndPath(Stalinium.MODID, name);
-        Holder<SoundEvent> equipSound = SoundEvents.ARMOR_EQUIP_NETHERITE;
-        Supplier<Ingredient> ingredient = () -> Ingredient.of(ingredientItem.get());
-        List<ArmorMaterial.Layer> layers = List.of(new ArmorMaterial.Layer(location));
-
-        EnumMap<ArmorItem.Type, Integer> typeMap = new EnumMap<>(ArmorItem.Type.class);
-        for (ArmorItem.Type type : ArmorItem.Type.values()) {
-            typeMap.put(type, typeProtection.get(type));
-        }
-
-        return Registry.registerForHolder(BuiltInRegistries.ARMOR_MATERIAL, location,
-                new ArmorMaterial(typeProtection, enchantability, equipSound, ingredient, layers, toughness, knockbackResistance));
-    }
+    public static final ArmorMaterial STALINIUM_ARMOR_MATERIAL = new ArmorMaterial(8096,
+            Util.make(new EnumMap<>(ArmorType.class), attribute -> {
+                attribute.put(ArmorType.BOOTS, 6);
+                attribute.put(ArmorType.LEGGINGS, 8);
+                attribute.put(ArmorType.CHESTPLATE, 10);
+                attribute.put(ArmorType.HELMET, 6);
+                attribute.put(ArmorType.BODY, 12);
+            }), 25, SoundEvents.ARMOR_EQUIP_NETHERITE, 3.5f, 0.15f,
+            ModTags.Items.STALINIUM_REPAIRABLE, ResourceLocation.fromNamespaceAndPath(Stalinium.MODID, "stalinium"));
 }

@@ -5,6 +5,7 @@ import net.krituximon.stalinium.event.ComradeHandler;
 import net.krituximon.stalinium.item.ModArmorMaterials;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.core.Holder;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.effect.MobEffectInstance;
@@ -13,23 +14,25 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ArmorItem;
-import net.minecraft.world.item.ArmorMaterial;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
+import net.minecraft.world.item.equipment.ArmorMaterial;
+import net.minecraft.world.item.equipment.ArmorType;
+import net.minecraft.world.item.equipment.Equippable;
 import net.minecraft.world.level.Level;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
 public class StaliniumChestplateLeggingsItem extends ModArmorItem {
-    private static final Map<Holder<ArmorMaterial>, List<MobEffectInstance>> MATERIAL_TO_EFFECT_MAP =
-            (new ImmutableMap.Builder<Holder<ArmorMaterial>, List<MobEffectInstance>>())
+    private static final Map<ArmorMaterial, List<MobEffectInstance>> MATERIAL_TO_EFFECT_MAP =
+            (new ImmutableMap.Builder<ArmorMaterial, List<MobEffectInstance>>())
                     .put(ModArmorMaterials.STALINIUM_ARMOR_MATERIAL,
                             List.of(new MobEffectInstance(MobEffects.DAMAGE_RESISTANCE, 100, 0, false, false)))
                     .build();
 
-    public StaliniumChestplateLeggingsItem(Holder<ArmorMaterial> material,
-                                           Type type,
+    public StaliniumChestplateLeggingsItem(ArmorMaterial material,
+                                           ArmorType type,
                                            Properties properties) {
         super(material, type, properties);
     }
@@ -48,9 +51,9 @@ public class StaliniumChestplateLeggingsItem extends ModArmorItem {
     }
 
     private void evaluateArmorEffects(Player player) {
-        for (Map.Entry<Holder<ArmorMaterial>, List<MobEffectInstance>> entry
+        for (Map.Entry<ArmorMaterial, List<MobEffectInstance>> entry
                 : MATERIAL_TO_EFFECT_MAP.entrySet()) {
-            Holder<ArmorMaterial> mapArmorMaterial = entry.getKey();
+            ArmorMaterial mapArmorMaterial = entry.getKey();
             List<MobEffectInstance> mapEffect = entry.getValue();
             if (hasPlayerCorrectArmorOn(mapArmorMaterial, player)) {
                 addEffectToPlayer(player, mapEffect);
@@ -94,7 +97,7 @@ public class StaliniumChestplateLeggingsItem extends ModArmorItem {
         }
     }
 
-    private boolean hasPlayerCorrectArmorOn(Holder<ArmorMaterial> mapArmorMaterial,
+    private boolean hasPlayerCorrectArmorOn(ArmorMaterial mapArmorMaterial,
                                             Player player) {
         ItemStack leggingsStack   = player.getInventory().getArmor(1);
         ItemStack chestplateStack = player.getInventory().getArmor(2);
@@ -102,10 +105,10 @@ public class StaliniumChestplateLeggingsItem extends ModArmorItem {
         if (leggingsStack.isEmpty() || chestplateStack.isEmpty()) {
             return false;
         }
-        ArmorItem leggingsItem   = (ArmorItem) leggingsStack.getItem();
-        ArmorItem chestplateItem = (ArmorItem) chestplateStack.getItem();
-        return leggingsItem.getMaterial()   == mapArmorMaterial
-                && chestplateItem.getMaterial() == mapArmorMaterial;
+        Equippable equippableComponentLeggings  = player.getInventory().getArmor(1).get(DataComponents.EQUIPPABLE);
+        Equippable equippableComponentChestplate = player.getInventory().getArmor(2).get(DataComponents.EQUIPPABLE);
+        return equippableComponentLeggings.model().equals(mapArmorMaterial.modelId()) &&
+                equippableComponentChestplate.model().equals(mapArmorMaterial.modelId());
     }
 
     private boolean hasChestAndLeggingsOn(Player player) {

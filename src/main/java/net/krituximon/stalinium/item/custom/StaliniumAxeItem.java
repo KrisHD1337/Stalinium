@@ -13,7 +13,7 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.AxeItem;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Tier;
+import net.minecraft.world.item.ToolMaterial;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
@@ -29,8 +29,8 @@ import net.minecraft.tags.BlockTags;
 import org.jetbrains.annotations.NotNull;
 
 public class StaliniumAxeItem extends AxeItem {
-    public StaliniumAxeItem(Tier tier, Properties properties) {
-        super(tier, properties);
+    public StaliniumAxeItem(ToolMaterial tier, float attackDamage, float attackSpeed, Properties properties) {
+        super(tier, attackDamage, attackSpeed, properties);
     }
 
     @Override

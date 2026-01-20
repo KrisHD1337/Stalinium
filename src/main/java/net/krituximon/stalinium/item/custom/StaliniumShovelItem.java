@@ -12,7 +12,7 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.ShovelItem;
-import net.minecraft.world.item.Tier;
+import net.minecraft.world.item.ToolMaterial;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
@@ -25,8 +25,8 @@ import java.util.Optional;
 import java.util.UUID;
 
 public class StaliniumShovelItem extends ShovelItem {
-    public StaliniumShovelItem(Tier tier, Properties properties) {
-        super(tier, properties);
+    public StaliniumShovelItem(ToolMaterial tier, float attackDamage, float attackSpeed, Properties properties) {
+        super(tier, attackDamage, attackSpeed, properties);
     }
 
     @Override

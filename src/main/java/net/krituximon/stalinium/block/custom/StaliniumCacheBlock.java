@@ -46,9 +46,9 @@ public class StaliniumCacheBlock extends BaseEntityBlock {
     }
 
     @Override
-    protected ItemInteractionResult useItemOn(ItemStack stack, BlockState state, Level level,
-                                              BlockPos pos, Player player, InteractionHand hand,
-                                              BlockHitResult hit) {
+    protected InteractionResult useItemOn(ItemStack stack, BlockState state, Level level,
+                                          BlockPos pos, Player player, InteractionHand hand,
+                                          BlockHitResult hit) {
         if (!level.isClientSide() && player instanceof ServerPlayer sp) {
             var container = StaliniumCacheBlockEntity.getPartyInventory(sp);
             sp.openMenu(new SimpleMenuProvider(
@@ -56,7 +56,7 @@ public class StaliniumCacheBlock extends BaseEntityBlock {
                     Component.translatable("container.stalinium.cache")
             ), pos);
         }
-        return ItemInteractionResult.sidedSuccess(level.isClientSide());
+        return InteractionResult.SUCCESS;
     }
 
 

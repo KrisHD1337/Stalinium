@@ -20,5 +20,6 @@ public class ModTags {
             return ItemTags.create(ResourceLocation.fromNamespaceAndPath("c", name));
         }
         public static final TagKey<Item> STALINIUM = commonTag("ingots/stalinium");
+        public static final TagKey<Item> STALINIUM_REPAIRABLE = commonTag("stalinium_repairable");
     }
 }
